@@ -1,6 +1,7 @@
 import userStyle from './css/user.module.css'
 import newPost from './css/newpost.module.css'
 import PostHistory from './bodComp/history/massageWall'
+import React, { useState } from 'react';
 
 function Bod () {
   const dataMass = [
@@ -19,7 +20,7 @@ function Bod () {
     'Web Site:'
   ]
 
-  let likes = 0
+  const [likes, setCount] = useState(0);
  
 
   return (
@@ -32,6 +33,7 @@ function Bod () {
         text='I hate my life'
         date={new Date().toLocaleTimeString()}
         like={likes}
+        oncl={() => setCount(likes + 1)} 
       />
     </div>
   )
@@ -83,4 +85,6 @@ function NewPost (props) {
 }
 
 // ========================================
+
+
 export default Bod
