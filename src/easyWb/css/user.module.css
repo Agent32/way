@@ -1,0 +1,14 @@
+.userdata
+{
+  display: inline-flex;
+}
+.userdata img
+{
+  width: 150px;
+}
+
+
+.userdata .text
+{
+  margin-left: 10px;
+}
