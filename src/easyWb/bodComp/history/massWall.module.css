@@ -19,6 +19,12 @@
  
 }
 
+.history button
+{
+  margin-left: 20px;
+ 
+}
+
 .history .clock 
 {
   display: block ;
