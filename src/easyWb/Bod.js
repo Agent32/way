@@ -1,5 +1,7 @@
 import userStyle from './css/user.module.css'
 import newPost from './css/newpost.module.css'
+import PostHistory from './bodComp/history/massageWall'
+
 function Bod () {
   const dataMass = [
     'https://www.vokrug.tv/pic/person/2/b/f/4/2bf448098b7badf3b37e87c510da29bc.jpeg',
@@ -22,7 +24,8 @@ function Bod () {
       <ProfilePic src='https://static3.depositphotos.com/1000454/256/i/600/depositphotos_2567474-stock-photo-wide-panorama-of-french-alps.jpg' />
       <UserData usDa={getUserData(dataMass, profileInfo)} />
       <NewPost />
-      <PostHistory />
+      <PostHistory avatarImg='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU' text='I hate my life'
+      date= {new Date().toLocaleTimeString()} />
     </div>
   )
 }
@@ -65,17 +68,9 @@ function NewPost (props) {
   return (
     <div className={newPost.newpost}>
       <h2> My posts</h2>
-      <textarea>your news...</textarea>
+      <textarea placeholder='your news...' />
       <div />
       <button> Send</button>
-    </div>
-  )
-}
-// ========================================
-function PostHistory (props) {
-  return (
-    <div className={newPost.posthist}>
-
     </div>
   )
 }

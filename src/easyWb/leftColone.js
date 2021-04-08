@@ -16,7 +16,7 @@ function LeftColon () {
 function LeftButton (props) {
   return (
     <div
-        onMouseOver={(event) => event.target.style.color = 'gray'}
+        onMouseOver={(event) => event.target.style.color = 'orange'}
         onMouseOut={(event) => event.target.style.color = 'black'}
       ><a scr={props.scr}>{props.name} </a>
       </div>
