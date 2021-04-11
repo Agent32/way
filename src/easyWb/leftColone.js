@@ -1,25 +1,24 @@
-import '../App.css'
-import LeftColone from './css/leftColone.module.css'
+import '../App.css';
+import leftColone from './leftColone.module.css'
+import { NavLink } from 'react-router-dom';
 
 function LeftColon () {
   return (
     <div className='columLeft'>
-        <LeftButton scr='' name='Profile' />
-        <LeftButton scr='' name='Massage' />
-        <LeftButton scr='' name='News' />
-        <LeftButton scr='' name='Music' />
-        <LeftButton scr='' name='Settings' />
-      </div>
+      <LeftButton href='/profile' name='Profile' />
+      <LeftButton href='/massage' name='Massage' />
+      <LeftButton href='/news' name='News' />
+      <LeftButton href='/music' name='Music' />
+      <LeftButton href='/settings' name='Settings' />
+    </div>
   )
 }
 
 function LeftButton (props) {
   return (
-    <div
-        onMouseOver={(event) => event.target.style.color = 'orange'}
-        onMouseOut={(event) => event.target.style.color = 'black'}
-      ><a scr={props.scr}>{props.name} </a>
-      </div>
+    <div className={leftColone.button}>
+      <NavLink to={props.href} activeClassName={leftColone.active}>{props.name} </NavLink>
+    </div>
   )
 }
 

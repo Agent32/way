@@ -5,7 +5,7 @@
   "columLeft mainCont";
   grid-template-rows: 1fr 6fr;
   grid-template-columns: 1fr 12fr;
-  grid-gap: 5px;
+  grid-gap: 3px;
  
 }
 

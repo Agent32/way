@@ -11,11 +11,13 @@
 {
   width: 100px;
   border: 1px solid orange;
+  display: inline-flex;
 }
 
 .history div 
 {
-  margin-left: 20px;
+  margin-left: 10px;
+   
  
 }
 
@@ -27,7 +29,14 @@
 
 .history .clock 
 {
-  display: block ;
- 
+  color:red;
+  
+  
 }
 
+.history div div
+{
+  display: inline-flex;
+   
+ 
+}

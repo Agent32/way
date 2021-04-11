@@ -1,0 +1,56 @@
+.main 
+{
+
+    display: grid;
+    grid-template-areas: 
+    "autor dialogMassage";
+    grid-template-rows: 100%;
+  grid-template-columns: 2fr 12fr;
+  grid-gap: 3px;
+}
+
+.autor {
+    grid-area: autor;
+   
+    padding: 10px;
+    background-color: rgb(112, 110, 110);
+   
+  }
+
+  .autor .nameAut {
+  
+  margin-top: 10px;
+  }
+
+  .autor  .nameAut a {
+    color:black;
+    margin-top: 10px;
+    }
+
+
+  .autor .nameAut a.active {
+    color:orange;
+    
+  
+  }
+
+
+  .dialogMassage {
+    grid-area: dialogMassage;
+    padding: 10px;
+    
+   
+   
+  
+  }
+  .dialogMassage div
+{
+ 
+  margin-top: 50px;
+}
+
+.dialogMassage div div
+{
+ background-color:rgb(204, 204, 204);
+  
+}

@@ -5,11 +5,14 @@ function PostHistory (props) {
   return (
     <div className={massWall.history}>
       <img src={props.avatarImg} />
-      <div className={massWall.history.clock}>{props.date}</div>
       <div>
-        {props.text}
-        <button onClick={props.oncl}>Like {props.like}</button>
+      <div>  <div className={massWall.clock}>{props.date}</div>
+     
+       
+        <button onClick={props.oncl}>Like {props.likes}</button></div>
+        <h3> {props.text}</h3>
       </div>
+      
     </div>
   )
 }
