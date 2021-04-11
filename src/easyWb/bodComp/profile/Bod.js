@@ -2,39 +2,19 @@ import userStyle from "./user.module.css";
 import newPost from "./newpost.module.css";
 import PostHistory from "./history/massageWall";
 import React, { useState } from "react";
+import {getProfile, getWall} from '../../../index.js';
+
 
 function Profile() {
-  const dataMass = [
-    "https://www.vokrug.tv/pic/person/2/b/f/4/2bf448098b7badf3b37e87c510da29bc.jpeg",
-    "Anon",
-    "2 jan",
-    "Minsk",
-    "HNAGH-11",
-    "https://learn.javascript",
-  ];
+  const dataMass = getProfile()
+  const postsWall = getWall()
+
   const profileInfo = [
     "Name:",
     "Date Birth:",
     "City:",
     "Education:",
     "Web Site:",
-  ];
-
-  const postsWall = [
-    {
-      avatarImg:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU",
-      text: "I hate my life",
-      date: "27.01.21",
-      likes: 2,
-    },
-    {
-      avatarImg:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU",
-      text: "Fuck de system",
-      date: "23.02.21",
-      likes: 5,
-    },
   ];
 
   const [likes, setCount] = useState(0);

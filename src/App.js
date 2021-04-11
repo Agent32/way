@@ -9,6 +9,8 @@ import NewsPage from './easyWb/bodComp/news/news'
 import MusicPage from './easyWb/bodComp/music/music'
 import SettingsPage from './easyWb/bodComp/settings/settings'
 
+
+
 function App () {
   return (
     <BrowserRouter>
@@ -28,3 +30,5 @@ function App () {
 }
 
 export default App
+
+
