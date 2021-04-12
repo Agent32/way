@@ -52,5 +52,15 @@ function getWall()
   return postsWall
 }
 
+function getDialogs()
+{
+  const dialogsMain = [{ id: 1, name: 'Борян', path: '/massage/test', userDialogs: ['Еп, никитин баланс', 'Калаш с отдачей ХК?', 'мы абузим'] },
+  { id: 2, name: 'Саня', path: '/massage/test2', userDialogs: ['Объявляю крестовый поход на Харьков', 'Ну отслужил и иди на пограмиста', 'Это и есть прогрессивный налог'] }
+]
 
-export {getProfile, getWall}
+  return dialogsMain
+}
+
+
+
+export {getProfile, getWall, getDialogs}

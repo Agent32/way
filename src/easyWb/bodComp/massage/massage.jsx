@@ -1,6 +1,7 @@
 import massage from './massage.module.css'
 import React, { useState } from 'react'
 import { BrowserRouter, Route, NavLink } from 'react-router-dom'
+import {getDialogs} from '../../../index.js';
 
 /*  <Route path='/massage/test' component={()=><DrawDialog  chat={dialog.userDialogs} /> }/>
       <Route path='/massage/test2' component={()=><DrawDialog  chat={dialog2.userDialogs} /> }/>
@@ -10,9 +11,7 @@ import { BrowserRouter, Route, NavLink } from 'react-router-dom'
       */
 
 function MassagePage (props) {
-  const dialogsMain = [{ id: 1, name: 'Борян', path: '/massage/test', userDialogs: ['Еп, никитин баланс', 'Калаш с отдачей ХК?', 'мы абузим'] },
-    { id: 2, name: 'Саня', path: '/massage/test2', userDialogs: ['Объявляю крестовый поход на Харьков', 'Ну отслужил и иди на пограмиста', 'Это и есть прогрессивный налог'] }
-  ]
+  const dialogsMain = getDialogs()
 
   const formDialog = dialogsMain.map((dialog, count) => <DrawAutors key={count} autor={dialog.name} href={dialog.path} />)
   const formMassage = dialogsMain.map((dialog, count) => <Route key={count} path={dialog.path} component={() => <DrawDialog chat={dialog.userDialogs} />} />)
