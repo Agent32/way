@@ -1,7 +1,7 @@
 import massage from './massage.module.css'
 import React, { useState } from 'react'
 import { BrowserRouter, Route, NavLink } from 'react-router-dom'
-import {getDialogs} from '../../../index.js';
+import { getDialogs } from '../../../index.js'
 
 /*  <Route path='/massage/test' component={()=><DrawDialog  chat={dialog.userDialogs} /> }/>
       <Route path='/massage/test2' component={()=><DrawDialog  chat={dialog2.userDialogs} /> }/>

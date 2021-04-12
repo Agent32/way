@@ -9,16 +9,16 @@ import NewsPage from './easyWb/bodComp/news/news'
 import MusicPage from './easyWb/bodComp/music/music'
 import SettingsPage from './easyWb/bodComp/settings/settings'
 
-
-
-function App () {
+// dataMass={dataMass} postWall={postsWall} dialogMain={dialogsMain}
+function App (props) {
+  alert(props.postsWall)
   return (
     <BrowserRouter>
       <div className='App'>
         <Header />
         <LeftColone />
         <div className='mainCont'>
-          <Route path='/profile' component={Profile} />
+          <Route path='/profile' render={() => <Profile dataMass={props.dataMass} postWall={props.postsWall} />} />
           <Route path='/massage' component={MassagePage} />
           <Route path='/news' component={NewsPage} />
           <Route path='/music' component={MusicPage} />
@@ -30,5 +30,3 @@ function App () {
 }
 
 export default App
-
-
