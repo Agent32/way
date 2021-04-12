@@ -9,17 +9,17 @@ import NewsPage from './easyWb/bodComp/news/news'
 import MusicPage from './easyWb/bodComp/music/music'
 import SettingsPage from './easyWb/bodComp/settings/settings'
 
-// dataMass={dataMass} postWall={postsWall} dialogMain={dialogsMain}
+
 function App (props) {
-  alert(props.postsWall)
+  
   return (
     <BrowserRouter>
       <div className='App'>
         <Header />
         <LeftColone />
         <div className='mainCont'>
-          <Route path='/profile' render={() => <Profile dataMass={props.dataMass} postWall={props.postsWall} />} />
-          <Route path='/massage' component={MassagePage} />
+          <Route path='/profile' render={() => <Profile dataMass={props.dataMass} postsWall={props.postsWall} />} />
+          <Route path='/massage' render={() => <MassagePage dialogsMain={props.dialogsMain} /> } />
           <Route path='/news' component={NewsPage} />
           <Route path='/music' component={MusicPage} />
           <Route path='/settings' component={SettingsPage} />

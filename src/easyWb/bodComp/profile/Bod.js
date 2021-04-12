@@ -2,12 +2,13 @@ import userStyle from './user.module.css';
 import newPost from './newpost.module.css';
 import PostHistory from './history/massageWall';
 import React, { useState } from 'react';
-import { getProfile, getWall } from '../../../index.js'
 
-//dataMass={props.dataMass} postWall={props.postsWall}
+
+
 function Profile (props) {
+ 
   const dataMass = props.dataMass
-  const postsWall = getWall()
+  const postsWall = props.postsWall
   // alert (props.postsWall)
 
   const profileInfo = [
