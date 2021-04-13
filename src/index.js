@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import state from './redux/state';
 
 // ========================================
 const dialogsMain = [
@@ -55,7 +56,7 @@ const dataMass = [
 ReactDOM.render(
   <React.StrictMode>
     {}
-    <App dataMass={dataMass} postsWall={postsWall} dialogsMain={dialogsMain} />
+    <App dataMass={dataMass} postsWall={state.bodyPart.postsWall} dialogsMain={dialogsMain} />
   </React.StrictMode>,
   document.getElementById("root")
 );
