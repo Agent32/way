@@ -1,10 +1,10 @@
 .main
 {
 margin-top: 50%;
-height: 30%;
+height: 184px;
 background-color: rgb(255, 255, 255);
 border: 3px solid orange;
-width: 190px;
+width: 184px;
 
 display: flex;
 flex-wrap: wrap;
