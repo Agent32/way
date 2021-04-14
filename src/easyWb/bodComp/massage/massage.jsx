@@ -7,6 +7,8 @@ import { BrowserRouter, Route, NavLink } from "react-router-dom";
        <DrawAutors autor={dialog.name} href='/massage/test'/>
     <DrawAutors autor={dialog2.name} href='/massage/test2'/>
 
+     ((dialog.userDialogs.slice(0, dialog.userDialogs.length).includes(dialog.name)) ? 
+         massage.autorUser : massage.autorNotUser ) 
       */
 
 function MassagePage(props) {
@@ -17,9 +19,10 @@ function MassagePage(props) {
   ));
   const formMassage = dialogsMain.map((dialog, count) => (
     <Route
+      className={  massage.autorUser }
       key={count}
       path={dialog.path}
-      component={() => <DrawDialog chat={dialog.userDialogs} />}
+      component={() => <DrawDialog autor= {dialog.name} chat={dialog.userDialogs} />}
     />
   ));
 
@@ -46,15 +49,21 @@ function DrawAutors(props) {
 
 function DrawDialog(props) {
   return (
-    <div className={massage.dialogMassage}>{drawMassageText(props.chat)}</div>
+    <span className={massage.dialogMassage}><DrawMassageText autor={props.autor} dialog={props.chat} /></span>
   );
 }
 
-function drawMassageText(massage) {
-  const baba = massage.map((current, count) => (
-    <div key={count}>{current}</div>
+function DrawMassageText(props) {
+  const baba = props.dialog.map((current, count) => (
+    <div key={count}
+    className={
+      ((current.slice(0, props.autor.length).includes(props.autor)) ? 
+         massage.autorUser : massage.autorNotUser ) 
+    }
+    >{current}
+    </div>
   ));
-  return <div>{baba}</div>;
+  return baba
 }
 
 export default MassagePage;
