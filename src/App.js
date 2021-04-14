@@ -16,7 +16,8 @@ function App (props) {
     <BrowserRouter>
       <div className='App'>
         <Header />
-        <LeftColone />
+        <LeftColone leftColonePart={props.state.leftColonePart} />
+     
         <div className='mainCont'>
           <Route path='/profile' render={() => <Profile dataMass={props.dataMass} postsWall={props.postsWall} />} />
           <Route path='/massage' render={() => <MassagePage dialogsMain={props.dialogsMain} /> } />
@@ -25,7 +26,7 @@ function App (props) {
           <Route path='/settings' component={SettingsPage} />
         </div>
       </div>
-    </BrowserRouter>
+    </BrowserRouter >
   )
 }
 

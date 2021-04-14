@@ -1,4 +1,22 @@
-.main 
+.main
 {
-color: red
+margin-top: 50%;
+height: 30%;
+background-color: rgb(255, 255, 255);
+border: 3px solid orange;
+width: 190px;
+
+display: flex;
+flex-wrap: wrap;
+}
+
+.main img
+{
+position: relative;
+
+height: 80px;
+
+margin: 1px;
+border: 2px solid rgb(180, 137, 139);
+border-radius: 4px;
 }

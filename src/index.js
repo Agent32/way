@@ -10,7 +10,7 @@ import state from './redux/state';
 ReactDOM.render(
   <React.StrictMode>
     {}
-    <App dataMass={state.bodyPart.dataMass} postsWall={state.bodyPart.postsWall} dialogsMain={state.massagePart.dialogsMain} />
+    <App dataMass={state.bodyPart.dataMass} postsWall={state.bodyPart.postsWall} dialogsMain={state.massagePart.dialogsMain} state={state}/>
   </React.StrictMode>,
   document.getElementById("root")
 );
