@@ -45,12 +45,12 @@
 
   .dialogMassage .autorNotUser {
     
-    margin-left: 5px;
+    
     text-indent: 10%;
     color:black;
     background:
     radial-gradient(30px 30px at 5% 50%, rgb(80, 158, 247) 20%, transparent 80%),
-        radial-gradient(100% 100% at 50% 50%,  white, 40%, transparent 90%);
+        radial-gradient(100% 100% at 50% 50%,  white, 100%, transparent 90%);
     
       /*  высота ширина расположение на странице длина, ширина, цвет, размытие, ширина размытияя */ 
   }
@@ -61,7 +61,7 @@
     
     background:
     radial-gradient(30px 30px at 5% 50%, rgb(150, 255, 159) 20%, transparent 80%),
-    radial-gradient(100% 100% at 50% 50%,  white, 40%, transparent 90%);
+    radial-gradient(100% 100% at 50% 50%,  white, 100%, transparent 100%);
   
       
   }
@@ -72,10 +72,27 @@
   margin-top: 10px;
 }
 
-.dialogMassage div div
+.newpost
+{
+  padding-left: 20%;
+  background-color: gray;
+  grid-area: dialogMassage;
+
+}
+
+.newpost textarea
+{
+  
+  width: 600px;
+  height: 100px;
+}
+.newpost button
 {
  
+   border: 1px solid orange;
+  background: #fff5d7;
  
 }
+
 
 background: <'background-color'> || <image> || <position> [ / <size> ]? || <repeat> || <attachment> || <origin> || <clip>;

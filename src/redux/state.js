@@ -66,4 +66,18 @@ leftColonePart:{
   
 };
 
+function addPostWall (postText)
+{
+  let curr= {avatarImg:
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU",
+  text: postText,
+  date: "15.04.21",
+  likes: 0}
+  
+  
+  state.bodyPart.postsWall.push(curr)
+  debugger
+}
+
+export {addPostWall}
 export default state;

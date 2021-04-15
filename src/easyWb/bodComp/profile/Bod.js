@@ -2,7 +2,7 @@ import userStyle from './user.module.css';
 import newPost from './newpost.module.css';
 import PostHistory from './history/massageWall';
 import React, { useState } from 'react';
-
+import {addPostWall} from '../../../redux/state';
 
 
 function Profile (props) {
@@ -75,12 +75,16 @@ function getUserData (dataMass, profileInfo) {
 // ========================================
 
 function NewPost (props) {
+
+  let areaNewPost=React.createRef()
+ // let butValue = areaNewPost.current.value
+
   return (
-    <div className={newPost.newpost}>
+    <div className={newPost.newpost6}>
       <h2> My posts</h2>
-      <textarea placeholder='your news...' />
+      <textarea ref={areaNewPost} placeholder='your news...' />
       <div />
-      <button> Send</button>
+      <button onClick={()=> addPostWall(areaNewPost.current.value)}> Send</button>
     </div>
   )
 }

@@ -23,7 +23,7 @@ function MassagePage(props) {
       key={count}
       path={dialog.path}
       component={() => <DrawDialog autor= {dialog.name} chat={dialog.userDialogs} />}
-    />
+    /> 
   ));
 
   // <Route path='/massage/test' component={DrawDialog} />
@@ -33,6 +33,7 @@ function MassagePage(props) {
         <div className={massage.autor}>{formDialog}</div>
         {formMassage}
       </div>
+      <NewPost />
     </BrowserRouter>
   );
 }
@@ -65,5 +66,22 @@ function DrawMassageText(props) {
   ));
   return baba
 }
+
+
+function NewPost (props) {
+
+  let areaNewPost=React.createRef()
+ // let butValue = areaNewPost.current.value
+
+  return (
+    <div className={massage.newpost}>
+      <h2> My posts</h2>
+      <textarea ref={areaNewPost} placeholder='your news...' />
+      <div />
+      <button onClick={()=> alert(areaNewPost.current.value)}> Send</button>
+    </div>
+  )
+}
+
 
 export default MassagePage;
