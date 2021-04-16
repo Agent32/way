@@ -2,7 +2,6 @@ import userStyle from './user.module.css';
 import newPost from './newpost.module.css';
 import PostHistory from './history/massageWall';
 import React, { useState } from 'react';
-import {addPostWall} from '../../../redux/state';
 
 
 function Profile (props) {
@@ -34,7 +33,7 @@ function Profile (props) {
     <div>
       <ProfilePic src='https://static3.depositphotos.com/1000454/256/i/600/depositphotos_2567474-stock-photo-wide-panorama-of-french-alps.jpg' />
       <UserData usDa={getUserData(dataMass, profileInfo)} />
-      <NewPost />
+      <NewPost addPostWall={props.addPostWall}/>
       {formWall}
     </div>
   )
@@ -84,7 +83,9 @@ function NewPost (props) {
       <h2> My posts</h2>
       <textarea ref={areaNewPost} placeholder='your news...' />
       <div />
-      <button onClick={()=> addPostWall(areaNewPost.current.value)}> Send</button>
+      <button onClick={()=> {props.addPostWall(areaNewPost.current.value)
+       areaNewPost.current.value='' }
+      }> Send</button>
     </div>
   )
 }
