@@ -1,3 +1,7 @@
+import renderAllTree from '../render'
+// ========================================
+
+
 const state = {
   // ========================================
   bodyPart: {
@@ -66,6 +70,9 @@ leftColonePart:{
   
 };
 
+const stateEditFunctions = {addPostWall: addPostWall, postMassage:postMassage }
+
+
 function addPostWall (postText)
 {
   let curr= {avatarImg:
@@ -74,6 +81,7 @@ function addPostWall (postText)
   date: "15.04.21",
   likes: 0}
     state.bodyPart.postsWall.push(curr)
+    renderAllTree(state, stateEditFunctions)
 }
 
 
@@ -81,13 +89,12 @@ function addPostWall (postText)
 function postMassage (postText, id)
 {
   let curr= 'Я: '+ postText
-  
-  
   state.massagePart.dialogsMain[id].userDialogs.push(curr)
+  renderAllTree(state, stateEditFunctions)
 }
 
 
 
 
-export {addPostWall, postMassage}
+export {addPostWall, postMassage, stateEditFunctions}
 export default state;
