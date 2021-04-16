@@ -1,6 +1,7 @@
 import massage from "./massage.module.css";
 import React, { useState } from "react";
 import { BrowserRouter, Route, NavLink } from "react-router-dom";
+import {postMassage} from '../../../redux/state';
 
 /*  <Route path='/massage/test' component={()=><DrawDialog  chat={dialog.userDialogs} /> }/>
       <Route path='/massage/test2' component={()=><DrawDialog  chat={dialog2.userDialogs} /> }/>
@@ -13,13 +14,15 @@ import { BrowserRouter, Route, NavLink } from "react-router-dom";
 
 function MassagePage(props) {
   const dialogsMain = props.dialogsMain;
+  let selectedId =0;
 
   const formDialog = dialogsMain.map((dialog, count) => (
-    <DrawAutors key={count} autor={dialog.name} href={dialog.path} />
+    <DrawAutors key={count} autor={dialog.name} href={dialog.path} selectedId={selectedId}/>
   ));
+  
   const formMassage = dialogsMain.map((dialog, count) => (
     <Route
-      className={  massage.autorUser }
+      className={massage.autorUser }
       key={count}
       path={dialog.path}
       component={() => <DrawDialog autor= {dialog.name} chat={dialog.userDialogs} />}
@@ -31,9 +34,9 @@ function MassagePage(props) {
     <BrowserRouter>
       <div className={massage.main}>
         <div className={massage.autor}>{formDialog}</div>
-        {formMassage}
-      </div>
-      <NewPost />
+        {formMassage} 
+      </div> <NewPost id={selectedId} />
+     
     </BrowserRouter>
   );
 }
@@ -41,7 +44,7 @@ function MassagePage(props) {
 function DrawAutors(props) {
   return (
     <div className={massage.nameAut}>
-      <NavLink to={props.href} activeClassName={massage.active}>
+      <NavLink to={props.href} activeClassName={massage.active} >
         {props.autor}{" "}
       </NavLink>
     </div>
@@ -78,7 +81,7 @@ function NewPost (props) {
       <h2> My posts</h2>
       <textarea ref={areaNewPost} placeholder='your news...' />
       <div />
-      <button onClick={()=> alert(areaNewPost.current.value)}> Send</button>
+      <button onClick={()=> postMassage(areaNewPost.current.value, props.id)}> Send</button>
     </div>
   )
 }

@@ -34,13 +34,13 @@ massagePart:{
   
   dialogsMain: [
     {
-      id: 1,
+      id: 0,
       name: "Борян",
       path: "/massage/test",
       userDialogs: ["Борян: Еп, никитин баланс", "Я: Похуй", "Борян: Калаш с отдачей ХК?", "Борян: мы абузим", "Я: Лах"],
     },
     {
-      id: 2,
+      id: 1,
       name: "Саня",
       path: "/massage/test2",
       userDialogs: [
@@ -73,11 +73,21 @@ function addPostWall (postText)
   text: postText,
   date: "15.04.21",
   likes: 0}
-  
-  
-  state.bodyPart.postsWall.push(curr)
-  debugger
+    state.bodyPart.postsWall.push(curr)
 }
 
-export {addPostWall}
+
+// ========================================
+function postMassage (postText, id)
+{
+  let curr= 'Я: '+ postText
+  
+  
+  state.massagePart.dialogsMain[id].userDialogs.push(curr)
+}
+
+
+
+
+export {addPostWall, postMassage}
 export default state;
