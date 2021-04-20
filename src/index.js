@@ -13,15 +13,16 @@ import store from './redux/state'
 
 function renderAllTree (store)
 {
+  
 ReactDOM.render(
   <React.StrictMode>
-   <App state={store.stateFunctions.getState()} 
-   stateEditFunctions={store.stateFunctions} />
+   <App state={store.getState() }  store={store}
+    />
   </React.StrictMode>,
   document.getElementById("root")
 );
 }
-store.stateFunctions.getRenderCallback (renderAllTree)
+store.getRenderCallback (renderAllTree)
 
 
 renderAllTree(store);

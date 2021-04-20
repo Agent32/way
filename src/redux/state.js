@@ -74,45 +74,46 @@ const store = {
   },
 },
   // ========================================
-  stateFunctions: {
+
     addPostWall () {
   const curr = {
     avatarImg:
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU',
-    text: store._state.bodyPart.changedText.wallText,
+    text: this._state.bodyPart.changedText.wallText,
     date: '15.04.21',
     likes: 0
   }
-  store._state.bodyPart.postsWall.push(curr)
-  store._state.bodyPart.changedText.wallText = ''
-  store.stateFunctions._observerHolder(store)
+  this._state.bodyPart.postsWall.push(curr)
+  this._state.bodyPart.changedText.wallText = ''
+  this._observerHolder(store)
 },
   // ---------------------------------------
   postMassage (postText, id) {
     const curr = 'Я: ' + postText
-    store._state.massagePart.dialogsMain[id].userDialogs.push(curr)
-    store.stateFunctions._observerHolder(store)
+    this._state.massagePart.dialogsMain[id].userDialogs.push(curr)
+    this._observerHolder(store)
   },
   // ---------------------------------------
   changeTextSubmit (postText) {
-    store._state.bodyPart.changedText.wallText = postText
-    store.stateFunctions._observerHolder(store)
+   debugger
+    this._state.bodyPart.changedText.wallText = postText
+    this._observerHolder(store)
     // state.bodyPart.changedText.wallText = '' state.bodyPart.changedText.wallText+
   },
   // --------------------------------------- 
   getRenderCallback (observer) {
-  store.stateFunctions._observerHolder = observer
+  this._observerHolder = observer
   },
   // --------------------------------------- 
   getState () {
-    
-    return store._state
+  
+    return this._state
    },
-   
+  // ---------------------------------------
    _observerHolder () {alert(1)
    },
 
-  },
+ 
 
   
 // ========================================

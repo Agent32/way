@@ -32,7 +32,9 @@ function Profile (props) {
     <div>
       <ProfilePic src='https://static3.depositphotos.com/1000454/256/i/600/depositphotos_2567474-stock-photo-wide-panorama-of-french-alps.jpg' />
       <UserData usDa={getUserData(dataMass, profileInfo)} />
-      <NewPost addPostWall={props.addPostWall} changedText={props.changedText} changeTextSubmit={props.changeTextSubmit}/>
+      <NewPost addPostWall={props.addPostWall} 
+      changedText={props.changedText} 
+      changeTextSubmit={props.changeTextSubmit}/>
       {formWall}
     </div>
   )
@@ -76,7 +78,7 @@ function textAreaChange (strValue, changeTextSubmit) { changeTextSubmit(strValue
 
 
 function NewPost (props) {
-
+debugger
   let areaNewPost=React.createRef() //указатель, не значение
  // let butValue = areaNewPost.current.value
 
