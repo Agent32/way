@@ -1,12 +1,31 @@
-
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
 import './index.css'
 import reportWebVitals from './reportWebVitals'
 import state, { stateEditFunctions } from './redux/state'
 
-import renderAllTree from './render'
+
 // ========================================
 
-renderAllTree(state, stateEditFunctions)
+//renderAllTree(state, stateEditFunctions)
+
+function renderAllTree (state, stateEditFunctions)
+{
+ReactDOM.render(
+  <React.StrictMode>
+   <App state={state} 
+   stateEditFunctions={stateEditFunctions} />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+}
+stateEditFunctions.getRender (renderAllTree)
+
+
+renderAllTree(state, stateEditFunctions);
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

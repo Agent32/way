@@ -18,7 +18,6 @@ function Profile (props) {
     'Web Site:'
   ]
 
-  const [likes, setCount] = useState(0)
   const formWall = postsWall.map((post, count) => (
     <PostHistory
       key={count}
@@ -33,7 +32,7 @@ function Profile (props) {
     <div>
       <ProfilePic src='https://static3.depositphotos.com/1000454/256/i/600/depositphotos_2567474-stock-photo-wide-panorama-of-french-alps.jpg' />
       <UserData usDa={getUserData(dataMass, profileInfo)} />
-      <NewPost addPostWall={props.addPostWall}/>
+      <NewPost addPostWall={props.addPostWall} changedText={props.changedText} changeTextSubmit={props.changeTextSubmit}/>
       {formWall}
     </div>
   )
@@ -72,20 +71,21 @@ function getUserData (dataMass, profileInfo) {
   )
 }
 // ========================================
+function textAreaChange (strValue, changeTextSubmit) { changeTextSubmit(strValue)}
+// ========================================
+
 
 function NewPost (props) {
 
-  let areaNewPost=React.createRef()
+  let areaNewPost=React.createRef() //указатель, не значение
  // let butValue = areaNewPost.current.value
 
   return (
-    <div className={newPost.newpost6}>
+    <div className={newPost.newpost}>
       <h2> My posts</h2>
-      <textarea ref={areaNewPost} placeholder='your news...' />
+      <textarea ref={areaNewPost} onChange={() => textAreaChange(areaNewPost.current.value, props.changeTextSubmit)} value={props.changedText.wallText} />
       <div />
-      <button onClick={()=> {props.addPostWall(areaNewPost.current.value)
-       areaNewPost.current.value='' }
-      }> Send</button>
+      <button onClick={ props.addPostWall }> Send</button>
     </div>
   )
 }

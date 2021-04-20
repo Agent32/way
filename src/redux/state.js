@@ -1,8 +1,10 @@
-import renderAllTree from '../render'
+
+let renderAllTree = () => alert('gott')
+
 // ========================================
 
 
-const state = {
+let state = {
   // ========================================
   bodyPart: {
   // ========================================
@@ -22,6 +24,9 @@ const state = {
       likes: 5,
     },
   ],
+  changedText: {
+    wallText:''
+  },
   // ========================================
   dataMass :[
     "https://www.vokrug.tv/pic/person/2/b/f/4/2bf448098b7badf3b37e87c510da29bc.jpeg",
@@ -70,17 +75,18 @@ leftColonePart:{
   
 };
 
-const stateEditFunctions = {addPostWall: addPostWall, postMassage:postMassage }
+const stateEditFunctions = {addPostWall: addPostWall, postMassage:postMassage, changeTextSubmit:changeTextSubmit, getRender:getRender }
 
 
-function addPostWall (postText)
+function addPostWall ()
 {
   let curr= {avatarImg:
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU",
-  text: postText,
+  text: state.bodyPart.changedText.wallText,
   date: "15.04.21",
-  likes: 0}
+  likes: 0 }
     state.bodyPart.postsWall.push(curr)
+    state.bodyPart.changedText.wallText=''
     renderAllTree(state, stateEditFunctions)
 }
 
@@ -93,7 +99,19 @@ function postMassage (postText, id)
   renderAllTree(state, stateEditFunctions)
 }
 
+// ========================================
+function changeTextSubmit (postText)
+{
+  state.bodyPart.changedText.wallText = postText
+  renderAllTree(state, stateEditFunctions)
+ // state.bodyPart.changedText.wallText = '' state.bodyPart.changedText.wallText+
+  
+}
 
+function getRender(observer){
+  renderAllTree=observer
+}
+// ========================================
 
 
 export {addPostWall, postMassage, stateEditFunctions}

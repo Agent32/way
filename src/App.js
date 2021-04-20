@@ -19,8 +19,14 @@ function App (props) {
         <LeftColone leftColonePart={props.state.leftColonePart} />
      
         <div className='mainCont'>
-          <Route path='/profile' render={() => <Profile dataMass={props.state.bodyPart.dataMass} postsWall={props.state.bodyPart.postsWall} addPostWall={props.addPostWall} />} />
-          <Route path='/massage' render={() => <MassagePage dialogsMain={props.state.massagePart.dialogsMain} postMassage={props.postMassage} /> } />
+          <Route path='/profile' render={() => <Profile 
+          dataMass={props.state.bodyPart.dataMass} 
+          postsWall={props.state.bodyPart.postsWall} 
+          addPostWall={props.stateEditFunctions.addPostWall} 
+          changeTextSubmit={props.stateEditFunctions.changeTextSubmit} 
+          changedText={props.state.bodyPart.changedText} 
+          />} />
+          <Route path='/massage' render={() => <MassagePage dialogsMain={props.state.massagePart.dialogsMain} postMassage={props.stateEditFunctions.postMassage} /> } />
           <Route path='/news' component={NewsPage} />
           <Route path='/music' component={MusicPage} />
           <Route path='/settings' component={SettingsPage} />
