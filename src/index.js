@@ -4,27 +4,27 @@ import "./index.css";
 import App from "./App";
 import './index.css'
 import reportWebVitals from './reportWebVitals'
-import state, { stateEditFunctions } from './redux/state'
+import store from './redux/state'
 
 
 // ========================================
 
 //renderAllTree(state, stateEditFunctions)
 
-function renderAllTree (state, stateEditFunctions)
+function renderAllTree (store)
 {
 ReactDOM.render(
   <React.StrictMode>
-   <App state={state} 
-   stateEditFunctions={stateEditFunctions} />
+   <App state={store.stateFunctions.getState()} 
+   stateEditFunctions={store.stateFunctions} />
   </React.StrictMode>,
   document.getElementById("root")
 );
 }
-stateEditFunctions.getRender (renderAllTree)
+store.stateFunctions.getRenderCallback (renderAllTree)
 
 
-renderAllTree(state, stateEditFunctions);
+renderAllTree(store);
 
 
 // If you want to start measuring performance in your app, pass a function
