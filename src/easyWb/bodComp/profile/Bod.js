@@ -32,9 +32,10 @@ function Profile (props) {
     <div>
       <ProfilePic src='https://static3.depositphotos.com/1000454/256/i/600/depositphotos_2567474-stock-photo-wide-panorama-of-french-alps.jpg' />
       <UserData usDa={getUserData(dataMass, profileInfo)} />
-      <NewPost addPostWall={props.addPostWall} 
+      <NewPost  
       changedText={props.changedText} 
-      changeTextSubmit={props.changeTextSubmit}/>
+      dispatch={props.dispatch}
+      />
       {formWall}
     </div>
   )
@@ -73,21 +74,20 @@ function getUserData (dataMass, profileInfo) {
   )
 }
 // ========================================
-function textAreaChange (strValue, changeTextSubmit) { changeTextSubmit(strValue)}
-// ========================================
+
+
 
 
 function NewPost (props) {
-debugger
   let areaNewPost=React.createRef() //указатель, не значение
  // let butValue = areaNewPost.current.value
 
   return (
     <div className={newPost.newpost}>
       <h2> My posts</h2>
-      <textarea ref={areaNewPost} onChange={() => textAreaChange(areaNewPost.current.value, props.changeTextSubmit)} value={props.changedText.wallText} />
+      <textarea ref={areaNewPost} onChange={() => props.dispatch({type:'TEXTAREA-EDIT' ,text: areaNewPost.current.value} )} value={props.changedText.wallText} />
       <div />
-      <button onClick={ props.addPostWall }> Send</button>
+      <button onClick={ props.dispatch({ type:'WALL-POST-PUBLISH', }) }> Send</button>
     </div>
   )
 }

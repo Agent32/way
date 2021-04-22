@@ -57,7 +57,7 @@ function MassagePage(props) {
         <div className={massage.autor}>{formDialog}</div>
         {formMassage}
       </div>{" "}
-      <NewPost id={selecId} postMassage={props.postMassage}/>
+      <NewPost id={selecId}  dispatch={props.dispatch} postMassage={props.postMassage}/>
     </BrowserRouter>
   );
 }
@@ -89,13 +89,14 @@ function DrawMassageText(props) {
 function NewPost(props) {
   let areaNewPost = React.createRef();
   // let butValue = areaNewPost.current.value
+  // props.postMassage(areaNewPost.current.value, props.id)
 
   return (
     <div className={massage.newpost}>
       <h2> My posts</h2>
       <textarea ref={areaNewPost} placeholder="your news..." />
       <div />
-      <button onClick={() => props.postMassage(areaNewPost.current.value, props.id)}>
+      <button onClick={() => props.dispatch( {type:'POST-PRIVATE-MASSAGE', id: props.id, text: areaNewPost.current.value } )}>
         {" "}
         Send
       </button>

@@ -23,13 +23,14 @@ function App (props) {
           changedText={props.state.bodyPart.changedText} 
           dataMass={props.state.bodyPart.dataMass} 
           postsWall={props.state.bodyPart.postsWall} 
+          dispatch={props.store.dispatch.bind(props.store)}
           addPostWall={props.store.addPostWall.bind(props.store)} 
-          changeTextSubmit={props.store.changeTextSubmit.bind(props.store)} 
-          
+        
           />} />
           <Route path='/massage' render={() => <MassagePage 
           dialogsMain={props.state.massagePart.dialogsMain}
-           postMassage={props.store.postMassage.bind(props.store)} /> } />
+          dispatch={props.store.dispatch.bind(props.store)}
+           /> } />
           <Route path='/news' component={NewsPage} />
           <Route path='/music' component={MusicPage} />
           <Route path='/settings' component={SettingsPage} />
