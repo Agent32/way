@@ -1,11 +1,9 @@
-import userStyle from './user.module.css';
-import newPost from './newpost.module.css';
-import PostHistory from './history/massageWall';
-import React, { useState } from 'react';
-
+import userStyle from './user.module.css'
+import newPost from './newpost.module.css'
+import PostHistory from './history/massageWall'
+import React from 'react'
 
 function Profile (props) {
- 
   const dataMass = props.dataMass
   const postsWall = props.postsWall
   // alert (props.postsWall)
@@ -32,10 +30,7 @@ function Profile (props) {
     <div>
       <ProfilePic src='https://static3.depositphotos.com/1000454/256/i/600/depositphotos_2567474-stock-photo-wide-panorama-of-french-alps.jpg' />
       <UserData usDa={getUserData(dataMass, profileInfo)} />
-      <NewPost  
-      changedText={props.changedText} 
-      dispatch={props.dispatch}
-      />
+      <NewPost changedText={props.changedText} dispatch={props.dispatch} />
       {formWall}
     </div>
   )
@@ -66,8 +61,8 @@ function getUserData (dataMass, profileInfo) {
       <img src={dataMass[0]} />{' '}
       <div className={userStyle.userdata.text}>
         {' '}
-        {fullData.map((move) => {
-          return <div>{move}</div>
+        {fullData.map((move, count) => {
+          return <div key={count}>{move}</div>
         })}{' '}
       </div>
     </div>
@@ -75,19 +70,27 @@ function getUserData (dataMass, profileInfo) {
 }
 // ========================================
 
-
-
-
 function NewPost (props) {
-  let areaNewPost=React.createRef() //указатель, не значение
- // let butValue = areaNewPost.current.value
+  const areaNewPost = React.createRef() // указатель, не значение
+  // let butValue = areaNewPost.current.value
 
   return (
     <div className={newPost.newpost}>
       <h2> My posts</h2>
-      <textarea ref={areaNewPost} onChange={() => props.dispatch({type:'TEXTAREA-EDIT' ,text: areaNewPost.current.value} )} value={props.changedText.wallText} />
+      <textarea
+        ref={areaNewPost}
+        onChange={() =>
+          props.dispatch({
+            type: 'TEXTAREA-EDIT',
+            text: areaNewPost.current.value
+          })}
+        value={props.changedText.wallText}
+      />
       <div />
-      <button onClick={ props.dispatch({ type:'WALL-POST-PUBLISH', }) }> Send</button>
+      <button onClick={() => props.dispatch({ type: 'WALL-POST-PUBLISH' })}>
+        {' '}
+        Send
+      </button>
     </div>
   )
 }
