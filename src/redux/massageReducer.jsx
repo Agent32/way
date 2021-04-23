@@ -14,7 +14,39 @@ export const editPmTempActionCreator = (text) => ({
 // ========================================
 
 //state= this._state.massagePart//
-function massageReducer(state, action) {
+const init= { dialogsMain: [
+  {
+    id: 0,
+    name: "Борян",
+    path: "/massage/test",
+    userDialogs: [
+      "Борян: Еп, никитин баланс",
+      "Я: Похуй",
+      "Борян: Калаш с отдачей ХК?",
+      "Борян: мы абузим",
+      "Я: Лах",
+    ],
+  },
+  {
+    id: 1,
+    name: "Саня",
+    path: "/massage/test2",
+    userDialogs: [
+      "Саня: Объявляю крестовый поход на Харьков",
+      "Саня: Ну отслужил и иди на пограмиста",
+      "Я: Отслужил тебе за зеку, проверяй",
+      "Саня: Это и есть прогрессивный налог",
+      "Я: Сасай кудасай",
+    ],
+  },
+],
+changedText: {
+  PMtext: "",
+}
+
+}
+// ========================================
+function massageReducer(state=init, action) {
   switch (action.type) {
     // --------------
 
@@ -46,5 +78,8 @@ function _privMassTempAreaEdit(state, action) {
   return state;
 }
 // ---------------------------------------
+
+
+
 
 export default massageReducer;

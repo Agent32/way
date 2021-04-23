@@ -1,15 +1,20 @@
-import { BrowserRouter, Route } from 'react-router-dom'
-import './App.css'
+import './App.css';
 
-import Profile from './easyWb/bodComp/profile/Bod'
-import Header from './easyWb/header'
-import LeftColone from './easyWb/leftColone'
-import MassagePage from './easyWb/bodComp/massage/massage'
-import NewsPage from './easyWb/bodComp/news/news'
-import MusicPage from './easyWb/bodComp/music/music'
-import SettingsPage from './easyWb/bodComp/settings/settings'
+import {
+  BrowserRouter,
+  Route,
+} from 'react-router-dom';
+
+import MassagePage from './easyWb/bodComp/massage/massage';
+import MusicPage from './easyWb/bodComp/music/music';
+import NewsPage from './easyWb/bodComp/news/news';
+import Profile from './easyWb/bodComp/profile/Bod';
+import SettingsPage from './easyWb/bodComp/settings/settings';
+import Header from './easyWb/header';
+import LeftColone from './easyWb/leftColone';
 
 function App (props) {
+  
   return (
     <BrowserRouter>
       <div className='App'>

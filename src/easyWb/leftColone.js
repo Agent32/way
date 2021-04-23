@@ -5,6 +5,8 @@ import leftColone from './leftColone.module.css'
 import { NavLink } from 'react-router-dom';
 
 function LeftColon (props) {
+  debugger
+
   
   return (
     <div className='columLeft'>

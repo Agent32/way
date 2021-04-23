@@ -1,16 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
+import './index.css';
 
-import reportWebVitals from './reportWebVitals'
-import store from './redux/state'
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import App from './App';
+import store from './redux/rStore';
+import reportWebVitals from './reportWebVitals';
 
 // ========================================
 
 // renderAllTree(state, stateEditFunctions)
 
 function renderAllTree (store) {
+  
   ReactDOM.render(
     <React.StrictMode>
       <App state={store.getState()} dispatch={store.dispatch.bind(store)} />
@@ -18,7 +20,8 @@ function renderAllTree (store) {
     document.getElementById('root')
   )
 }
-store.getRenderCallback(renderAllTree)
+
+store.subscribe( () =>  {renderAllTree(store)})
 
 renderAllTree(store)
 

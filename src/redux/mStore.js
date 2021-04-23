@@ -1,5 +1,6 @@
-import massageReducer from "./massageReducer";
-import bodyReducer from "./bodyReducer";
+import bodyReducer from './bodyReducer';
+import massageReducer from './massageReducer';
+
 // ========================================
 
 const store = {
@@ -104,7 +105,7 @@ const store = {
     console.log("state observer dont get item");
   },
   // ========================================
-  getRenderCallback(observer) {
+  subscribe(observer) {
     this._observerHolder = observer;
   },
   // ---------------------------------------
