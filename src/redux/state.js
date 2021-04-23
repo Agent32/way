@@ -1,3 +1,17 @@
+import  massageReducer from './massageReducer'
+import  bodyReducer from './bodyReducer'
+// ========================================
+const WALL_POST_PUBLISH = 'WALL-POST-PUBLISH'
+const TEXTAREA_EDIT_WALL = 'TEXTAREA-EDIT-WALL'
+const POST_PRIVATE_MASSAGE = 'POST-PRIVATE-MASSAGE'
+const EDIT_PM_AREA = 'EDIT-PM-AREA'
+// ========================================
+
+export const wallPostActionCreator = () =>({type:WALL_POST_PUBLISH})
+export const textEditWallActionCreator = (text) =>({type:TEXTAREA_EDIT_WALL, text:text})
+export const pmSendActionCreator = (id,text) =>({type:POST_PRIVATE_MASSAGE, id: id, text:text})
+export const editPmTempActionCreator = (text) =>({type:EDIT_PM_AREA,text:text})
+
 // ========================================
 
 const store = {
@@ -22,7 +36,8 @@ const store = {
         }
       ],
       changedText: {
-        wallText: ''
+        wallText: '',
+        PMtext: ''
       },
       // ---------------------------------------
       dataMass: [
@@ -63,7 +78,10 @@ const store = {
             'Я: Сасай кудасай'
           ]
         }
-      ]
+      ],
+      changedText: {
+         PMtext: ''
+      },
     },
     // ========================================
     leftColonePart: {
@@ -106,16 +124,22 @@ const store = {
     this._observerHolder(store)
   },
   // ---------------------------------------
-  _postMassage (postText, id) {
-    const curr = 'Я: ' + postText
+  _postMassage (id) {
+    const curr = 'Я: ' + this._state.massagePart.changedText.PMtext
     this._state.massagePart.dialogsMain[id].userDialogs.push(curr)
+    this._state.massagePart.changedText.PMtext = ''
     this._observerHolder(store)
   },
   // ---------------------------------------
-  _textAreaEdit (postText) {
+  _textAreaEditWall (postText) {
     this._state.bodyPart.changedText.wallText = postText
     this._observerHolder(store)
     // state.bodyPart.changedText.wallText = '' state.bodyPart.changedText.wallText+
+  },
+   // ---------------------------------------
+   _privMassTempAreaEdit (postText) {
+    this._state.massagePart.changedText.PMtext = postText
+    this._observerHolder(store)
   },
   // ---------------------------------------
   _observerHolder () {
@@ -131,27 +155,32 @@ const store = {
   },
   // ---------------------------------------
   dispatch (obj) {
+
     switch (obj.type) {
       // --------------
-      case 'POST-PRIVATE-MASSAGE': {
-        this._postMassage(obj.text, obj.id)
+      case POST_PRIVATE_MASSAGE: {
+        this._postMassage(obj.id)
         break
       }
       // --------------
-      case 'TEXTAREA-EDIT': {
-        this._textAreaEdit(obj.text)
+      case TEXTAREA_EDIT_WALL: {
+        this._textAreaEditWall(obj.text)
         break
       }
       // --------------
-      case 'WALL-POST-PUBLISH': {
+      case WALL_POST_PUBLISH: {
         this._postWallComment()
+        break
+      }
+      case EDIT_PM_AREA: {
+        this._privMassTempAreaEdit(obj.text)
         break
       }
       // --------------
       default:
         console.log('state dispatch break')
     }
-  }
+  } 
 
   // ========================================
 

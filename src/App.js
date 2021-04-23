@@ -27,7 +27,7 @@ function App (props) {
           />
           <Route
             path='/massage' render={() => <MassagePage
-              dialogsMain={props.state.massagePart.dialogsMain}
+              massagePart={props.state.massagePart}
               dispatch={props.dispatch}
                                           />}
           />

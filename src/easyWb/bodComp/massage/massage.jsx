@@ -1,7 +1,7 @@
 import massage from "./massage.module.css";
 import React, { useState } from "react";
 import { BrowserRouter, Route, NavLink } from "react-router-dom";
-
+import { pmSendActionCreator, editPmTempActionCreator } from "../../../redux/state";
 
 /*  <Route path='/massage/test' component={()=><DrawDialog  chat={dialog.userDialogs} /> }/>
       <Route path='/massage/test2' component={()=><DrawDialog  chat={dialog2.userDialogs} /> }/>
@@ -13,7 +13,8 @@ import { BrowserRouter, Route, NavLink } from "react-router-dom";
       */
 
 function MassagePage(props) {
-  const dialogsMain = props.dialogsMain;
+
+  const dialogsMain = props.massagePart.dialogsMain;
   const [selecId, setCount] = useState(0);
   // ========================================
   function DrawAutors(props) {
@@ -57,7 +58,11 @@ function MassagePage(props) {
         <div className={massage.autor}>{formDialog}</div>
         {formMassage}
       </div>{" "}
-      <NewPost id={selecId}  dispatch={props.dispatch} postMassage={props.postMassage}/>
+      <NewPost
+        id={selecId}
+        dispatch={props.dispatch}
+        changedText= {props.massagePart.changedText}
+      />
     </BrowserRouter>
   );
 }
@@ -87,16 +92,29 @@ function DrawMassageText(props) {
 }
 
 function NewPost(props) {
-  let areaNewPost = React.createRef();
+  let areaPMtemp = React.createRef();
   // let butValue = areaNewPost.current.value
   // props.postMassage(areaNewPost.current.value, props.id)
 
   return (
     <div className={massage.newpost}>
       <h2> My posts</h2>
-      <textarea ref={areaNewPost} placeholder="your news..." />
+      <textarea
+        ref={areaPMtemp}
+        onChange={() =>
+          props.dispatch(editPmTempActionCreator(areaPMtemp.current.value))
+        }
+        value={props.changedText.PMtext}
+        placeholder="your news..."
+      />
       <div />
-      <button onClick={() => props.dispatch( {type:'POST-PRIVATE-MASSAGE', id: props.id, text: areaNewPost.current.value } )}>
+      <button
+        onClick={() =>
+          props.dispatch(
+            pmSendActionCreator(props.id)
+          )
+        }
+      >
         {" "}
         Send
       </button>

@@ -2,6 +2,7 @@ import userStyle from './user.module.css'
 import newPost from './newpost.module.css'
 import PostHistory from './history/massageWall'
 import React from 'react'
+import { wallPostActionCreator, textEditWallActionCreator } from '../../../redux/state'
 
 function Profile (props) {
   const dataMass = props.dataMass
@@ -80,14 +81,11 @@ function NewPost (props) {
       <textarea
         ref={areaNewPost}
         onChange={() =>
-          props.dispatch({
-            type: 'TEXTAREA-EDIT',
-            text: areaNewPost.current.value
-          })}
+          props.dispatch(textEditWallActionCreator( areaNewPost.current.value ))}
         value={props.changedText.wallText}
       />
       <div />
-      <button onClick={() => props.dispatch({ type: 'WALL-POST-PUBLISH' })}>
+      <button onClick={() => props.dispatch(wallPostActionCreator())}>
         {' '}
         Send
       </button>
@@ -96,5 +94,7 @@ function NewPost (props) {
 }
 
 // ========================================
+
+
 
 export default Profile
