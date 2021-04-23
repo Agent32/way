@@ -2,7 +2,7 @@ import userStyle from './user.module.css'
 import newPost from './newpost.module.css'
 import PostHistory from './history/massageWall'
 import React from 'react'
-import { wallPostActionCreator, textEditWallActionCreator } from '../../../redux/state'
+import { wallPostActionCreator, textEditWallActionCreator } from '../../../redux/bodyReducer'
 
 function Profile (props) {
   const dataMass = props.dataMass

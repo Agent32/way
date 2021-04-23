@@ -14,7 +14,7 @@ export const editPmTempActionCreator = (text) => ({
 // ========================================
 
 //state= this._state.massagePart//
-function massageReducer(state, action) {
+function leftColonePartReducer (state, action) {
   switch (action.type) {
     // --------------
 
@@ -35,16 +35,14 @@ function massageReducer(state, action) {
 
 // ---------------------------------------
 function _postMassage(state, action) {
-  const curr = "Я: " + state.changedText.PMtext;
-  state.dialogsMain[action.id].userDialogs.push(curr);
-  state.changedText.PMtext = "";
+
   return state;
 }
 // ---------------------------------------
 function _privMassTempAreaEdit(state, action) {
-  state.changedText.PMtext = action.text
+  
   return state;
 }
 // ---------------------------------------
 
-export default massageReducer;
+export default leftColonePartReducer;

@@ -36,8 +36,8 @@ function bodyReducer (state, action)
 
 
    // ---------------------------------------
-   _textAreaEditWall (state, action) {
-    state.changedText.wallText = postText
+   function _textAreaEditWall (state, action) {
+    state.changedText.wallText = action.text
     return state
    
   }
