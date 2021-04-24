@@ -12,6 +12,16 @@ import Profile from './easyWb/bodComp/profile/Bod';
 import SettingsPage from './easyWb/bodComp/settings/settings';
 import Header from './easyWb/header';
 import LeftColone from './easyWb/leftColone';
+import MassagePageContainer from './easyWb/bodComp/massage/massageContainer';
+import ProfileContainer from './easyWb/bodComp/profile/bodContainer';
+
+/*
+ <Route 
+            path='/massage' render={() => <MassagePage
+              massagePart={props.state.massagePart}
+              dispatch={props.dispatch}
+                                          />}
+*/
 
 function App (props) {
   
@@ -23,18 +33,11 @@ function App (props) {
 
         <div className='mainCont'>
           <Route
-            path='/profile' render={() => <Profile
-              changedText={props.state.bodyPart.changedText}
-              dataMass={props.state.bodyPart.dataMass}
-              postsWall={props.state.bodyPart.postsWall}
-              dispatch={props.dispatch}
-                                          />}
+            path='/profile' render={() => < ProfileContainer store={props.store}  />}
           />
-          <Route
-            path='/massage' render={() => <MassagePage
-              massagePart={props.state.massagePart}
-              dispatch={props.dispatch}
-                                          />}
+          <Route 
+            path='/massage' render={() => <MassagePageContainer
+              store= {props.store} />}
           />
           <Route path='/news' component={NewsPage} />
           <Route path='/music' component={MusicPage} />

@@ -2,13 +2,13 @@ import userStyle from './user.module.css'
 import newPost from './newpost.module.css'
 import PostHistory from './history/massageWall'
 import React from 'react'
-import { wallPostActionCreator, textEditWallActionCreator } from '../../../redux/bodyReducer'
+
 
 function Profile (props) {
   const dataMass = props.dataMass
   const postsWall = props.postsWall
   // alert (props.postsWall)
-
+debugger
   const profileInfo = [
     'Name:',
     'Date Birth:',
@@ -31,7 +31,10 @@ function Profile (props) {
     <div>
       <ProfilePic src='https://static3.depositphotos.com/1000454/256/i/600/depositphotos_2567474-stock-photo-wide-panorama-of-french-alps.jpg' />
       <UserData usDa={getUserData(dataMass, profileInfo)} />
-      <NewPost changedText={props.changedText} dispatch={props.dispatch} />
+      <NewPost changedText={props.changedText} 
+      wallPostSend={props.wallPostSend}
+      wallPostEdit={props.wallPostEdit} 
+      />
       {formWall}
     </div>
   )
@@ -81,11 +84,11 @@ function NewPost (props) {
       <textarea
         ref={areaNewPost}
         onChange={() =>
-          props.dispatch(textEditWallActionCreator( areaNewPost.current.value ))}
+          props.wallPostEdit(areaNewPost.current.value )}
         value={props.changedText.wallText}
       />
       <div />
-      <button onClick={() => props.dispatch(wallPostActionCreator())}>
+      <button onClick={() => props.wallPostSend()}>
         {' '}
         Send
       </button>

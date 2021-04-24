@@ -1,7 +1,7 @@
 import massage from "./massage.module.css";
 import React, { useState } from "react";
 import { BrowserRouter, Route, NavLink } from "react-router-dom";
-import { pmSendActionCreator, editPmTempActionCreator } from "../../../redux/massageReducer";
+
 
 /*  <Route path='/massage/test' component={()=><DrawDialog  chat={dialog.userDialogs} /> }/>
       <Route path='/massage/test2' component={()=><DrawDialog  chat={dialog2.userDialogs} /> }/>
@@ -60,7 +60,7 @@ function MassagePage(props) {
       </div>{" "}
       <NewPost
         id={selecId}
-        dispatch={props.dispatch}
+        editPM={props.editPM} sendPM={props.sendPM}
         changedText= {props.massagePart.changedText}
       />
     </BrowserRouter>
@@ -101,8 +101,8 @@ function NewPost(props) {
       <h2> My posts</h2>
       <textarea
         ref={areaPMtemp}
-        onChange={() =>
-          props.dispatch(editPmTempActionCreator(areaPMtemp.current.value))
+        onChange={ () =>
+          props.editPM(areaPMtemp.current.value)
         }
         value={props.changedText.PMtext}
         placeholder="your news..."
@@ -110,9 +110,9 @@ function NewPost(props) {
       <div />
       <button
         onClick={() =>
-          props.dispatch(
-            pmSendActionCreator(props.id)
-          )
+          
+            props.sendPM(props.id)
+         
         }
       >
         {" "}
