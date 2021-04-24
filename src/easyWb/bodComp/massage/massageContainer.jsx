@@ -1,11 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import {
   pmSendActionCreator,
   editPmTempActionCreator,
 } from "../../../redux/massageReducer";
 
 import MassagePage from "./massage";
-
 
 function MassagePageContainer(props) {
   // ========================================
@@ -22,5 +23,19 @@ function MassagePageContainer(props) {
   //-----------------------------------
   return <MassagePage massagePart={props.store.getState().massagePart} editPM={editPM} sendPM={sendPM} />;
 }
+
+/* const mapStateToProps = (state) => {
+  return { massagePart: state.massagePart };
+};
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    editPM: () => dispatch(editPmTempActionCreator(ownProps.text)),
+    sendPM: () => dispatch(pmSendActionCreator(ownProps.id)),
+  };
+};
+const MassagePageContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MassagePage); */
 
 export default MassagePageContainer;

@@ -1,14 +1,13 @@
-import userStyle from "./user.module.css";
-import newPost from "./newpost.module.css";
-import PostHistory from "./history/massageWall";
 import React from "react";
 import {
   wallPostActionCreator,
   textEditWallActionCreator,
 } from "../../../redux/bodyReducer";
 import Profile from "./Bod";
+import { connect } from "react-redux";
 
-function ProfileContainer(props) {
+
+/* function ProfileContainer(props) {
   const wallPostSend = () => {
     props.store.dispatch(wallPostActionCreator());
   };
@@ -25,7 +24,24 @@ function ProfileContainer(props) {
       wallPostEdit={wallPostEdit}
     />
   );
-}
+} */
 // ========================================
+const mapStateToProps = (state) => {
+  return { changedText: state.bodyPart.changedText,
+    dataMass: state.bodyPart.dataMass,
+    postsWall: state.bodyPart.postsWall
+   };
+};
+const mapDispatchToProps = (dispatch, mergeProps) => {
+  return {
+    wallPostSend: () => dispatch(wallPostActionCreator()),
+    wallPostEdit: (text) => dispatch(textEditWallActionCreator(text)),
+  };
+};
+const ProfileContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profile);
+
 
 export default ProfileContainer;

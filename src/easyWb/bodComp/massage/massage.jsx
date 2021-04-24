@@ -13,7 +13,7 @@ import { BrowserRouter, Route, NavLink } from "react-router-dom";
       */
 
 function MassagePage(props) {
-
+debugger
   const dialogsMain = props.massagePart.dialogsMain;
   const [selecId, setCount] = useState(0);
   // ========================================
