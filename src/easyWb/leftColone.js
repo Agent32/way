@@ -14,6 +14,7 @@ function LeftColon (props) {
       <LeftButton href='/massage' name='Massage' />
       <LeftButton href='/news' name='News' />
       <LeftButton href='/music' name='Music' />
+      <LeftButton href='/users' name='Users' />
       <LeftButton href='/settings' name='Settings' />
       <CompactFriendPanel friendPanel={props.leftColonePart.friendPanel} />
       
