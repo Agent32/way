@@ -1,3 +1,4 @@
+import { cloneDeep } from "lodash";
 // ========================================
 const POST_PRIVATE_MASSAGE = "POST-PRIVATE-MASSAGE";
 const EDIT_PM_AREA = "EDIT-PM-AREA";
@@ -14,39 +15,39 @@ export const editPmTempActionCreator = (text) => ({
 // ========================================
 
 //state= this._state.massagePart//
-const init= { dialogsMain: [
-  {
-    id: 0,
-    name: "Борян",
-    path: "/massage/test",
-    userDialogs: [
-      "Борян: Еп, никитин баланс",
-      "Я: Похуй",
-      "Борян: Калаш с отдачей ХК?",
-      "Борян: мы абузим",
-      "Я: Лах",
-    ],
+const init = {
+  dialogsMain: [
+    {
+      id: 0,
+      name: "Борян",
+      path: "/massage/test",
+      userDialogs: [
+        "Борян: Еп, никитин баланс",
+        "Я: Похуй",
+        "Борян: Калаш с отдачей ХК?",
+        "Борян: мы абузим",
+        "Я: Лах",
+      ],
+    },
+    {
+      id: 1,
+      name: "Саня",
+      path: "/massage/test2",
+      userDialogs: [
+        "Саня: Объявляю крестовый поход на Харьков",
+        "Саня: Ну отслужил и иди на пограмиста",
+        "Я: Отслужил тебе за зеку, проверяй",
+        "Саня: Это и есть прогрессивный налог",
+        "Я: Сасай кудасай",
+      ],
+    },
+  ],
+  changedText: {
+    PMtext: "",
   },
-  {
-    id: 1,
-    name: "Саня",
-    path: "/massage/test2",
-    userDialogs: [
-      "Саня: Объявляю крестовый поход на Харьков",
-      "Саня: Ну отслужил и иди на пограмиста",
-      "Я: Отслужил тебе за зеку, проверяй",
-      "Саня: Это и есть прогрессивный налог",
-      "Я: Сасай кудасай",
-    ],
-  },
-],
-changedText: {
-  PMtext: "",
-}
-
-}
+};
 // ========================================
-function massageReducer(state=init, action) {
+function massageReducer(state = init, action) {
   switch (action.type) {
     // --------------
 
@@ -67,19 +68,19 @@ function massageReducer(state=init, action) {
 
 // ---------------------------------------
 function _postMassage(state, action) {
+  const currState = cloneDeep(state);
   const curr = "Я: " + state.changedText.PMtext;
-  state.dialogsMain[action.id].userDialogs.push(curr);
-  state.changedText.PMtext = "";
-  return state;
+  currState.dialogsMain[action.id].userDialogs.push(curr);
+  currState.changedText.PMtext = "";
+  return currState;
 }
 // ---------------------------------------
 function _privMassTempAreaEdit(state, action) {
-  state.changedText.PMtext = action.text
-  return state;
+  return {
+    ...state,
+    changedText: { ...state.changedText, PMtext: action.text },
+  };
 }
 // ---------------------------------------
-
-
-
 
 export default massageReducer;

@@ -7,6 +7,7 @@ import Profile from "./Bod";
 import { connect } from "react-redux";
 
 
+
 /* function ProfileContainer(props) {
   const wallPostSend = () => {
     props.store.dispatch(wallPostActionCreator());
@@ -32,7 +33,7 @@ const mapStateToProps = (state) => {
     postsWall: state.bodyPart.postsWall
    };
 };
-const mapDispatchToProps = (dispatch, mergeProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     wallPostSend: () => dispatch(wallPostActionCreator()),
     wallPostEdit: (text) => dispatch(textEditWallActionCreator(text)),

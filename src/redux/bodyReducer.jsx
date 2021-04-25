@@ -1,3 +1,4 @@
+//import { cloneDeep } from "lodash";
 // ========================================
 const WALL_POST_PUBLISH = "WALL-POST-PUBLISH";
 const TEXTAREA_EDIT_WALL = "TEXTAREA-EDIT-WALL";
@@ -30,7 +31,6 @@ const init = {
   ],
   changedText: {
     wallText: "",
-    PMtext: "",
   },
   // ---------------------------------------
   dataMass: [
@@ -41,10 +41,10 @@ const init = {
     "HNAGH-11",
     "https://learn.javascript",
   ],
-}
+};
 // ========================================
 
-function bodyReducer(state=init, action) {
+function bodyReducer(state = init, action) {
   switch (action.type) {
     // --------------
 
@@ -65,8 +65,10 @@ function bodyReducer(state=init, action) {
 
 // ---------------------------------------
 function _textAreaEditWall(state, action) {
-  state.changedText.wallText = action.text;
-  return state;
+  return {
+    ...state,
+    changedText: { ...state.changedText, wallText: action.text },
+  };
 }
 // ---------------------------------------
 function _postWallComment(state, action) {
@@ -77,9 +79,12 @@ function _postWallComment(state, action) {
     date: "15.04.21",
     likes: 0,
   };
-  state.postsWall.push(curr);
-  state.changedText.wallText = "";
-  return state;
+
+  return {
+    ...state,
+    postsWall: [...state.postsWall, curr],
+    changedText: { ...state.changedText, wallText: "" },
+  };
 }
 // ---------------------------------------
 

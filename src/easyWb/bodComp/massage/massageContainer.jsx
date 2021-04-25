@@ -8,7 +8,7 @@ import {
 
 import MassagePage from "./massage";
 
-function MassagePageContainer(props) {
+/* function MassagePageContainer(props) {
   // ========================================
 
   //-----------------------------------
@@ -22,20 +22,20 @@ function MassagePageContainer(props) {
 
   //-----------------------------------
   return <MassagePage massagePart={props.store.getState().massagePart} editPM={editPM} sendPM={sendPM} />;
-}
+} */
 
-/* const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return { massagePart: state.massagePart };
 };
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    editPM: () => dispatch(editPmTempActionCreator(ownProps.text)),
-    sendPM: () => dispatch(pmSendActionCreator(ownProps.id)),
+    editPM: (text) => dispatch(editPmTempActionCreator(text)),
+    sendPM: (id) => dispatch(pmSendActionCreator(id)),
   };
 };
 const MassagePageContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(MassagePage); */
+)(MassagePage);
 
 export default MassagePageContainer;
