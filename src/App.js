@@ -10,7 +10,7 @@ import Header from "./easyWb/header";
 import LeftColone from "./easyWb/leftColone";
 import MassagePageContainer from "./easyWb/bodComp/massage/massageContainer";
 import ProfileContainer from "./easyWb/bodComp/profile/bodContainer";
-import UsersPage from "./easyWb/bodComp/users/usersSearch";
+import UserContainer from "./easyWb/bodComp/users/usersContainer";
 
 /*
  <Route 
@@ -38,7 +38,7 @@ function App(props) {
         <Route path="/news" component={NewsPage} />
         <Route path="/music" component={MusicPage} />
 
-        <Route path="/users" render={() => <UsersPage usersPart={props.state.usersPart} /> } />
+        <Route path="/users" render={() => <UserContainer store={props.store} /> } />
 
         <Route path="/settings" component={SettingsPage} />
        

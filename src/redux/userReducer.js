@@ -1,62 +1,76 @@
 import { cloneDeep } from "lodash";
 // ========================================
-const FIND = "FIND";
-
+const CHANGE_FOLLOW = "CHANGE-FOLLOW";
+const GET_MORE_USERS = "GET-MORE-USERS";
 // ========================================
-export const pmSendActionCreator = (id, text) => ({
-  type: FIND,
+export const changeUsrFollowAction = (id) => ({
+  type: CHANGE_FOLLOW,
   id: id,
-  text: text,
+});
+// --------------
+export const getMoreUsrAction = (users) => ({
+  type: CHANGE_FOLLOW,
+  users: users,
 });
 
 // ========================================
 
 //state= this._state.massagePart//
 const init = {
-  usersList:[
-  {id:1, 
-  name:'Борян',
-  secondName: 'Полякович',
-  adressCountry: 'Россия',
-  adressCity: 'Москва',
-  userQuote: 'Обколится своим СИ и начинают бредить)',
-  avatarImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUJ9LQeTvg3D7ZEtvNdY8349V-HLFz0UelMw&usqp=CAU',
-  },
-  {id:2, 
-    name:'Cаня',
-    secondName: 'Зауральский',
-    adressCountry: 'Россия',
-    adressCity: 'Москва',
-    userQuote: 'смотрел обзоры второй чивы? Вкатываться будешь? Релиз 8 june',
-    avatarImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUJ9LQeTvg3D7ZEtvNdY8349V-HLFz0UelMw&usqp=CAU',
-   },
-   {id:3, 
-    name:'Никита',
-    secondName: 'Питерский',
-    adressCountry: 'Британия',
-    adressCity: 'Лондон',
-    userQuote: 'вот нашел ты ксюху, считай дни твои сочтены',
-    avatarImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUJ9LQeTvg3D7ZEtvNdY8349V-HLFz0UelMw&usqp=CAU',
-   },
-   {id:4, 
-    name:'Барак',
-    secondName: 'Обэма',
-    adressCountry: 'США',
-    adressCity: 'Калифорния',
-    userQuote: 'Хачу сказать этим россиянам...',
-    avatarImg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUJ9LQeTvg3D7ZEtvNdY8349V-HLFz0UelMw&usqp=CAU',
-   },
-   
+  usersList: [
+    {
+      id: 1,
+      isFollow: true,
+      name: "Борян",
+      secondName: "Полякович",
+      adressCountry: "Россия",
+      adressCity: "Москва",
+      userQuote: "Обколится своим СИ и начинают бредить)",
+      avatarImg: "https://cdn.discordapp.com/emojis/814691159544561685.png?v=1",
+    },
+    {
+      id: 2,
+      isFollow: true,
+      name: "Cаня",
+      secondName: "Зауральский",
+      adressCountry: "Россия",
+      adressCity: "Москва",
+      userQuote: "смотрел обзоры второй чивы? Вкатываться будешь? Релиз 8 june",
+      avatarImg: "https://cdn.discordapp.com/emojis/814691159544561685.png?v=1",
+    },
+    {
+      id: 3,
+      isFollow: false,
+      name: "Никита",
+      secondName: "Питерский",
+      adressCountry: "Британия",
+      adressCity: "Лондон",
+      userQuote: "вот нашел ты ксюху, считай дни твои сочтены",
+      avatarImg: "https://cdn.discordapp.com/emojis/814691159544561685.png?v=1",
+    },
+    {
+      id: 4,
+      isFollow: false,
+      name: "Барак",
+      secondName: "Обэма",
+      adressCountry: "США",
+      adressCity: "Калифорния",
+      userQuote: "Хачу сказать этим россиянам...",
+      avatarImg: "https://cdn.discordapp.com/emojis/814691159544561685.png?v=1",
+    },
   ],
- 
 };
 // ========================================
 function usersReducer(state = init, action) {
   switch (action.type) {
     // --------------
 
-    case FIND: {
-      return _postMassage(state, action);
+    case CHANGE_FOLLOW: {
+      return _changeFollowed(state, action);
+    }
+    // --------------
+    case GET_MORE_USERS: {
+      return _changeFollowed(state, action);
     }
 
     // --------------
@@ -67,10 +81,22 @@ function usersReducer(state = init, action) {
 // ========================================
 
 // ---------------------------------------
-function _postMassage() {
-
+function _changeFollowed(state, action) {
+  return {
+    ...state,
+    usersList: state.usersList.map((now, id) => {
+      if (now.id === action.id) {
+        now.isFollow = !now.isFollow;
+      }
+      return now;
+    }),
+  };
 }
 // ---------------------------------------
 
+function _getUsrs(state, action) {
+  return 1
+   
+}
 
 export default usersReducer;
