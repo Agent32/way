@@ -70,7 +70,7 @@ function usersReducer(state = init, action) {
     }
     // --------------
     case GET_MORE_USERS: {
-      return _changeFollowed(state, action);
+      return _getUsrs (state, action);
     }
 
     // --------------
@@ -95,7 +95,9 @@ function _changeFollowed(state, action) {
 // ---------------------------------------
 
 function _getUsrs(state, action) {
-  return 1
+  return (
+    {...state.usersList, ...action.users}
+  )
    
 }
 
