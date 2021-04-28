@@ -1,7 +1,26 @@
 import users from "./users.module.css";
-
+import * as axios from "axios";
 //-----------------------------------------
 function UsersPage(props) {
+
+  function getTask() {
+ 
+  return  axios
+      .get('https://60885809a6f4a300174263e9.mockapi.io/Test')
+      .then((res) => {
+        return props.updateUserChange(res.data)  
+       
+      })
+  }
+  
+/*   function ebani (res) {
+   props.updateUsers(res.data)   
+  } */
+ 
+  
+
+ debugger
+  
   const formUsers = props.usersList.map((currUsers, count) => {
     return (
       <div className={users.post} key={currUsers.id}>
@@ -25,9 +44,18 @@ function UsersPage(props) {
     );
   });
 
-
-//-----------------------------------------//-----------------------------------------
-  return <div className={users.main}>{formUsers}</div>;
+  //-----------------------------------------//-----------------------------------------
+  return (
+    <div className={users.main}>
+      {formUsers}
+      <div>
+        {" "}
+        <button onClick={() => getTask() } />{" "}
+      </div>
+    </div>
+  );
 }
+
+
 
 export default UsersPage;

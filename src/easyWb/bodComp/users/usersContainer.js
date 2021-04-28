@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { changeUsrFollowAction } from "../../../redux/userReducer";
+import { changeUsrFollowAction, getMoreUsrAction } from "../../../redux/userReducer";
 import UsersPage from "./usersSearch";
 
 
@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
 //-----------------------------------------
 const mapDispatchToProps = (dispatch) => {
   return {
+    updateUserChange: (id) => dispatch(getMoreUsrAction(id)),
     userFollowChange: (id) => dispatch(changeUsrFollowAction(id)),
     
   };

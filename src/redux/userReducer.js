@@ -1,4 +1,5 @@
 import { cloneDeep } from "lodash";
+
 // ========================================
 const CHANGE_FOLLOW = "CHANGE-FOLLOW";
 const GET_MORE_USERS = "GET-MORE-USERS";
@@ -8,13 +9,13 @@ export const changeUsrFollowAction = (id) => ({
   id: id,
 });
 // --------------
-export const getMoreUsrAction = (users) => ({
-  type: CHANGE_FOLLOW,
-  users: users,
+export const getMoreUsrAction = (id) => ({
+  type: GET_MORE_USERS,
+  id: id,
 });
 
 // ========================================
-
+//https://60885809a6f4a300174263e9.mockapi.io/Test
 //state= this._state.massagePart//
 const init = {
   usersList: [
@@ -70,7 +71,7 @@ function usersReducer(state = init, action) {
     }
     // --------------
     case GET_MORE_USERS: {
-      return _getUsrs (state, action);
+      return _getUsrs(state, action);
     }
 
     // --------------
@@ -82,6 +83,7 @@ function usersReducer(state = init, action) {
 
 // ---------------------------------------
 function _changeFollowed(state, action) {
+  
   return {
     ...state,
     usersList: state.usersList.map((now, id) => {
@@ -95,10 +97,12 @@ function _changeFollowed(state, action) {
 // ---------------------------------------
 
 function _getUsrs(state, action) {
-  return (
-    {...state.usersList, ...action.users}
-  )
-   
+  const pip= action.id.map( (now, count) => { if (now.id) return now }  )
+ 
+  return {
+    ...state, usersList: [...state.usersList, ...pip]
+
+  };
 }
 
 export default usersReducer;
