@@ -3,7 +3,7 @@
   grid-template-areas: 
   "headS headS"
   "columLeft mainCont";
-  grid-template-rows: 1fr 6fr;
+  grid-template-rows: 150px 6fr;
   grid-template-columns: 1fr 12fr;
   grid-gap: 3px;
  
