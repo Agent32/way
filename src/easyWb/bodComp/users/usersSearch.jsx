@@ -1,54 +1,71 @@
 import users from "./users.module.css";
-import * as axios from "axios";
 import React from "react";
-//-----------------------------------------
-class UsersPage extends React.Component {
-  constructor(props) {
-    super(props);
-    axios
-      .get("https://60885809a6f4a300174263e9.mockapi.io/Test")
-      .then((res) => {
-        this.props.updateUserChange(res.data);
-      });
-  }
 
+// -----------------------------------------
+function UsersPage(props) {
+  const maxPagesNumber = props.pageSettings.allUsersCount;
+  const maxItemsInPage = props.pageSettings.maxUsersAtPage;
 
-  //-----------------------------------------//-----------------------------------------
-  render() {
-    const formUsers = this.props.usersList.map((currUsers, count) => {
-      return (
-        <div className={users.post} key={currUsers.id}>
-          <img src={currUsers.avatarImg} />
-  
-          <div className={users.name}>
-            {` ${currUsers.name} ${currUsers.secondName}`}{" "}
-          </div>
-  
-          <div className={users.adress}>
-            {" "}
-            {` ${currUsers.adressCountry} ${currUsers.adressCity}`}
-            <button onClick={() => this.props.userFollowChange(currUsers.id)}>
-              {" "}
-              {currUsers.isFollow ? "UnSubscribe" : "Subscribe"}
-            </button>
-          </div>
-  
-          <div className={users.quote}> {` ${currUsers.userQuote} `} </div>
-        </div>
-      );
-    });
+  const pagesToDraw = Math.ceil(maxPagesNumber / maxItemsInPage);
 
-    
-    return (
-      <div className={users.main}>
-        {formUsers}
-        <div>
-          {" "}
-          <button onClick={() => alert(1)} />{" "}
-        </div>
-      </div>
+  //------------------------------
+  const buttOns = [];
+  for (let i = 1; i <= pagesToDraw; i++) {
+    buttOns.push(
+      <span key={i}>
+        <button
+          className={
+            props.pageSettings.currentPage === i
+              ? users.activeB
+              : users.regularB
+          }
+          onClick={() => props.changePage(i)}
+        >
+          {i}
+        </button>{" "}
+      </span>
     );
   }
+  // ------------------------------
+  const formUsers = props.usersList.map((currUsers, count) => {
+    return (
+      <div className={users.post} key={currUsers.id}>
+        <img
+          src={currUsers.avatarImg}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src =
+              "https://discord.com/assets/dd77cf000a729a9bf0fc03b97e1e4a5d.svg";
+          }}
+        />
+
+        <div className={users.name}>
+          {` ${currUsers.name} ${currUsers.secondName}`}{" "}
+        </div>
+
+        <div className={users.adress}>
+          {" "}
+          {` ${currUsers.adressCountry} ${currUsers.adressCity}`}
+          <button onClick={() => props.userFollowChange(currUsers.id)}>
+            {" "}
+            {currUsers.isFollow ? "UnSubscribe" : "Subscribe"}
+          </button>
+        </div>
+
+        <div className={users.quote}> {` ${currUsers.userQuote} `} </div>
+      </div>
+    );
+  });
+
+  //-----------------------------------------//-----------------------------------------
+
+  return (
+    <div className={users.main}>
+      <div>{buttOns}</div>
+      {formUsers}
+      <div>{buttOns}</div>s
+    </div>
+  );
 }
 
 export default UsersPage;
