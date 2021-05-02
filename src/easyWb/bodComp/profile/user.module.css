@@ -1,14 +1,24 @@
-.userdata
+.userdataBlock
 {
+  width: 600px;
+ 
+  margin-top: 10px;
   display: inline-flex;
+  
+  background-color: rgb(238, 238, 238);
 }
-.userdata img
+
+.userdataBlock img
 {
+  margin-left: 5px;
   width: 150px;
+  height: 150px;
 }
 
 
-.userdata .text
+.userdataBlock div
 {
+  display: block;
   margin-left: 10px;
 }
+

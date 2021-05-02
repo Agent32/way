@@ -4,20 +4,26 @@ import { cloneDeep } from "lodash";
 const CHANGE_FOLLOW = "CHANGE-FOLLOW";
 const GET_MORE_USERS = "GET-MORE-USERS";
 const CHANGE_CURRENT_PAGE = "CHANGE-CURRENT-PAGE";
+const LODAER_WAITER_CHANGER = "LODAER-WAITER-CHANGER";
 // ========================================
-export const changeUsrFollowAction = (id) => ({
+export const userFollowChange = (id) => ({
   type: CHANGE_FOLLOW,
   id: id,
 });
 // --------------
-export const getMoreUsrAction = (id) => ({
+export const updateUserChange = (id) => ({
   type: GET_MORE_USERS,
   id: id,
 });
 // --------------
-export const changeCurrPageAction = (id) => ({
+export const changeCurPage = (id) => ({
   type: CHANGE_CURRENT_PAGE,
   id: id,
+});
+// --------------
+export const changeIsFinished = (isFinished) => ({
+  type: LODAER_WAITER_CHANGER,
+  isFinished: isFinished,
 });
 // --------------
 //------------------------------------------
@@ -120,6 +126,7 @@ const init = {
     currentPage: 1,
     allUsersCount: 16,
     maxUsersAtPage: 4,
+    isLoadinFinished: false,
   },
 };
 // ========================================
@@ -138,6 +145,10 @@ function usersReducer(state = init, action) {
     case CHANGE_CURRENT_PAGE: {
       return _usersPageSwitch(state, action);
     }
+     // --------------
+     case LODAER_WAITER_CHANGER: {
+      return _loaderWaitSwitch(state, action);
+    }  
 
     // --------------
     default:
@@ -175,5 +186,14 @@ function _usersPageSwitch(state, action) {
     pageSettings: { ...state.pageSettings, currentPage: action.id },
   };
 }
+// ---------------------------------------
+
+function _loaderWaitSwitch(state, action) {
+  return {
+    ...state,
+    pageSettings: { ...state.pageSettings, isLoadinFinished: action.isFinished },
+  };
+}
+
 
 export default usersReducer;

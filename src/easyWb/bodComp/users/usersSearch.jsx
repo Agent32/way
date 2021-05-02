@@ -1,5 +1,7 @@
 import users from "./users.module.css";
 import React from "react";
+import { NavLink } from "react-router-dom";
+
 
 // -----------------------------------------
 function UsersPage(props) {
@@ -30,6 +32,7 @@ function UsersPage(props) {
   const formUsers = props.usersList.map((currUsers, count) => {
     return (
       <div className={users.post} key={currUsers.id}>
+        <NavLink to={`/profile/${currUsers.id}`} >
         <img
           src={currUsers.avatarImg}
           onError={(e) => {
@@ -37,7 +40,7 @@ function UsersPage(props) {
             e.target.src =
               "https://discord.com/assets/dd77cf000a729a9bf0fc03b97e1e4a5d.svg";
           }}
-        />
+        /></NavLink>
 
         <div className={users.name}>
           {` ${currUsers.name} ${currUsers.secondName}`}{" "}
@@ -63,7 +66,7 @@ function UsersPage(props) {
     <div className={users.main}>
       <div>{buttOns}</div>
       {formUsers}
-      <div>{buttOns}</div>s
+      <div>{buttOns}</div>
     </div>
   );
 }
