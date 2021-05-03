@@ -1,9 +1,11 @@
 import { combineReducers, createStore } from "redux";
 
-import bodyReducer from "./bodyReducer";
+import bodyReducer from "./profileReducer";
 import leftColonePartReducer from "./leftColonyReducer";
 import massageReducer from "./massageReducer";
-import usersReducer from "./userReducer";
+import usersReducer from "./usersReducer";
+import autorizationReduser from "./autorizationReduser";
+
 
 
 
@@ -12,6 +14,7 @@ let reducersPush = combineReducers({
   massagePart: massageReducer,
   usersPart: usersReducer,
   leftColonePart: leftColonePartReducer,
+  autorizationPart: autorizationReduser,
 });
 
 const store = createStore(reducersPush);

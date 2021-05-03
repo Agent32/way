@@ -3,10 +3,13 @@ import {
   wallPostSend,
   wallPostEdit,
   getUser,
-} from "../../../redux/bodyReducer";
-import Profile from "./Bod";
+  changeIsFinished,
+} from "../../../redux/profileReducer";
+import Profile from "./profileDrawer";
 import { connect } from "react-redux";
 import * as axios from "axios";
+import {withRouter} from 'react-router-dom'
+import LoadingModule from "../../commonComponent/loader/loader";
 
 
 /* function ProfileContainer(props) {
@@ -30,9 +33,11 @@ import * as axios from "axios";
 
 class ProfileConnectContainer extends React.Component {
   componentDidMount() {
- // this.props.changeIsFinished(false)
+    debugger
+    const loadUser = this.props.match.params.userId || `0F8JIqi4zwvb77FGz6Wt`
+  this.props.changeIsFinished(false)
   axios
-  .get(`https://dummyapi.io/data/api/user/0P6E1d4nr0L1ntW8cjGU`, {
+  .get(`https://dummyapi.io/data/api/user/${loadUser}`, {
     headers:  {
     'app-id':`608ec88017752b6496d65b8f`,
     },
@@ -40,7 +45,7 @@ class ProfileConnectContainer extends React.Component {
   })
   .then((res) => {
         this.props.getUser(res.data);
-       // this.props.changeIsFinished(true)
+        this.props.changeIsFinished(true)
       });
   }
 
@@ -64,6 +69,9 @@ class ProfileConnectContainer extends React.Component {
 
   render() {
     return (
+      <>
+      {this.props.changedText.isLoadinFinished ? null : <LoadingModule/> }
+     
      <Profile 
      changedText={this.props.changedText}
      userData={this.props.userData}
@@ -72,11 +80,14 @@ class ProfileConnectContainer extends React.Component {
      wallPostEdit={this.props.wallPostEdit}
      getUser={this.props.getUser}
      />
-
+      </>
     )
   }
 
 }
+
+// ========================================
+
 
 // ========================================
 const mapStateToProps = (state) => {
@@ -88,8 +99,11 @@ const mapStateToProps = (state) => {
 };
 const ProfileContainer = connect(
   mapStateToProps,
-  {wallPostSend, wallPostEdit, getUser}
-)(ProfileConnectContainer);
+  {wallPostSend, wallPostEdit, getUser,changeIsFinished}
+)(withRouter(ProfileConnectContainer));
+
+
+
 
 
 export default ProfileContainer;

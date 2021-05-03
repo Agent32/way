@@ -5,17 +5,25 @@ import {
   userFollowChange,
   changeCurPage,
   changeIsFinished,
-} from "../../../redux/userReducer";
-import UsersPage from "./usersSearch";
+  getMaxUsers,
+} from "../../../redux/usersReducer";
+import UsersPage from "./usersDrawer";
 import React from "react";
 import LoadingModule from "../../commonComponent/loader/loader";
 
 class UserConnectConreiner extends React.Component {
   componentDidMount() {
+    
   this.props.changeIsFinished(false)
     axios
-      .get(`https://60885809a6f4a300174263e9.mockapi.io/UserStack?page=1&limit=4`)
+      .get(`https://dummyapi.io/data/api/user/?page=?page=${0}&limit=${this.props.pageSettings.maxUsersAtPage}`, {
+        headers:  {
+        'app-id':`608ec88017752b6496d65b8f`,
+        }, })
+     
       .then((res) => {
+      
+        this.props.getMaxUsers(res.data.total)
         this.props.updateUserChange(res.data);
         this.props.changeIsFinished(true)
       });
@@ -24,11 +32,12 @@ class UserConnectConreiner extends React.Component {
   changePage = (Page) => {
     if (Page !== this.props.pageSettings.currentPage) {  
    
-    this.props.changeIsFinished(false)
+    this.props.changeIsFinished(false)//ck?page=${Page}&limit=${this.props.pageSettings.maxUsersAtPage}`
     axios
-      .get(
-        `https://60885809a6f4a300174263e9.mockapi.io/UserStack?page=${Page}&limit=${this.props.pageSettings.maxUsersAtPage}`
-      )
+    .get(`https://dummyapi.io/data/api/user/?page=${Page}&limit=${this.props.pageSettings.maxUsersAtPage}`, {
+      headers:  {
+      'app-id':`608ec88017752b6496d65b8f`,
+      }, })
       .then((res) => {
         this.props.updateUserChange(res.data);
         this.props.changeCurPage(Page);
@@ -77,7 +86,7 @@ const mapStateToProps = (state) => {
 // ========================================
 const UserContainer = connect(
   mapStateToProps,
-  {updateUserChange, userFollowChange, changeCurPage, changeIsFinished}
+  {updateUserChange, userFollowChange, changeCurPage, changeIsFinished, getMaxUsers}
 )(UserConnectConreiner);
 
 export default UserContainer;

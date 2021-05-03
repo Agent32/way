@@ -6,7 +6,7 @@ import {
   editPmTempActionCreator,
 } from "../../../redux/massageReducer";
 
-import MassagePage from "./massage";
+import MassagePage from "./massageDrawer";
 
 /* function MassagePageContainer(props) {
   // ========================================

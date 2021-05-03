@@ -12,18 +12,18 @@ function UsersPage(props) {
 
   //------------------------------
   const buttOns = [];
-  for (let i = 1; i <= pagesToDraw; i++) {
+  for (let i = 0; i <= pagesToDraw; i++) {
     buttOns.push(
       <span key={i}>
         <button
           className={
-            props.pageSettings.currentPage === i
+            props.pageSettings.currentPage === (i)   //css
               ? users.activeB
               : users.regularB
           }
           onClick={() => props.changePage(i)}
         >
-          {i}
+          {i+1}
         </button>{" "}
       </span>
     );
@@ -34,7 +34,7 @@ function UsersPage(props) {
       <div className={users.post} key={currUsers.id}>
         <NavLink to={`/profile/${currUsers.id}`} >
         <img
-          src={currUsers.avatarImg}
+          src={currUsers.picture}
           onError={(e) => {
             e.target.onerror = null;
             e.target.src =
@@ -43,20 +43,18 @@ function UsersPage(props) {
         /></NavLink>
 
         <div className={users.name}>
-          {` ${currUsers.name} ${currUsers.secondName}`}{" "}
+          {`${currUsers.title}.${currUsers.firstName} ${currUsers.lastName}`}{" "}
         </div>
 
         <div className={users.adress}>
           {" "}
-          {` ${currUsers.adressCountry} ${currUsers.adressCity}`}
+          {` ${currUsers.email} `}
           <button onClick={() => props.userFollowChange(currUsers.id)}>
             {" "}
             {currUsers.isFollow ? "UnSubscribe" : "Subscribe"}
           </button>
         </div>
-
-        <div className={users.quote}> {` ${currUsers.userQuote} `} </div>
-      </div>
+     </div>
     );
   });
 
