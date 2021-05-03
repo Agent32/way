@@ -9,7 +9,7 @@ import SettingsPage from "./easyWb/bodComp/settings/settings";
 import Header from "./easyWb/header";
 import LeftColone from "./easyWb/leftColone";
 import MassagePageContainer from "./easyWb/bodComp/massage/massageContainer";
-import ProfileContainer from "./easyWb/bodComp/profile/bodContainer";
+import ProfileContainer from "./easyWb/bodComp/profile/profileContainer";
 import UserContainer from "./easyWb/bodComp/users/usersContainer";
 
 /*
@@ -28,7 +28,7 @@ function App(props) {
 
       <div className="mainCont">
         <Route
-          path="/profile"
+          path="/profile/:userId?"
           render={() => <ProfileContainer store={props.store} />}
         />
         <Route
