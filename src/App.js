@@ -6,8 +6,8 @@ import MusicPage from "./easyWb/bodComp/music/music";
 import NewsPage from "./easyWb/bodComp/news/news";
 
 import SettingsPage from "./easyWb/bodComp/settings/settings";
-import Header from "./easyWb/header";
-import LeftColone from "./easyWb/leftColone";
+import Header from "./easyWb/headerPart/header";
+import LeftColone from "./easyWb/leftColone/leftColone";
 import MassagePageContainer from "./easyWb/bodComp/massage/massageContainer";
 import ProfileContainer from "./easyWb/bodComp/profile/profileContainer";
 import UserContainer from "./easyWb/bodComp/users/usersContainer";

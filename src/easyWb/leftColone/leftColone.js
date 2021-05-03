@@ -1,6 +1,6 @@
-import '../App.css';
+import '../../App.css';
 
-import CompactFriendPanel from './leftColone/friendPanel/friendsPanel'
+import CompactFriendPanel from './friendPanel/friendsPanel'
 import leftColone from './leftColone.module.css'
 import { NavLink } from 'react-router-dom';
 

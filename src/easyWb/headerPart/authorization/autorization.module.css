@@ -1,4 +1,28 @@
-.main 
+
+
+.logout 
 {
-color: red
+
+}
+.logout .loginButt
+{
+   margin-left: 74px;
+}
+
+.login 
+{
+
+}
+
+
+.login div
+{
+    display: inline-flex;
+}
+
+
+
+.login  .userAvatarLogin
+{
+   height: 50px;
 }
