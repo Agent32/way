@@ -1,10 +1,11 @@
-import { combineReducers, createStore } from "redux";
+import { applyMiddleware, combineReducers, createStore } from "redux";
 
 import bodyReducer from "./profileReducer";
 import leftColonePartReducer from "./leftColonyReducer";
 import massageReducer from "./massageReducer";
 import usersReducer from "./usersReducer";
 import autorizationReduser from "./autorizationReduser";
+import thunk from "redux-thunk";  //thunk middleware
 
 
 
@@ -17,5 +18,7 @@ let reducersPush = combineReducers({
   autorizationPart: autorizationReduser,
 });
 
-const store = createStore(reducersPush);
+
+
+const store = createStore(reducersPush, applyMiddleware(thunk));
 export default store;

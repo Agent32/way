@@ -1,25 +1,22 @@
-import friendPanelStyle from './friendPanel.module.css'
-
-function CompactFriendPanel (props) {
-
-
-
- function  logined ()
- {
-return  <div className={friendPanelStyle.main} > {props.friendPanel.map ( (friend, count) => (<img key={count} src={friend.avatar}></img> ) )} </div>
- }
-
- function userNotLogined ()
- {
-
- }
+import React from "react";
+import { connect } from "react-redux";
+import CompactFriendPanel from "./friendsPanel";
 
 
-    return (
+
+
+
+
+
+const mapStateToProps = (state) => {
   
-  <> {props.isLoginned?  logined(): userNotLogined() }  </>
-  
-    )
-  }
+    return { friendPanel: state.leftColonePart.friendPanel, isLoggedIn: state.autorizationPart.userData.isLoggedIn };
+};
 
-export default CompactFriendPanel
+const FriendColoneContainer = connect(
+    mapStateToProps,
+    {}
+)(CompactFriendPanel);
+
+export default FriendColoneContainer;
+//isLoginned={props.state.autorizationPart.userData.isLoggedIn}

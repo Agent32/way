@@ -1,4 +1,5 @@
 import { cloneDeep } from "lodash";
+import { serverAL } from "./dal/api";
 
 // ========================================
 const CHANGE_FOLLOW = "CHANGE-FOLLOW";
@@ -29,7 +30,7 @@ export const changeIsFinished = (isFinished) => ({
 // --------------
 export const getMaxUsers = (count) => ({
   type: GET_MAX_USERS,
-  count
+  count,
 });
 // --------------
 //------------------------------------------
@@ -92,8 +93,6 @@ const init = {
       title: "mr",
       picture: "https://cdn.discordapp.com/emojis/814691159544561685.png?v=1",
     },
-   
-   
   ],
   pageSettings: {
     currentPage: 0,
@@ -118,14 +117,14 @@ function usersReducer(state = init, action) {
     case CHANGE_CURRENT_PAGE: {
       return _usersPageSwitch(state, action);
     }
-     // --------------
-     case LODAER_WAITER_CHANGER: {
+    // --------------
+    case LODAER_WAITER_CHANGER: {
       return _loaderWaitSwitch(state, action);
-    }  
+    }
     // --------------
     case GET_MAX_USERS: {
       return _setMaxUsers(state, action);
-    }    
+    }
 
     // --------------
     default:
@@ -149,10 +148,9 @@ function _changeFollowed(state, action) {
 // ---------------------------------------
 
 function _getUsrs(state, action) {
-
   return {
     ...state,
-    usersList: [ ...action.id.data],
+    usersList: [...action.id.data],
   };
 }
 
@@ -169,7 +167,10 @@ function _usersPageSwitch(state, action) {
 function _loaderWaitSwitch(state, action) {
   return {
     ...state,
-    pageSettings: { ...state.pageSettings, isLoadinFinished: action.isFinished },
+    pageSettings: {
+      ...state.pageSettings,
+      isLoadinFinished: action.isFinished,
+    },
   };
 }
 // ---------------------------------------
@@ -180,5 +181,31 @@ function _setMaxUsers(state, action) {
   };
 }
 
+// ========================================
+export const getUsersPageThunkCreator = (Page = 0, maxUsersAtPage = 10) => {
+  return (dispatch) => {
+    dispatch(changeIsFinished(false));
+    serverAL.getUsersList(Page, maxUsersAtPage).then((data) => {
+      dispatch(getMaxUsers(data.total));
+      dispatch(updateUserChange(data));
+      dispatch(changeCurPage(Page));
+      dispatch(changeIsFinished(true));
+    });
+  };
+};
+// ---------------------------------------
+export const changeSubscribeThunkCreator = (userID, buttonEvent) => {
+  return (dispatch) => {
+    buttonEvent.target.disabled = true;
+    dispatch(changeIsFinished(false));
+    serverAL.buttonPressed(userID).then((data) => {
+      console.log(data);
+      dispatch(userFollowChange(userID));
+      buttonEvent.target.disabled = false;
+      dispatch(changeIsFinished(true));
+    });
+  };
+};
 
+// ========================================
 export default usersReducer;

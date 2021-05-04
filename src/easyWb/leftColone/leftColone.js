@@ -1,6 +1,6 @@
 import '../../App.css';
 
-import CompactFriendPanel from './friendPanel/friendsPanel'
+import FriendColoneContainer from './friendPanel/friendsPanelContainer'
 import leftColone from './leftColone.module.css'
 import { NavLink } from 'react-router-dom';
 
@@ -16,7 +16,8 @@ function LeftColon (props) {
       <LeftButton href='/music' name='Music' />
       <LeftButton href='/users' name='Users' />
       <LeftButton href='/settings' name='Settings' />
-      <CompactFriendPanel friendPanel={props.leftColonePart.friendPanel} />
+      
+      <FriendColoneContainer store={props.store}/>
       
     </div>
   )

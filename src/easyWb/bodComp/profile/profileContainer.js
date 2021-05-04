@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import * as axios from "axios";
 import { withRouter } from "react-router-dom";
 import LoadingModule from "../../commonComponent/loader/loader";
+import { serverAL } from "../../../redux/dal/api";
 
 /* function ProfileContainer(props) {
   const wallPostSend = () => {
@@ -33,16 +34,13 @@ import LoadingModule from "../../commonComponent/loader/loader";
 class ProfileConnectContainer extends React.Component {
   componentDidMount() {
     debugger;
+    
     const loadUser = this.props.match.params.userId || `0F8JIqi4zwvb77FGz6Wt`;
     this.props.changeIsFinished(false);
-    axios
-      .get(`https://dummyapi.io/data/api/user/${loadUser}`, {
-        headers: {
-          "app-id": `608ec88017752b6496d65b8f`,
-        },
-      })
-      .then((res) => {
-        this.props.getUser(res.data);
+
+    serverAL.getUserbyId(loadUser)
+      .then((data) => {
+        this.props.getUser(data);
         this.props.changeIsFinished(true);
       });
   }
