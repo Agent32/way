@@ -1,4 +1,7 @@
 //import { cloneDeep } from "lodash";
+
+import { serverAL } from "./dal/api";
+
 // ========================================
 const WALL_POST_PUBLISH = "WALL-POST-PUBLISH";
 const TEXTAREA_EDIT_WALL = "TEXTAREA-EDIT-WALL";
@@ -143,5 +146,17 @@ function _loaderWaitSwitch(state, action) {
   };
 }
 // ---------------------------------------
+// ========================================
 
+export const getUserByIdTC = (userID = `0F8JIqi4zwvb77FGz6Wt`) => {
+  return (dispatch) => {
+    dispatch(changeIsFinished(false));
+    serverAL.getUserbyId(userID).then((data) => {
+      dispatch(getUser(data));
+      dispatch(changeIsFinished(true));
+    });
+  };
+};
+
+// ========================================
 export default bodyReducer;

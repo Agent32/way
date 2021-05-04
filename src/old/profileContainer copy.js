@@ -4,21 +4,62 @@ import {
   wallPostEdit,
   getUser,
   changeIsFinished,
-  getUserByIdTC,
 } from "../../../redux/profileReducer";
 import Profile from "./profileDrawer";
 import { connect } from "react-redux";
-
+import * as axios from "axios";
 import { withRouter } from "react-router-dom";
 import LoadingModule from "../../commonComponent/loader/loader";
 import { serverAL } from "../../../redux/dal/api";
 
+/* function ProfileContainer(props) {
+  const wallPostSend = () => {
+    props.store.dispatch(wallPostActionCreator());
+  };
+  const wallPostEdit = (text) => {
+    props.store.dispatch(textEditWallActionCreator(text));
+  };
+
+  return (
+    <Profile
+      changedText={props.store.getState().bodyPart.changedText}
+      dataMass={props.store.getState().bodyPart.dataMass}
+      postsWall={props.store.getState().bodyPart.postsWall}
+      wallPostSend={wallPostSend}
+      wallPostEdit={wallPostEdit}
+    />
+  );
+} */
+
 class ProfileConnectContainer extends React.Component {
   componentDidMount() {
-    this.props.getUserByIdTC(this.props.match.params.userId);
+    debugger;
+    
+    const loadUser = this.props.match.params.userId || `0F8JIqi4zwvb77FGz6Wt`;
+    this.props.changeIsFinished(false);
 
-    //props.match.params - navlink income
+    serverAL.getUserbyId(loadUser)
+      .then((data) => {
+        this.props.getUser(data);
+        this.props.changeIsFinished(true);
+      });
   }
+
+  /*   changeUser = (id) => {
+    if (id !== this.props.pageSettings.currentPage) {  
+   
+    this.props.changeIsFinished(false)
+    axios
+      .get(
+        `https://60885809a6f4a300174263e9.mockapi.io/UserStack/?id=${1}`
+      )
+      .then((res) => {
+        this.props.updateUserChange(res.data);
+        this.props.changeCurPage(id);
+        this.props.changeIsFinished(true)
+      });
+    }
+  };  */
 
   render() {
     return (
@@ -53,7 +94,6 @@ const ProfileContainer = connect(mapStateToProps, {
   wallPostEdit,
   getUser,
   changeIsFinished,
-  getUserByIdTC,
 })(withRouter(ProfileConnectContainer));
 
 export default ProfileContainer;
