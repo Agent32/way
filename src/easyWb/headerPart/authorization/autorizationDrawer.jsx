@@ -1,5 +1,6 @@
 import autiruzationStyle from "./autorization.module.css";
 import React from "react";
+import { NavLink} from "react-router-dom";
 function AutorizationDrawer(props) {
 
 
@@ -18,7 +19,7 @@ function logined ()
 
  
 }
-
+//onClick={ props.regButtonPress}
 function notLogined ()
 { 
   const areaLogin = React.createRef();
@@ -42,7 +43,7 @@ function notLogined ()
         value={props.userData.inputPassword}
       />{" "}
     </div >
-    <div className={autiruzationStyle.loginButt}>  <button onClick={ props.getAutorization}> Login </button> <button> Register</button>  </div>
+    <div className={autiruzationStyle.loginButt}>  <button onClick={ props.getAutorization}> Login </button> <NavLink to={`/register`}><button>Registration</button> </NavLink> </div>
   </div>
    )
 

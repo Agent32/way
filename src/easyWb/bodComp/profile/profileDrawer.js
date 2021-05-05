@@ -2,11 +2,14 @@ import userStyle from "./user.module.css";
 import newPost from "./newpost.module.css";
 import PostHistory from "./history/massageWall";
 import React from "react";
+import ProfileStatus from "./status/profileStatus";
 
 function Profile(props) {
+  
+
   const userData = props.userData;
   const postsWall = props.postsWall;
-  // alert (props.postsWall)
+
 
   const formWall = postsWall.map((post, count) => (
     <PostHistory
@@ -41,6 +44,7 @@ function Profile(props) {
   return (
     <div>
       <ProfilePic src="https://static3.depositphotos.com/1000454/256/i/600/depositphotos_2567474-stock-photo-wide-panorama-of-french-alps.jpg" />
+      <ProfileStatus quote={props.changedText.quote}/>
       {currenUserData}
       <NewPost
         changedText={props.changedText}

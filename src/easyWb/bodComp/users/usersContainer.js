@@ -7,6 +7,7 @@ import {
 import UsersPage from "./usersDrawer";
 import React from "react";
 import LoadingModule from "../../commonComponent/loader/loader";
+import { compose } from "redux";
 
 class UserConnectConreiner extends React.Component {
   componentDidMount() {
@@ -51,9 +52,14 @@ const mapStateToProps = (state) => {
 };
 // -----------------------------------------
 
-const UserContainer = connect(mapStateToProps, {
-  getUsersPageThunkCreator,
-  changeSubscribeThunkCreator,
-})(UserConnectConreiner);
 
-export default UserContainer;
+
+
+
+export default compose(
+  connect(mapStateToProps, {
+    getUsersPageThunkCreator,
+    changeSubscribeThunkCreator,
+  })
+
+) (UserConnectConreiner) 

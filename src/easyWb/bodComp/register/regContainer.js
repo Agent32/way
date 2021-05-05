@@ -11,9 +11,7 @@ import { connect } from "react-redux";
 
 import { withRouter } from "react-router-dom";
 import LoadingModule from "../../commonComponent/loader/loader";
-
-import { compose } from "redux";
-
+import { serverAL } from "../../../redux/dal/api";
 
 class ProfileConnectContainer extends React.Component {
   componentDidMount() {
@@ -51,18 +49,12 @@ const mapStateToProps = (state) => {
     postsWall: state.bodyPart.postsWall,
   };
 };
+const ProfileContainer = connect(mapStateToProps, {
+  wallPostSend,
+  wallPostEdit,
+  getUser,
+  changeIsFinished,
+  getUserByIdTC,
+})(withRouter(ProfileConnectContainer));
 
-
-
-
-export default  compose (
-
-  connect(mapStateToProps, {
-    wallPostSend,
-    wallPostEdit,
-    getUser,
-    changeIsFinished,
-    getUserByIdTC,
-  }),
-    withRouter 
-) (ProfileConnectContainer)
+export default ProfileContainer;

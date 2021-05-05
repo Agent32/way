@@ -11,6 +11,7 @@ import LeftColone from "./easyWb/leftColone/leftColone";
 import MassagePageContainer from "./easyWb/bodComp/massage/massageContainer";
 import ProfileContainer from "./easyWb/bodComp/profile/profileContainer";
 import UserContainer from "./easyWb/bodComp/users/usersContainer";
+import regDrawer from "./easyWb/bodComp/register/regDrawer";
 
 /*
  <Route 
@@ -45,6 +46,8 @@ function App(props) {
                 <Route path="/users" render={() => <UserContainer store={props.store}/>}/>
 
                 <Route path="/settings" component={SettingsPage}/>
+
+                <Route path="/register" component={regDrawer}/>
 
             </div>
         </div>

@@ -3,7 +3,7 @@ import React from "react";
 import AutorizationDrawer from "./autorizationDrawer";
 import { connect } from "react-redux";
 import * as axios from "axios";
-import { withRouter } from "react-router-dom";
+import { Redirect, NavLink, withRouter } from "react-router-dom";
 import { tryLogin, editLoginArea, editPasswordArea, tryLogout} from "../../../redux/autorizationReduser";
 
 class AutorizationContainerConnect extends React.Component {
@@ -23,9 +23,22 @@ class AutorizationContainerConnect extends React.Component {
 
   }
 
+
+  //<NavLink to={`/register`}> Registration</NavLink>
+  regButtonPress = () => {
+    
+return <Redirect to = { "/register"} />
+
+  }
+
   // https://reqres.in/api/login
 
   render() {
+
+
+
+
+
     return (
       <>
         <AutorizationDrawer 
@@ -34,6 +47,7 @@ class AutorizationContainerConnect extends React.Component {
         editPasswordArea={this.props.editPasswordArea}
         getAutorization= {this.getAutorization}
         tryLogout= {this.props.tryLogout}
+        regButtonPress= {this.regButtonPress}
         />
       </>
     );

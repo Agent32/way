@@ -57,6 +57,7 @@ const init = {
   changedText: {
     wallText: "",
     isLoadinFinished: false,
+    quote: 'По какой-то причине мы должны достигнуть чего-то, несмотря ни на что'
   },
   // ---------------------------------------
   userData: {
