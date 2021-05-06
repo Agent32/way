@@ -12,7 +12,7 @@ import { compose } from "redux";
 class UserConnectConreiner extends React.Component {
   componentDidMount() {
     this.props.getUsersPageThunkCreator(
-      0,
+      1,
       this.props.pageSettings.maxUsersAtPage
     );
   }

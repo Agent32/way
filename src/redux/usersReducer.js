@@ -92,12 +92,15 @@ const init = {
       email: "nicituEbal@mail",
       title: "mr",
       picture: "https://cdn.discordapp.com/emojis/814691159544561685.png?v=1",
+      adressCity: 'gaga',
+      adressCountry: 'baba',
+      quote: 'waaaa wa wa'
     },
   ],
   pageSettings: {
-    currentPage: 0,
-    allUsersCount: 16,
-    maxUsersAtPage: 10,
+    currentPage: 1,
+    allUsersCount: 20,
+    maxUsersAtPage: 5,
     isLoadinFinished: false,
   },
 };
@@ -150,7 +153,7 @@ function _changeFollowed(state, action) {
 function _getUsrs(state, action) {
   return {
     ...state,
-    usersList: [...action.id.data],
+    usersList: [...action.id],
   };
 }
 
@@ -182,11 +185,12 @@ function _setMaxUsers(state, action) {
 }
 
 // ========================================
-export const getUsersPageThunkCreator = (Page = 0, maxUsersAtPage = 10) => {
+export const getUsersPageThunkCreator = (Page = 1, maxUsersAtPage = 5) => {
   return (dispatch) => {
+    
     dispatch(changeIsFinished(false));
     serverAL.getUsersList(Page, maxUsersAtPage).then((data) => {
-      dispatch(getMaxUsers(data.total));
+     // dispatch(getMaxUsers(data.total));
       dispatch(updateUserChange(data));
       dispatch(changeCurPage(Page));
       dispatch(changeIsFinished(true));
@@ -194,11 +198,11 @@ export const getUsersPageThunkCreator = (Page = 0, maxUsersAtPage = 10) => {
   };
 };
 // ---------------------------------------
-export const changeSubscribeThunkCreator = (userID, buttonEvent) => {
+export const changeSubscribeThunkCreator = (userID, buttonEvent, subBool) => {
   return (dispatch) => {
     buttonEvent.target.disabled = true;
     dispatch(changeIsFinished(false));
-    serverAL.buttonPressed(userID).then((data) => {
+    serverAL.buttonPressed(userID, !subBool ).then((data) => {
       console.log(data);
       dispatch(userFollowChange(userID));
       buttonEvent.target.disabled = false;

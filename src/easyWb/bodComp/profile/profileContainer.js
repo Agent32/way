@@ -5,6 +5,8 @@ import {
   getUser,
   changeIsFinished,
   getUserByIdTC,
+  editQuote,
+  updateQuteServer,
 } from "../../../redux/profileReducer";
 import Profile from "./profileDrawer";
 import { connect } from "react-redux";
@@ -22,7 +24,11 @@ class ProfileConnectContainer extends React.Component {
     //props.match.params - navlink income
   }
 
-  
+  updateQuoteOnServer = () => 
+  {
+    this.props.updateQuteServer(this.props.userData.id, this.props.userData.quote)
+
+  }
   render() {
     return (
       <>
@@ -35,6 +41,8 @@ class ProfileConnectContainer extends React.Component {
           wallPostSend={this.props.wallPostSend}
           wallPostEdit={this.props.wallPostEdit}
           getUser={this.props.getUser}
+          editQuote={this.props.editQuote}
+          updateQuoteOnServer={this.updateQuoteOnServer}
         />
       </>
     );
@@ -63,6 +71,8 @@ export default  compose (
     getUser,
     changeIsFinished,
     getUserByIdTC,
+    editQuote,
+    updateQuteServer,
   }),
     withRouter 
 ) (ProfileConnectContainer)

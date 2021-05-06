@@ -11,7 +11,7 @@ function UsersPage(props) {
 
   //------------------------------
   const pageButtOns = []; //зфпу
-  for (let i = 0; i <= pagesToDraw; i++) {
+  for (let i = 1; i <= pagesToDraw; i++) {
     pageButtOns.push(
       <span key={i}>
         <button
@@ -22,7 +22,7 @@ function UsersPage(props) {
           }
           onClick={() => props.changePage(i)}
         >
-          {i + 1}
+          {i}
         </button>{" "}
       </span>
     );
@@ -44,20 +44,22 @@ function UsersPage(props) {
         </NavLink>
 
         <div className={users.name}>
-          {`${currUsers.title}.${currUsers.firstName} ${currUsers.lastName}`}{" "}
+          {`${currUsers.title}.${currUsers.firstName} ${currUsers.lastName}`}
         </div>
 
         <div className={users.adress}>
-          {" "}
-          {` ${currUsers.email} `}
+          {` ${currUsers.adressCountry} ${currUsers.adressCity}`}
 
-          <button id={currUsers.id} onClick={(e) => {props.userFollowChange(currUsers.id, e) 
-          }}>
-            {" "}
+          <button
+            id={currUsers.id}
+            onClick={(e) => {
+              props.userFollowChange(currUsers.id, e, currUsers.isFollow );
+            }}
+          >
             {currUsers.isFollow ? "UnSubscribe" : "Subscribe"}
           </button>
-          
         </div>
+        <div className={users.quote}> {` ${currUsers.quote} `} </div>
       </div>
     );
   });

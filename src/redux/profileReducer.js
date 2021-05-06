@@ -7,6 +7,7 @@ const WALL_POST_PUBLISH = "WALL-POST-PUBLISH";
 const TEXTAREA_EDIT_WALL = "TEXTAREA-EDIT-WALL";
 const GET_USER = "GET-USER";
 const LODAER_WAITER_CHANGER = "LODAER-WAITER-CHANGER";
+const EDIT_QUOTE_TEXT = "EDIT-QUOTE-TEXT";
 // ========================================
 export const wallPostSend = () => ({ type: WALL_POST_PUBLISH });
 //----------------------------
@@ -22,7 +23,8 @@ export const changeIsFinished = (isFinished) => ({
   type: LODAER_WAITER_CHANGER,
   isFinished: isFinished,
 });
-
+export const editQuote = (text) => ({ type: EDIT_QUOTE_TEXT, text });
+// --------------
 // ========================================
 //state= this._state.bodyPart
 
@@ -57,27 +59,23 @@ const init = {
   changedText: {
     wallText: "",
     isLoadinFinished: false,
-    quote: 'По какой-то причине мы должны достигнуть чего-то, несмотря ни на что'
+    quote:
+      "По какой-то причине мы должны достигнуть чего-то, несмотря ни на что",
   },
   // ---------------------------------------
   userData: {
-    id: "loading",
+    id: `loading`,
     title: `loading`,
     firstName: `loading`,
     lastName: `loading`,
-    gender: `loading`,
     email: `loading`,
     dateOfBirth: `loading`,
     registerDate: `loading`,
     phone: `loading`,
+    quote: ``,
     picture: ``,
-    location: {
-      state: `loading`,
-      street: `loading`,
-      country: `loading`,
-      timezone: `loading`,
-      city: `loading`,
-    },
+    adressCity: ``,
+    adressCountry: ``,
   },
 };
 // ========================================
@@ -100,6 +98,10 @@ function bodyReducer(state = init, action) {
     // --------------
     case LODAER_WAITER_CHANGER: {
       return _loaderWaitSwitch(state, action);
+    }
+     // --------------
+     case EDIT_QUOTE_TEXT: {
+      return _editChangeStatus(state, action);
     }
 
     // --------------
@@ -147,9 +149,17 @@ function _loaderWaitSwitch(state, action) {
   };
 }
 // ---------------------------------------
+function _editChangeStatus(state, action) {
+  
+  return {
+    ...state,
+    userData: { ...state.userData, quote: action.text },
+  };
+}
+// ---------------------------------------
 // ========================================
 
-export const getUserByIdTC = (userID = `0F8JIqi4zwvb77FGz6Wt`) => {
+export const getUserByIdTC = (userID = 1) => {
   return (dispatch) => {
     dispatch(changeIsFinished(false));
     serverAL.getUserbyId(userID).then((data) => {
@@ -158,6 +168,16 @@ export const getUserByIdTC = (userID = `0F8JIqi4zwvb77FGz6Wt`) => {
     });
   };
 };
-
+// ---------------------------------------
+export const updateQuteServer = (id, text) => {
+  return (dispatch) => {
+    dispatch(changeIsFinished(false));
+    serverAL.updateQuote(id , text).then((data) => {
+     // dispatch(getUser(data));
+      dispatch(changeIsFinished(true));
+    });
+  };
+};
+// ---------------------------------------
 // ========================================
 export default bodyReducer;

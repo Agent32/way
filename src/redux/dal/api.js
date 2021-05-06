@@ -9,32 +9,41 @@ const instanceDummy = axios.create({
 
 const instancefakeapi = axios.create({
   baseURL: "https://www.fakeapi.online/api/apis/agent32/",
- 
+});
+
+const instanceMock = axios.create({
+  baseURL: "https://60885809a6f4a300174263e9.mockapi.io/users/",
 });
 
 //https://www.fakeapi.online/apis
 
-
-
 export const serverAL = {
   //----------------------------------------
   getUsersList: (CurrentPage = 0, maxUsersAtPage = 10) => {
-    return instanceDummy
+    return instanceMock
       .get(`?page=${CurrentPage}&limit=${maxUsersAtPage}`)
 
       .then((res) => {
         return res.data;
       });
   },
-  getUserbyId: (userID = `0F8JIqi4zwvb77FGz6Wt`) => {
-    return instanceDummy.get(userID).then((res) => {
+  getUserbyId: (userID = 1) => {
+    return instanceMock.get(`${userID}`).then((res) => {
       return res.data;
     });
   },
-  buttonPressed: () => {
-    return instancefakeapi.get(`button/`).then((res) => {
+  buttonPressed: (userID, byl) => {
+    return instanceMock.put(`${userID}`, {
+      isFollow:byl,
+    }).then((res) => {
       return res.data;
     });
   },
-
+  updateQuote: (userID, qText) => {
+    return instanceMock.put(`${userID}`, {
+      quote:qText,
+    }).then((res) => {
+      return res.data;
+    });
+  },
 };
