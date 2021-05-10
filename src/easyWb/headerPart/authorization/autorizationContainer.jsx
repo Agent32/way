@@ -4,11 +4,14 @@ import AutorizationDrawer from "./autorizationDrawer";
 import { connect } from "react-redux";
 import * as axios from "axios";
 import { Redirect, NavLink, withRouter } from "react-router-dom";
-import { tryLogin, editLoginArea, editPasswordArea, tryLogout} from "../../../redux/autorizationReduser";
+import { tryLogin,  tryLogout, loginFormSubmit} from "../../../redux/autorizationReduser";
+
+
+import { compose } from "redux";
+
 
 class AutorizationContainerConnect extends React.Component {
-  componentDidMount() {
-  }
+
 
   getAutorization = () =>
   { 
@@ -22,7 +25,7 @@ class AutorizationContainerConnect extends React.Component {
    this.props.tryLogin(returnDataEmu)
 
   }
-
+ 
 
   //<NavLink to={`/register`}> Registration</NavLink>
   regButtonPress = () => {
@@ -40,7 +43,7 @@ return <Redirect to = { "/register"} />
 
 
     return (
-      <>
+      <> 
         <AutorizationDrawer 
         userData={this.props.userData} 
         editLoginArea={this.props.editLoginArea}
@@ -48,6 +51,7 @@ return <Redirect to = { "/register"} />
         getAutorization= {this.getAutorization}
         tryLogout= {this.props.tryLogout}
         regButtonPress= {this.regButtonPress}
+        loginFormSubmit={this.props.loginFormSubmit}
         />
       </>
     );
@@ -61,9 +65,9 @@ const mapStateToProps = (state) => {
   return { userData: state.autorizationPart.userData };
 };
 
-const AutorizationContainer = connect(
-  mapStateToProps,
-  {tryLogin, editLoginArea, editPasswordArea, tryLogout}
-)(withRouter(AutorizationContainerConnect));
+//const AutorizationContainer = (withRouter(AutorizationContainerConnect));
 
-export default AutorizationContainer;
+export default compose(
+  connect(  mapStateToProps,  {tryLogin, tryLogout,loginFormSubmit}) ,
+  withRouter,
+  ) (AutorizationContainerConnect);

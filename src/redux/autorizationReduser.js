@@ -2,19 +2,16 @@
 // ========================================
 const TRY_LOGIN = "TRY-LOGIN";
 const TRY_LOGOUT = "TRY-LOGOUT";
-const EDIT_LOGIN = "EDIT-LOGIN";
-const EDIT_PASSWORD = "EDIT_PASSWORD";
-
+const LOGIN_FORM_SUBMIT = "LOGIN-FORM-SUBMIT";
 
 // ========================================
 export const tryLogin = (data) => ({ type: TRY_LOGIN, data });
 // --------------
-export const editLoginArea = (text) => ({ type: EDIT_LOGIN, text });
 // --------------
-export const editPasswordArea = (text) => ({ type: EDIT_PASSWORD, text });
-// --------------
+export const loginFormSubmit = (elem) => ({ type: LOGIN_FORM_SUBMIT, elem });
 // --------------
 export const tryLogout = () => ({ type: TRY_LOGOUT });
+
 // ========================================
 
 const init = {
@@ -39,12 +36,9 @@ function autorizationReduser(state = init, action) {
       return _loginSend(state, action);
     }
     // --------------
-    case EDIT_LOGIN: {
-      return _editLoginArea(state, action);
-    }
-    // --------------
-    case EDIT_PASSWORD: {
-      return _editPasswordArea(state, action);
+
+    case LOGIN_FORM_SUBMIT: {
+      return _loginFormSubmit(state, action);
     }
     // --------------
 
@@ -70,35 +64,35 @@ function _loginSend(state, action) {
       token: action.data.token,
       loginData: {
         userName: action.data.userName,
-        avatar: action.data.avatar
-      }
+        avatar: action.data.avatar,
+      },
+    },
+  };
+}
+
+// ---------------------------------------
+// ---------------------------------------
+function _loginFormSubmit (state, action) {
+
+  return {
+    ...state,
+    userData: {
+      ...state.userData,
+      isLoggedIn: true,
+      inputLogin: "",
+      inputPassword: "",
+      token: 'agagag',
+      loginData: {
+        userName: action.elem.login,
+      },
     },
   };
 }
 // ---------------------------------------
-function _editLoginArea(state, action) {
-  return {
-    ...state,
-    userData: { inputLogin: action.text },
-  };
-}
-// ---------------------------------------
-function _editPasswordArea(state, action) {
-  
-  return {
-    ...state,
-    userData: { inputPassword: action.text },
-  };
-}
-// ---------------------------------------
-
-// ---------------------------------------
 function _logout(state, action) {
-  
   return {
     ...state,
-    userData: { 
-      
+    userData: {
       ...state.userData,
       isLoggedIn: false,
       inputLogin: "",
@@ -106,8 +100,8 @@ function _logout(state, action) {
       token: "",
       loginData: {
         userName: "",
-        avatar: "" }
-     
+        avatar: "",
+      },
     },
   };
 }

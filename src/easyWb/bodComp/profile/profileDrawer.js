@@ -2,11 +2,57 @@ import userStyle from "./user.module.css";
 import newPost from "./newpost.module.css";
 import PostHistory from "./history/massageWall";
 import React from "react";
-import ProfileStatus from "./status/profileStatus";
+import { Field, reduxForm } from "redux-form";
 
 function Profile(props) {
   const userData = props.userData;
   const postsWall = props.postsWall;
+  // ---------------------------------------
+  // ========================================
+
+  //elem - stringТ
+  const doubleClickHolder = (stringName) => {
+    console.log(userData.picture);
+
+    if (!props.changedText.isEditorOneNeed) {
+      props.enableEditElement(stringName);
+    }
+  };
+  // ---------------------------------------
+  const DrawEditor = () => {
+    const areaNewPost = React.createRef();
+    const nothing = () => {
+      return <></>;
+    };
+    const textForm = () => {
+      return (
+        <div>
+          {" "}
+          <input
+            ref={areaNewPost}
+            onChange={() => props.editProfilePart(areaNewPost.current.value)}
+            autoFocus={true}
+            value={props.userData[props.changedText.whatEdit]}
+            onBlur={() => {
+              props.updateQuoteOnServer();
+            }}
+          />
+        </div>
+      );
+    };
+    // state whatEdit IsEditorNeed isAnotherRedacted
+    //double click - isAnotherRedacted? IsEditorNeed=true, whatEdit
+
+    //
+    return (
+      <>
+        {props.changedText.isLoadinFinished && props.changedText.isEditorOneNeed
+          ? textForm()
+          : nothing()}
+      </>
+    );
+  };
+  // ========================================
 
   const formWall = postsWall.map((post, count) => (
     <PostHistory
@@ -17,53 +63,100 @@ function Profile(props) {
       likes={post.likes}
     />
   ));
+
   // ---------------------------------------
   const currenUserData = (
     <div className={userStyle.userdataBlock}>
-      <img src={userData.picture} />
+      <img
+        onDoubleClick={() => doubleClickHolder(`picture`)}
+        src={userData.picture}
+      />
       <div>
         <div>id: {userData.id}</div>
         <div>
-          Name: {`${userData.title} ${userData.firstName} ${userData.lastName}`}
+          Name:
+          <span onDoubleClick={() => doubleClickHolder(`title`)}>
+            {` ${userData.title}`}{" "}
+          </span>
+          <span onDoubleClick={() => doubleClickHolder(`firstName`)}>
+            {" "}
+            {`${userData.firstName}`}{" "}
+          </span>
+          <span onDoubleClick={() => doubleClickHolder(`lastName`)}>
+            {" "}
+            {`${userData.lastName}`}{" "}
+          </span>
         </div>
-        <div> Mail: {userData.email}</div>
-        <div> Register: {userData.registerDate}</div>
-        <div> Phone: {userData.phone}</div>
+        <div onDoubleClick={() => doubleClickHolder(`email`)}>
+          {" "}
+          Mail: {userData.email}
+        </div>
+        <div onDoubleClick={() => doubleClickHolder(`registerDate`)}>
+          {" "}
+          Register: {userData.registerDate}
+        </div>
+        <div onDoubleClick={() => doubleClickHolder(`phone`)}>
+          {" "}
+          Phone: {userData.phone}
+        </div>
         <div>
-          Country {userData.adressCountry} City: {userData.adressCity}
+          Country:
+          <span onDoubleClick={() => doubleClickHolder(`adressCountry`)}>
+            {" "}
+            {userData.adressCountry}{" "}
+          </span>
+          City:
+          <span onDoubleClick={() => doubleClickHolder(`adressCity`)}>
+            {" "}
+            {userData.adressCity}{" "}
+          </span>
         </div>
       </div>
     </div>
   );
   // ---------------------------------------
+      //---------------------------------------------------------
+      const SendPostForm = reduxForm({
+        form: "wallPostForm",
+      })(SendPost);
+    //---------------------------------------------------------
+  //wallPostSend
+function SendPost(props) {
 
   return (
+    <form className={newPost.newpost} onSubmit={props.handleSubmit}>
+    
+      <h2> My posts</h2>
+      <Field className={newPost.inputt} component="textarea" name="postArea"  />
+      <br />
+      <button > Send</button>
+    </form>
+  );
+}
+
+
+// ========================================
+
+  // ========================================
+  return (
     <div>
-      <ProfilePic src="https://static3.depositphotos.com/1000454/256/i/600/depositphotos_2567474-stock-photo-wide-panorama-of-french-alps.jpg" />
-      <ProfileStatus 
-      quote={userData.quote} 
-      editQuote={props.editQuote} 
-      isLoadinFinished={props.changedText.isLoadinFinished}
-      updateQuoteOnServer={props.updateQuoteOnServer}
-      />
+      <img src="https://static3.depositphotos.com/1000454/256/i/600/depositphotos_2567474-stock-photo-wide-panorama-of-french-alps.jpg" />
+
+      <div>
+        {" "}
+        <div onDoubleClick={() => doubleClickHolder(`quote`)}>
+          {userData.quote}
+        </div>{" "}
+      </div>
       {currenUserData}
-      <NewPost
-        changedText={props.changedText}
-        wallPostSend={props.wallPostSend}
-        wallPostEdit={props.wallPostEdit}
+      <DrawEditor />
+      <SendPostForm onSubmit={props.wallPostSend}
       />
       {formWall}
     </div>
   );
 }
 // ========================================
-function ProfilePic(props) {
-  return (
-    <div>
-      <img src={props.src} />
-    </div>
-  );
-}
 
 function NewPost(props) {
   const areaNewPost = React.createRef(); // указатель, не значение

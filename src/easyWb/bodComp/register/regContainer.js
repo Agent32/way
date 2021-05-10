@@ -1,38 +1,43 @@
 import React from "react";
-import {
-  wallPostSend,
-  wallPostEdit,
-  getUser,
-  changeIsFinished,
-  getUserByIdTC,
-} from "../../../redux/profileReducer";
-import Profile from "./profileDrawer";
+
 import { connect } from "react-redux";
-
+import { compose } from "redux";
 import { withRouter } from "react-router-dom";
-import LoadingModule from "../../commonComponent/loader/loader";
 import { serverAL } from "../../../redux/dal/api";
+import LoadingModule from "../../commonComponent/loader/loader";
+import RegDrawer from "./regDrawer";
+import { withLoading } from "../../commonComponent/commonContainer";
 
-class ProfileConnectContainer extends React.Component {
+
+class RegFormConnectContainer extends React.Component {
   componentDidMount() {
-    this.props.getUserByIdTC(this.props.match.params.userId);
+   
 
-    //props.match.params - navlink income
+    //props.match.params - navlink income   {this.props.changedText.isLoadinFinished ? null : <LoadingModule />}
+
   }
 
+ subitRegToServer = (subData) =>
+ {
+   
+  this.props.changeLoadStatus(true)
+   serverAL.newUser(subData). then (ans => {console.log(ans) 
+    this.props.changeLoadStatus(false)
+  })
+  
+ }
   
   render() {
+    
+   
+    
     return (
-      <>
-        {this.props.changedText.isLoadinFinished ? null : <LoadingModule />}
-
-        <Profile
-          changedText={this.props.changedText}
-          userData={this.props.userData}
-          postsWall={this.props.postsWall}
-          wallPostSend={this.props.wallPostSend}
-          wallPostEdit={this.props.wallPostEdit}
-          getUser={this.props.getUser}
+      <> 
+       { this.props.isSomethingLoading ? <this.props.LoadingModule />: null }
+       
+        <RegDrawer
+         subitRegToServer = {this.subitRegToServer} 
+         
         />
       </>
     );
@@ -44,17 +49,12 @@ class ProfileConnectContainer extends React.Component {
 // ========================================
 const mapStateToProps = (state) => {
   return {
-    changedText: state.bodyPart.changedText,
-    userData: state.bodyPart.userData,
-    postsWall: state.bodyPart.postsWall,
+  
   };
 };
-const ProfileContainer = connect(mapStateToProps, {
-  wallPostSend,
-  wallPostEdit,
-  getUser,
-  changeIsFinished,
-  getUserByIdTC,
-})(withRouter(ProfileConnectContainer));
 
-export default ProfileContainer;
+
+export default compose ( connect(mapStateToProps, {}),
+withLoading, 
+)
+(RegFormConnectContainer)

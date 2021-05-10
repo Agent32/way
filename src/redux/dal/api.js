@@ -33,17 +33,39 @@ export const serverAL = {
     });
   },
   buttonPressed: (userID, byl) => {
-    return instanceMock.put(`${userID}`, {
-      isFollow:byl,
-    }).then((res) => {
-      return res.data;
-    });
+    return instanceMock
+      .put(`${userID}`, {
+        isFollow: byl,
+      })
+      .then((res) => {
+        return res.data;
+      });
   },
   updateQuote: (userID, qText) => {
-    return instanceMock.put(`${userID}`, {
-      quote:qText,
-    }).then((res) => {
-      return res.data;
-    });
+    return instanceMock
+      .put(`${userID}`, {
+        quote: qText,
+      })
+      .then((res) => {
+        return res.data;
+      });
+  },
+  updateElement: (userID, whatElement, text) => {
+    return instanceMock
+      .put(`${userID}`, {
+        [whatElement]: text,
+      })
+      .then((res) => {
+        return res.data;
+      });
+  },
+  newUser: (data) => {
+    return instanceMock
+      .post(``, {
+        ...data
+      })
+      .then((res) => {
+        return res.data;
+      });
   },
 };

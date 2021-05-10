@@ -44,7 +44,7 @@ function UsersPage(props) {
         </NavLink>
 
         <div className={users.name}>
-          {`${currUsers.title}.${currUsers.firstName} ${currUsers.lastName}`}
+          {`${currUsers.title} ${currUsers.firstName} ${currUsers.lastName}`}
         </div>
 
         <div className={users.adress}>
@@ -53,7 +53,7 @@ function UsersPage(props) {
           <button
             id={currUsers.id}
             onClick={(e) => {
-              props.userFollowChange(currUsers.id, e, currUsers.isFollow );
+              props.userFollowChange(currUsers.id, e, currUsers.isFollow);
             }}
           >
             {currUsers.isFollow ? "UnSubscribe" : "Subscribe"}

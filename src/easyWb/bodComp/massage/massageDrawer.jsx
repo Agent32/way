@@ -1,7 +1,7 @@
 import massage from "./massage.module.css";
 import React, { useState } from "react";
 import { BrowserRouter, Route, NavLink } from "react-router-dom";
-
+import { Field, reduxForm } from "redux-form";
 
 /*  <Route path='/massage/test' component={()=><DrawDialog  chat={dialog.userDialogs} /> }/>
       <Route path='/massage/test2' component={()=><DrawDialog  chat={dialog2.userDialogs} /> }/>
@@ -52,6 +52,30 @@ function MassagePage(props) {
     />
   ));
   // ========================================
+  //---------------------------------------------------------
+  /* 
+function NewPost(props) {
+ 
+  return (
+    <form onSubmit={props.handleSubmit}>  <div className={massage.newpost}>
+     
+      <h2> My posts</h2>
+      <Field component="input" name="Your news" placeholder={`newWallPost`} />
+      <div />
+      <button>
+        {" "}
+        Send
+      </button> 
+    </div></form>
+  );
+}
+
+ //---------------------------------------------------------
+const SendWallPost = reduxForm({
+  form: "wallPostForm",
+})(NewPost); */
+  // ========================================
+
   return (
     <BrowserRouter>
       <div className={massage.main}>
@@ -90,6 +114,7 @@ function DrawMassageText(props) {
   ));
   return baba;
 }
+ 
 
 function NewPost(props) {
   let areaPMtemp = React.createRef();

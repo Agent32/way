@@ -99,7 +99,7 @@ const init = {
   ],
   pageSettings: {
     currentPage: 1,
-    allUsersCount: 20,
+    allUsersCount: 25,
     maxUsersAtPage: 5,
     isLoadinFinished: false,
   },
