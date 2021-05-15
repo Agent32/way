@@ -68,4 +68,11 @@ export const serverAL = {
         return res.data;
       });
   },
+  userInit: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, 300);
+    });
+  },
 };

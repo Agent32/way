@@ -190,8 +190,8 @@ export const getUsersPageThunkCreator = (Page = 1, maxUsersAtPage = 5) => {
     
     dispatch(changeIsFinished(false));
     serverAL.getUsersList(Page, maxUsersAtPage).then((data) => {
-     // dispatch(getMaxUsers(data.total));
-      dispatch(updateUserChange(data));
+      dispatch(getMaxUsers(data.count));
+      dispatch(updateUserChange(data.data));
       dispatch(changeCurPage(Page));
       dispatch(changeIsFinished(true));
     });

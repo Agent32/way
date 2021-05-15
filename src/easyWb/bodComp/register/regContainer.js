@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 import { serverAL } from "../../../redux/dal/api";
 import LoadingModule from "../../commonComponent/loader/loader";
 import RegDrawer from "./regDrawer";
-import { withLoading } from "../../commonComponent/commonContainer";
+import { withAutoredirectNotLogOut, withLoading } from "../../commonComponent/commonContainer";
 
 
 class RegFormConnectContainer extends React.Component {
@@ -56,5 +56,6 @@ const mapStateToProps = (state) => {
 
 export default compose ( connect(mapStateToProps, {}),
 withLoading, 
+withAutoredirectNotLogOut,
 )
 (RegFormConnectContainer)

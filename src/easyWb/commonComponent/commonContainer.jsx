@@ -4,9 +4,15 @@ import React from "react";
 import { compose } from "redux";
 import LoadingModule from "./loader/loader";
 import { changeLoadStatus } from "../../redux/commonReduser";
-
-export const withAutoredirect = (Component) => {
-  class ConnectRedirect extends React.Component {
+import { renderField, inputCondition } from "./inputErorPanel/input";
+//---------------------------------------------------------
+export const withAutoredirectNotLogIn = (Component) => {
+  const mapStateToProps = (state) => {
+    return {
+      isLoggedIn: state.autorizationPart.userData.isLoggedIn,
+    };
+  };
+  class regRedirect extends React.Component {
     render() {
       if (!this.props.isLoggedIn) {
         return <Redirect to={"/register"} />;
@@ -15,36 +21,41 @@ export const withAutoredirect = (Component) => {
     }
   }
 
+  return connect(mapStateToProps, {})(regRedirect);
+};
+//---------------------------------------------------------
+export const withAutoredirectNotLogOut = (Component) => {
   const mapStateToProps = (state) => {
     return {
       isLoggedIn: state.autorizationPart.userData.isLoggedIn,
     };
   };
+  class regRedirect extends React.Component {
+    render() {
+      if (this.props.isLoggedIn) {
+        return <Redirect to={"/profile"} />;
+      }
+      return <Component {...this.props} />;
+    }
+  }
 
-  compose(connect(mapStateToProps, {}))(Component);
-  return ConnectRedirect;
+  return connect(mapStateToProps, {})(regRedirect);
 };
 
-
- export const withLoading = (Component) => {
-
-    class ConnectLoadin extends React.Component {
-      
-      render() {
-      const Wat= connect(mapStateToProps,  {changeLoadStatus,})(Component)
-        return <Wat {...this.props} LoadingModule={LoadingModule} 
-        
-        />;
-      }
+//---------------------------------------------------------
+export const withLoading = (Component) => {
+  class ConnectLoadin extends React.Component {
+    render() {
+      const Wat = connect(mapStateToProps, { changeLoadStatus })(Component);
+      return <Wat {...this.props} LoadingModule={LoadingModule} />;
     }
-  
-    const mapStateToProps = (state) => {
-      return {
-        isSomethingLoading: state.commonPart.loadingModules.isSomethingLoading,
+  }
 
-      };
+  const mapStateToProps = (state) => {
+    return {
+      isSomethingLoading: state.commonPart.loadingModules.isSomethingLoading,
     };
-    
-    
-    return ConnectLoadin
-  }; 
+  };
+
+  return ConnectLoadin;
+};

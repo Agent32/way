@@ -2,6 +2,11 @@ import autiruzationStyle from "./autorization.module.css";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
+import {renderField, inputCondition } from "../../commonComponent/inputErorPanel/input";
+
+const maxLength10 = inputCondition.maxLength(10)
+const minLength2 = inputCondition.minLength(2)
+
 function AutorizationDrawer(props) {
     //---------------------------------------------------------
   function logined() {
@@ -33,14 +38,19 @@ function AutorizationDrawer(props) {
         <form onSubmit={props.handleSubmit}>
           {" "}
           <div>
-            <Field component="input" name="login" placeholder={`Login`} />{" "}
+            <Field 
+            
+            component="input" name="login" placeholder={`Login`}
+            validate={[inputCondition.required, maxLength10, minLength2]}
+              />{" "}
           </div>{" "}
           <div>
             <Field
               component="input"
               name="password"
               placeholder={`Password`}
-              s
+              type="password"
+              validate={[inputCondition.required, maxLength10, minLength2]}
             />{" "}
           </div>
           <button> Login </button>{" "}
