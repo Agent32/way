@@ -21,7 +21,7 @@ import regiserContainer from "./easyWb/bodComp/register/regContainer";
               dispatch={props.dispatch}
                                           />}
 */
-
+//is init done? 
 function App(props) {
     return (
         <div className="App">

@@ -18,7 +18,7 @@ const instanceMock = axios.create({
 //https://www.fakeapi.online/apis
 
 export const serverAL = {
-  //----------------------------------------
+  //---------------users------------------
   getUsersList: (CurrentPage = 0, maxUsersAtPage = 10) => {
     return instanceMock
       .get(`?page=${CurrentPage}&limit=${maxUsersAtPage}`)
@@ -27,11 +27,7 @@ export const serverAL = {
         return res.data;
       });
   },
-  getUserbyId: (userID = 1) => {
-    return instanceMock.get(`${userID}`).then((res) => {
-      return res.data;
-    });
-  },
+
   buttonPressed: (userID, byl) => {
     return instanceMock
       .put(`${userID}`, {
@@ -41,6 +37,17 @@ export const serverAL = {
         return res.data;
       });
   },
+    //-----------profile------------------
+    getUserbyId: (userID = 1) => {
+      return instanceMock.get(`${userID}`).then((res) => {
+        return res.data;
+      });
+    },
+    getQuotebyUsrId: (userID = 1) => {
+      return instanceMock.get(`${userID}/wallPost/`).then((res) => {
+        return res.data;
+      });
+    },
   updateQuote: (userID, qText) => {
     return instanceMock
       .put(`${userID}`, {
@@ -59,6 +66,26 @@ export const serverAL = {
         return res.data;
       });
   },
+  likeButtPressed: (userID, postID, byl) => {
+    debugger
+    return instanceMock
+      .put(`${userID}/wallPost/${postID}`, {
+        likes: byl,
+      })
+      .then((res) => {
+        return res.data;
+      });
+  },
+  newWallPost: (userID, data) => {
+    return instanceMock
+      .post(`${userID}/wallPost/`, {
+        ...data
+      })
+      .then((res) => {
+        return res.data;
+      });
+  },
+    //-----------registr------------------
   newUser: (data) => {
     return instanceMock
       .post(``, {
@@ -68,6 +95,7 @@ export const serverAL = {
         return res.data;
       });
   },
+   //-----------init------------------
   userInit: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -76,3 +104,4 @@ export const serverAL = {
     });
   },
 };
+//https://60885809a6f4a300174263e9.mockapi.io/users/1/wallPost/

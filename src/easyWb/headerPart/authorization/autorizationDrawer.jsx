@@ -34,6 +34,7 @@ function AutorizationDrawer(props) {
     })(LoginForm);
   //---------------------------------------------------------
     function LoginForm(props) {
+      const {  pristine, submitting } = props
       return (
         <form onSubmit={props.handleSubmit}>
           {" "}
@@ -42,6 +43,7 @@ function AutorizationDrawer(props) {
             
             component="input" name="login" placeholder={`Login`}
             validate={[inputCondition.required, maxLength10, minLength2]}
+            
               />{" "}
           </div>{" "}
           <div>
@@ -53,7 +55,7 @@ function AutorizationDrawer(props) {
               validate={[inputCondition.required, maxLength10, minLength2]}
             />{" "}
           </div>
-          <button> Login </button>{" "}
+          <button type="submit"  disabled={pristine || submitting}> Login </button>{" "}
           <NavLink to={`/register`}>
             <button>Registration</button>{" "}
           </NavLink>

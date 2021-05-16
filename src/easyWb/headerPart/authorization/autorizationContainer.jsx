@@ -12,7 +12,7 @@ import { compose } from "redux";
 
 class AutorizationContainerConnect extends React.Component {
 
-
+/* 
   getAutorization = () =>
   { 
      
@@ -25,7 +25,7 @@ class AutorizationContainerConnect extends React.Component {
    this.props.tryLogin(returnDataEmu)
 
   }
- 
+  */
 
   //<NavLink to={`/register`}> Registration</NavLink>
   regButtonPress = () => {
@@ -48,7 +48,7 @@ return <Redirect to = { "/register"} />
         userData={this.props.userData} 
         editLoginArea={this.props.editLoginArea}
         editPasswordArea={this.props.editPasswordArea}
-        getAutorization= {this.getAutorization}
+       
         tryLogout= {this.props.tryLogout}
         regButtonPress= {this.regButtonPress}
         loginFormSubmit={this.props.loginFormSubmit}

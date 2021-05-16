@@ -7,6 +7,8 @@ const GET_MORE_USERS = "GET-MORE-USERS";
 const CHANGE_CURRENT_PAGE = "CHANGE-CURRENT-PAGE";
 const LODAER_WAITER_CHANGER = "LODAER-WAITER-CHANGER";
 const GET_MAX_USERS = "GET-MAX-USERS";
+
+
 // ========================================
 export const userFollowChange = (id) => ({
   type: CHANGE_FOLLOW,
@@ -33,6 +35,7 @@ export const getMaxUsers = (count) => ({
   count,
 });
 // --------------
+
 //------------------------------------------
 const friendTest = [
   {
@@ -116,6 +119,7 @@ function usersReducer(state = init, action) {
     case GET_MORE_USERS: {
       return _getUsrs(state, action);
     }
+
     // --------------
     case CHANGE_CURRENT_PAGE: {
       return _usersPageSwitch(state, action);
@@ -157,6 +161,7 @@ function _getUsrs(state, action) {
   };
 }
 
+
 // ---------------------------------------
 
 function _usersPageSwitch(state, action) {
@@ -195,6 +200,7 @@ export const getUsersPageThunkCreator = (Page = 1, maxUsersAtPage = 5) => {
       dispatch(changeCurPage(Page));
       dispatch(changeIsFinished(true));
     });
+   
   };
 };
 // ---------------------------------------

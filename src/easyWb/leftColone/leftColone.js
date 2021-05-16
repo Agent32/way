@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 
 function LeftColon (props) {
 
-
+// <LeftButton href='/settings' name='Settings' />
   
   return (
     <div className='columLeft'>
@@ -15,7 +15,7 @@ function LeftColon (props) {
       <LeftButton href='/news' name='News' />
       <LeftButton href='/music' name='Music' />
       <LeftButton href='/users' name='Users' />
-      <LeftButton href='/settings' name='Settings' />
+     
       
       <FriendColoneContainer store={props.store}/>
       

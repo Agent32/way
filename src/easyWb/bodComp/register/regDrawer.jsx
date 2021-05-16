@@ -19,7 +19,7 @@ function RegDrawer(props) {
 //-----------------------****------------------------------
    function RegForm  (props)
 {
-
+  const {  pristine, submitting } = props
   return(
     <form className={reg.form} onSubmit={props.handleSubmit }>
     <div> <Field component="input" name="firstName" label={`First Name`} 
@@ -51,7 +51,7 @@ function RegDrawer(props) {
     <div> <Field component="input" name="picture" placeholder={`Avatar Url`} /> </div>
     <div> Born:    <Field component="input" name="isFollow" type={`checkbox`}/>Yes </div>
     
-    <div> <button > Send </button> {` `}
+    <div> <button  type="submit"  disabled={pristine || submitting}> Send </button> {` `}
        
     </div>
 

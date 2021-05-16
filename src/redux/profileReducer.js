@@ -11,6 +11,8 @@ const EDIT_QUOTE_TEXT = "EDIT-QUOTE-TEXT";
 const ENABLE_EDIT_ELEMENT = "ENABLE_EDIT_ELEMENT";
 const DISABLE_EDIT_ELEMENT = "DISABLE_EDIT_ELEMENT";
 const EDIT_CURR_ELEM = "EDIT-CURR-ELEM";
+const GET_USER_WALL = "GET-USER-WALL";
+const WALL_LIKE_BUTTON_CHANGE = "WALL-LIKE-BUTTON-CHANGE";
 // ========================================
 export const wallPostSend = (text) => ({ type: WALL_POST_PUBLISH, text });
 //----------------------------
@@ -41,6 +43,17 @@ export const editProfilePart = (text) => ({
   type: EDIT_CURR_ELEM,
   text,
 });
+// --------------
+export const getUserWallPost = (data) => ({
+  type: GET_USER_WALL,
+  data,
+});
+// --------------
+export const likeChange = (userid, postId) => ({
+  type: WALL_LIKE_BUTTON_CHANGE,
+  userid,
+  postId,
+});
 // ========================================
 //state= this._state.bodyPart
 
@@ -57,18 +70,20 @@ const init = {
   // ---------------------------------------
   postsWall: [
     {
-      avatarImg:
+      id: 0,
+      picture:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU",
       text: "I hate my life",
-      date: "27.01.21",
-      likes: 2,
+      createdAt: "27.01.21",
+      likes: false,
     },
     {
-      avatarImg:
+      id: 1,
+      picture:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU",
       text: "Fuck de system",
-      date: "23.02.21",
-      likes: 5,
+      createdAt: "23.02.21",
+      likes: false,
     },
   ],
   // ---------------------------------------
@@ -112,6 +127,10 @@ function bodyReducer(state = init, action) {
       return _getUser(state, action);
     }
     // --------------
+    case GET_USER_WALL: {
+      return _getUsrWall(state, action);
+    }
+    // --------------
     case LODAER_WAITER_CHANGER: {
       return _loaderWaitSwitch(state, action);
     }
@@ -123,13 +142,17 @@ function bodyReducer(state = init, action) {
     case ENABLE_EDIT_ELEMENT: {
       return _enableEditElement(state, action);
     }
-      // --------------
-      case DISABLE_EDIT_ELEMENT: {
-        return _disableEditElement(state, action);
-      }
+    // --------------
+    case DISABLE_EDIT_ELEMENT: {
+      return _disableEditElement(state, action);
+    }
     // --------------
     case EDIT_CURR_ELEM: {
       return _editCurrElem(state, action);
+    }
+    // --------------
+    case WALL_LIKE_BUTTON_CHANGE: {
+      return _changeLike(state, action);
     }
 
     // --------------
@@ -148,7 +171,6 @@ function _textAreaEditWall(state, action) {
 }
 // ---------------------------------------
 function _postWallComment(state, action) {
-  
   const curr = {
     avatarImg:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU",
@@ -208,7 +230,7 @@ function _disableEditElement(state, action) {
     changedText: {
       ...state.changedText,
       isEditorOneNeed: false,
-      whatEdit: '',
+      whatEdit: "",
     },
   };
 }
@@ -220,44 +242,96 @@ function _editCurrElem(state, action) {
   };
 }
 // ---------------------------------------
+function _getUsrWall(state, action) {
+  return {
+    ...state,
+    postsWall: [...action.data],
+  };
+}
+// ---------------------------------------
+function _changeLike(state, action) {
+  return {
+    ...state,
+    postsWall: state.postsWall.map((now, id) => {
+      if (now.id === action.postId) {
+        now.likes = !now.likes;
+      }
+      return now;
+    }),
+  };
+}
+
 // ---------------------------------------
 // ========================================
 
 export const getUserByIdTC = (userID = 1) => {
   return (dispatch) => {
     dispatch(changeIsFinished(false));
-    serverAL.getUserbyId(userID).then((data) => {
-      dispatch(getUser(data));
+    const promMass = [];
+    promMass.push(
+      serverAL.getUserbyId(userID).then((data) => {
+        dispatch(getUser(data));
+        //dispatch(changeIsFinished(true));
+      })
+    );
+    promMass.push(
+      serverAL.getQuotebyUsrId(userID).then((data) => {
+        dispatch(getUserWallPost(data));
+      })
+    );
+
+    Promise.all([promMass]).then(() => {
+      dispatch(changeIsFinished(true));
+    });
+    // //serverAL.getQuotebyUsrId
+    /*   serverAL.getQuotebyUsrId(userID).then((data) => {
+          
+          dispatch(changeIsFinished(true));
+        }); */
+  };
+};
+// ---------------------------------------
+export const updateQuteServer = (id, whatEdit, text) => {
+  return (dispatch) => {
+    dispatch(changeIsFinished(false));
+    serverAL.updateElement(id, whatEdit, text).then((data) => {
+      // dispatch(getUser(data));
+      dispatch(diesableEditElement());
       dispatch(changeIsFinished(true));
     });
   };
 };
 // ---------------------------------------
-export const updateQuteServer = (id, whatEdit, text) => {
-
-
+export const likeChangeTC = (userID, postID, buttonEvent, subBool) => {
   return (dispatch) => {
+    buttonEvent.target.disabled = true;
     dispatch(changeIsFinished(false));
-    serverAL.updateElement(id, whatEdit, text).then((data) => {
-      // dispatch(getUser(data));
-      dispatch(diesableEditElement())
+    serverAL.likeButtPressed(userID, postID, !subBool).then((data) => {
+      dispatch(likeChange(userID, postID));
+      buttonEvent.target.disabled = false;
       dispatch(changeIsFinished(true));
     });
   };
 };
-
-/* export const updateQuteServer = (id, text) => {
-
-  
+// ---------------------------------------
+export const newWallPostTC = (userID, data) => {
   return (dispatch) => {
     dispatch(changeIsFinished(false));
-    serverAL.updateQuote(id, text).then((data) => {
-      // dispatch(getUser(data));
-      dispatch(changeIsFinished(true));
-    });
+ 
+      serverAL.newWallPost(userID, data).then((ans) => {
+        serverAL.getQuotebyUsrId(userID).then((data) => {
+          dispatch(getUserWallPost(data));
+          dispatch(changeIsFinished(true));
+        });
+      })
+  
+
+
+      
+   
   };
-}; */
-// ----
+};
+
 // ---------------------------------------
 // ========================================
 export default bodyReducer;

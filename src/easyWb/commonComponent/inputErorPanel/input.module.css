@@ -3,6 +3,12 @@
     
 }
 
+.bField
+{
+    width: 600px;
+    height: 60px;
+}
+
 .erors
 {
     border: 2px solid red;

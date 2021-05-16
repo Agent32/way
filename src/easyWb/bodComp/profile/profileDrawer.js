@@ -3,6 +3,10 @@ import newPost from "./newpost.module.css";
 import PostHistory from "./history/massageWall";
 import React from "react";
 import { Field, reduxForm } from "redux-form";
+import { bigField, inputCondition } from "../../commonComponent/inputErorPanel/input";
+
+const maxLength50 = inputCondition.maxLength(50)
+const minLength10 = inputCondition.minLength(10)
 
 function Profile(props) {
   const userData = props.userData;
@@ -57,10 +61,13 @@ function Profile(props) {
   const formWall = postsWall.map((post, count) => (
     <PostHistory
       key={count}
-      avatarImg={post.avatarImg}
+      picture={post.picture}
       text={post.text}
-      date={post.date}
+      createdAt={post.createdAt}
       likes={post.likes}
+      postId={post.id}
+      userId={post.userId}
+      likeChangeTC={props.likeChangeTC}
     />
   ));
 
@@ -115,27 +122,29 @@ function Profile(props) {
     </div>
   );
   // ---------------------------------------
-      //---------------------------------------------------------
-      const SendPostForm = reduxForm({
-        form: "wallPostForm",
-      })(SendPost);
-    //---------------------------------------------------------
+  //---------------------------------------------------------
+  const SendPostForm = reduxForm({
+    form: "wallPostForm",
+  })(SendPost);
+  //---------------------------------------------------------
   //wallPostSend
-function SendPost(props) {
+  function SendPost(props) {
+    const {  pristine, submitting } = props
+    return (
+      <form className={newPost.newpost} onSubmit={props.handleSubmit}>
+        <h2> My posts</h2>
+        <Field className={newPost.inputt} component="textarea" 
+        label={`What on mind?`}
+        component={bigField}
+        validate={[inputCondition.required,  minLength10, maxLength50]}
+        name="text" />
+        <br />
+        <button type="submit" disabled={pristine || submitting}> Send</button>
+      </form>
+    );
+  }
 
-  return (
-    <form className={newPost.newpost} onSubmit={props.handleSubmit}>
-    
-      <h2> My posts</h2>
-      <Field className={newPost.inputt} component="textarea" name="postArea"  />
-      <br />
-      <button > Send</button>
-    </form>
-  );
-}
-
-
-// ========================================
+  // ========================================
 
   // ========================================
   return (
@@ -150,8 +159,7 @@ function SendPost(props) {
       </div>
       {currenUserData}
       <DrawEditor />
-      <SendPostForm onSubmit={props.wallPostSend}
-      />
+      <SendPostForm onSubmit={props.wallSend} />
       {formWall}
     </div>
   );

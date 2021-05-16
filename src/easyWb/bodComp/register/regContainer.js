@@ -2,20 +2,13 @@ import React from "react";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { withRouter } from "react-router-dom";
 import { serverAL } from "../../../redux/dal/api";
-import LoadingModule from "../../commonComponent/loader/loader";
 import RegDrawer from "./regDrawer";
 import { withAutoredirectNotLogOut, withLoading } from "../../commonComponent/commonContainer";
 
 
 class RegFormConnectContainer extends React.Component {
-  componentDidMount() {
-   
-
-    //props.match.params - navlink income   {this.props.changedText.isLoadinFinished ? null : <LoadingModule />}
-
-  }
+ 
 
  subitRegToServer = (subData) =>
  {
