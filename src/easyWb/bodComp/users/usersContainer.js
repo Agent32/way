@@ -10,10 +10,12 @@ import LoadingModule from "../../commonComponent/loader/loader";
 import { compose } from "redux";
 
 const UserConnectConreiner = (props) =>  {
+  const getUPtc = props.getUsersPageThunkCreator
+  const maxUsersAtPage = props.pageSettings.maxUsersAtPage
 
   useEffect(() => {
-    props.getUsersPageThunkCreator(1, props.pageSettings.maxUsersAtPage );
-  }, [props.pageSettings.maxUsersAtPage, props.getUsersPageThunkCreator]);
+    getUPtc(1, maxUsersAtPage);
+  }, [maxUsersAtPage, getUPtc]);
 
   
 // -----------------------------------------

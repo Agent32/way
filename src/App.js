@@ -1,6 +1,6 @@
 import "./App.css";
 
-import {Route} from "react-router-dom";
+import { Route } from "react-router-dom";
 
 import MusicPage from "./easyWb/bodComp/music/music";
 import NewsPage from "./easyWb/bodComp/news/news";
@@ -21,38 +21,36 @@ import regiserContainer from "./easyWb/bodComp/register/regContainer";
               dispatch={props.dispatch}
                                           />}
 */
-//is init done? 
-function App(props) {
-    return (
-        <div className="App">
-            <Header/>
+//is init done?
+function App({ store, ...props }) {
+  return (
+    <div className="App">
+      <Header />
 
-            <LeftColone store={props.store} />
+      <LeftColone store={store} />
 
-            <div className="mainCont">
+      <div className="mainCont">
+        <Route
+          path="/profile/:userId?"
+          render={() => <ProfileContainer store={store} />}
+        />
 
-                <Route
-                    path="/profile/:userId?"
-                    render={() => <ProfileContainer store={props.store}/>}
-                />
+        <Route
+          path="/massage"
+          render={() => <MassagePageContainer store={store} />}
+        />
+        <Route path="/news" component={NewsPage} />
 
-                <Route
-                    path="/massage"
-                    render={() => <MassagePageContainer store={props.store}/>}
-                />
-                <Route path="/news" component={NewsPage}/>
+        <Route path="/music" component={MusicPage} />
 
-                <Route path="/music" component={MusicPage}/>
+        <Route path="/users" render={() => <UserContainer store={store} />} />
 
-                <Route path="/users" render={() => <UserContainer store={props.store}/>}/>
+        <Route path="/settings" component={SettingsPage} />
 
-                <Route path="/settings" component={SettingsPage}/>
-
-                <Route path="/register" component={regiserContainer}/>
-
-            </div>
-        </div>
-    );
+        <Route path="/register" component={regiserContainer} />
+      </div>
+    </div>
+  );
 }
 
 export default App;

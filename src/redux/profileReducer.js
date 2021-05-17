@@ -264,72 +264,53 @@ function _changeLike(state, action) {
 // ---------------------------------------
 // ========================================
 
-export const getUserByIdTC = (userID = 1) => {
-  return (dispatch) => {
+export const getUserByIdTC =
+  (userID = 1) =>
+  async (dispatch) => {
     dispatch(changeIsFinished(false));
-    const promMass = [];
-    promMass.push(
-      serverAL.getUserbyId(userID).then((data) => {
-        dispatch(getUser(data));
-        //dispatch(changeIsFinished(true));
-      })
-    );
-    promMass.push(
-      serverAL.getQuotebyUsrId(userID).then((data) => {
-        dispatch(getUserWallPost(data));
-      })
-    );
 
-    Promise.all([promMass]).then(() => {
-      dispatch(changeIsFinished(true));
-    });
-    // //serverAL.getQuotebyUsrId
-    /*   serverAL.getQuotebyUsrId(userID).then((data) => {
-          
-          dispatch(changeIsFinished(true));
-        }); */
+    const userAnswer = await serverAL.getUserbyId(userID);
+    dispatch(getUser(userAnswer));
+
+    const userQuote = await serverAL.getQuotebyUsrId(userID);
+    dispatch(getUserWallPost(userQuote));
+
+    dispatch(changeIsFinished(true));
   };
-};
 // ---------------------------------------
-export const updateQuteServer = (id, whatEdit, text) => {
-  return (dispatch) => {
+export const updateQuteServer = (id, whatEdit, text) => async (dispatch) => {
+  
     dispatch(changeIsFinished(false));
-    serverAL.updateElement(id, whatEdit, text).then((data) => {
-      // dispatch(getUser(data));
+ await  serverAL.updateElement(id, whatEdit, text)
       dispatch(diesableEditElement());
       dispatch(changeIsFinished(true));
-    });
-  };
+   
+ 
 };
 // ---------------------------------------
-export const likeChangeTC = (userID, postID, buttonEvent, subBool) => {
-  return (dispatch) => {
+export const likeChangeTC =
+  (userID, postID, buttonEvent, subBool) => async (dispatch) => {
     buttonEvent.target.disabled = true;
     dispatch(changeIsFinished(false));
-    serverAL.likeButtPressed(userID, postID, !subBool).then((data) => {
-      dispatch(likeChange(userID, postID));
-      buttonEvent.target.disabled = false;
-      dispatch(changeIsFinished(true));
-    });
+    await serverAL.likeButtPressed(userID, postID, !subBool);
+    dispatch(likeChange(userID, postID));
+    buttonEvent.target.disabled = false;
+    dispatch(changeIsFinished(true));
   };
-};
+
 // ---------------------------------------
-export const newWallPostTC = (userID, data) => {
-  return (dispatch) => {
-    dispatch(changeIsFinished(false));
- 
-      serverAL.newWallPost(userID, data).then((ans) => {
-        serverAL.getQuotebyUsrId(userID).then((data) => {
-          dispatch(getUserWallPost(data));
-          dispatch(changeIsFinished(true));
-        });
-      })
+export const newWallPostTC = (userID, data) => async (dispatch) =>{
   
+    dispatch(changeIsFinished(false));
 
+   const wallPostSucces = await serverAL.newWallPost(userID, data)
 
-      
-   
-  };
+    const updateWallPost= await  serverAL.getQuotebyUsrId(userID)
+        dispatch(getUserWallPost(updateWallPost));
+        dispatch(changeIsFinished(true));
+    
+    
+  
 };
 
 // ---------------------------------------

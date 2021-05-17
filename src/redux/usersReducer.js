@@ -8,7 +8,6 @@ const CHANGE_CURRENT_PAGE = "CHANGE-CURRENT-PAGE";
 const LODAER_WAITER_CHANGER = "LODAER-WAITER-CHANGER";
 const GET_MAX_USERS = "GET-MAX-USERS";
 
-
 // ========================================
 export const userFollowChange = (id) => ({
   type: CHANGE_FOLLOW,
@@ -95,9 +94,9 @@ const init = {
       email: "nicituEbal@mail",
       title: "mr",
       picture: "https://cdn.discordapp.com/emojis/814691159544561685.png?v=1",
-      adressCity: 'gaga',
-      adressCountry: 'baba',
-      quote: 'waaaa wa wa'
+      adressCity: "gaga",
+      adressCountry: "baba",
+      quote: "waaaa wa wa",
     },
   ],
   pageSettings: {
@@ -161,7 +160,6 @@ function _getUsrs(state, action) {
   };
 }
 
-
 // ---------------------------------------
 
 function _usersPageSwitch(state, action) {
@@ -190,32 +188,27 @@ function _setMaxUsers(state, action) {
 }
 
 // ========================================
-export const getUsersPageThunkCreator =  (Page = 1, maxUsersAtPage = 5) => {
-  return (dispatch) => {
-    
+export const getUsersPageThunkCreator =
+  (Page = 1, maxUsersAtPage = 5) =>
+  async (dispatch) => {
     dispatch(changeIsFinished(false));
-    serverAL.getUsersList(Page, maxUsersAtPage).then((data) => {
-      dispatch(getMaxUsers(data.count));
-      dispatch(updateUserChange(data.data));
-      dispatch(changeCurPage(Page));
-      dispatch(changeIsFinished(true));
-    });
-   
+    const userListData = await serverAL.getUsersList(Page, maxUsersAtPage);
+    dispatch(getMaxUsers(userListData.count));
+    dispatch(updateUserChange(userListData.data));
+    dispatch(changeCurPage(Page));
+    dispatch(changeIsFinished(true));
   };
-};
 // ---------------------------------------
-export const changeSubscribeThunkCreator = (userID, buttonEvent, subBool) => {
-  return (dispatch) => {
+export const changeSubscribeThunkCreator =
+  (userID, buttonEvent, subBool) => async (dispatch) => {
     buttonEvent.target.disabled = true;
     dispatch(changeIsFinished(false));
-    serverAL.buttonPressed(userID, !subBool ).then((data) => {
-      console.log(data);
-      dispatch(userFollowChange(userID));
-      buttonEvent.target.disabled = false;
-      dispatch(changeIsFinished(true));
-    });
+    const buttPressAnswer = await serverAL.buttonPressed(userID, !subBool);
+    console.log(buttPressAnswer);
+    dispatch(userFollowChange(userID));
+    buttonEvent.target.disabled = false;
+    dispatch(changeIsFinished(true));
   };
-};
 
 // ========================================
 export default usersReducer;
