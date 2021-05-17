@@ -10,6 +10,8 @@ import { Field, reduxForm } from "redux-form";
 
      ((dialog.userDialogs.slice(0, dialog.userDialogs.length).includes(dialog.name)) ? 
          massage.autorUser : massage.autorNotUser ) 
+         
+         поиск по массиву, получение всех с кем есть диалог, добавление кнопки "сенд пм в профаил"
       */
 
 function MassagePage(props) {
@@ -18,6 +20,7 @@ function MassagePage(props) {
   const [selecId, setCount] = useState(0);
   // ========================================
   function DrawAutors(props) {
+  
     return (
       <div className={massage.nameAut}>
         <NavLink
@@ -147,4 +150,4 @@ function NewPost(props) {
   );
 }
 
-export default MassagePage;
+export default React.memo(MassagePage);
