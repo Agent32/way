@@ -136,6 +136,7 @@ const Profile = (props) => {
     const { pristine, submitting } = props;
     return (
       <form className={newPost.newpost} onSubmit={props.handleSubmit}>
+        <div className={userStyle.editText}>Двойной клик по полю для редактирования</div>
         <h2> My posts</h2>
         <Field
           className={newPost.inputt}
