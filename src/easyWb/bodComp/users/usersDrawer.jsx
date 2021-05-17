@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 // -----------------------------------------
 function UsersPage(props) {
+
   const maxPagesNumber = props.pageSettings.allUsersCount;
   const maxItemsInPage = props.pageSettings.maxUsersAtPage;
 
@@ -75,4 +76,4 @@ function UsersPage(props) {
   );
 }
 
-export default UsersPage;
+export default React.memo( UsersPage);

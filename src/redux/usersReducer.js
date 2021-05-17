@@ -190,7 +190,7 @@ function _setMaxUsers(state, action) {
 }
 
 // ========================================
-export const getUsersPageThunkCreator = (Page = 1, maxUsersAtPage = 5) => {
+export const getUsersPageThunkCreator =  (Page = 1, maxUsersAtPage = 5) => {
   return (dispatch) => {
     
     dispatch(changeIsFinished(false));

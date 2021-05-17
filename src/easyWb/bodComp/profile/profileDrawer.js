@@ -3,12 +3,16 @@ import newPost from "./newpost.module.css";
 import PostHistory from "./history/massageWall";
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-import { bigField, inputCondition } from "../../commonComponent/inputErorPanel/input";
+import {
+  bigField,
+  inputCondition,
+} from "../../commonComponent/inputErorPanel/input";
 
-const maxLength50 = inputCondition.maxLength(50)
-const minLength10 = inputCondition.minLength(10)
+const maxLength50 = inputCondition.maxLength(50);
+const minLength10 = inputCondition.minLength(10);
 
-function Profile(props) {
+const Profile = (props) => {
+
   const userData = props.userData;
   const postsWall = props.postsWall;
   // ---------------------------------------
@@ -129,17 +133,23 @@ function Profile(props) {
   //---------------------------------------------------------
   //wallPostSend
   function SendPost(props) {
-    const {  pristine, submitting } = props
+    const { pristine, submitting } = props;
     return (
       <form className={newPost.newpost} onSubmit={props.handleSubmit}>
         <h2> My posts</h2>
-        <Field className={newPost.inputt} component="textarea" 
-        label={`What on mind?`}
-        component={bigField}
-        validate={[inputCondition.required,  minLength10, maxLength50]}
-        name="text" />
+        <Field
+          className={newPost.inputt}
+          component="textarea"
+          label={`What on mind?`}
+          component={bigField}
+          validate={[inputCondition.required, minLength10, maxLength50]}
+          name="text"
+        />
         <br />
-        <button type="submit" disabled={pristine || submitting}> Send</button>
+        <button type="submit" disabled={pristine || submitting}>
+          {" "}
+          Send
+        </button>
       </form>
     );
   }
@@ -164,26 +174,8 @@ function Profile(props) {
     </div>
   );
 }
-// ========================================
-
-function NewPost(props) {
-  const areaNewPost = React.createRef(); // указатель, не значение
-  // let butValue = areaNewPost.current.value
-
-  return (
-    <div className={newPost.newpost}>
-      <h2> My posts</h2>
-      <textarea
-        ref={areaNewPost}
-        onChange={() => props.wallPostEdit(areaNewPost.current.value)}
-        value={props.changedText.wallText}
-      />
-      <div />
-      <button onClick={() => props.wallPostSend()}> Send</button>
-    </div>
-  );
-}
+// ==================Profile end======================
 
 // ========================================
 
-export default Profile;
+export default React.memo(Profile);

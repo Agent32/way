@@ -23,7 +23,7 @@ import { compose } from "redux";
 function ProfileConnectContainer(props) {
   const usrID = props.match.params.userId;
   const usrFunc = props.getUserByIdTC;
-
+//console.log(`2`)
   useEffect(() => {
     usrFunc(usrID);
   }, [usrID, usrFunc]);
@@ -37,7 +37,7 @@ function ProfileConnectContainer(props) {
   };
 
   const wallSend = (data) => {
-    debugger;
+   
     props.newWallPostTC(props.userData.id, data);
   };
 

@@ -5,42 +5,42 @@ import {
   changeSubscribeThunkCreator,
 } from "../../../redux/usersReducer";
 import UsersPage from "./usersDrawer";
-import React from "react";
+import React, { useEffect } from "react";
 import LoadingModule from "../../commonComponent/loader/loader";
 import { compose } from "redux";
 
-class UserConnectConreiner extends React.Component {
-  componentDidMount() {
-    this.props.getUsersPageThunkCreator(
-      1,
-      this.props.pageSettings.maxUsersAtPage
-    );
-  }
+const UserConnectConreiner = (props) =>  {
+
+  useEffect(() => {
+    props.getUsersPageThunkCreator(1, props.pageSettings.maxUsersAtPage );
+  }, [props.pageSettings.maxUsersAtPage, props.getUsersPageThunkCreator]);
+
+  
 // -----------------------------------------
-  changePage = (Page) => {
-    if (Page !== this.props.pageSettings.currentPage) {
-      this.props.getUsersPageThunkCreator(
+  const changePage = (Page) => {
+    if (Page !== props.pageSettings.currentPage) {
+      props.getUsersPageThunkCreator(
         Page,
-        this.props.pageSettings.maxUsersAtPage
+        props.pageSettings.maxUsersAtPage
       );
     }
   };
   // ========================================
 
-  render() {
+ 
     return (
       <>
         {" "}
-        {this.props.pageSettings.isLoadinFinished ? null : <LoadingModule />}
+        {props.pageSettings.isLoadinFinished ? null : <LoadingModule />}
         <UsersPage
-          pageSettings={this.props.pageSettings}
-          usersList={this.props.usersList}
-          changePage={this.changePage}
-          userFollowChange={this.props.changeSubscribeThunkCreator}
+          pageSettings={props.pageSettings}
+          usersList={props.usersList}
+          changePage={changePage}
+          userFollowChange={props.changeSubscribeThunkCreator}
         />{" "}
       </>
     );
-  }
+ 
 }
 
 //-----------------------------------------//-----------------------------------------

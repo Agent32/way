@@ -8,6 +8,7 @@ const maxLength10 = inputCondition.maxLength(10)
 const minLength2 = inputCondition.minLength(2)
 
 function AutorizationDrawer(props) {
+
     //---------------------------------------------------------
   function logined() {
     return (
@@ -74,4 +75,4 @@ function AutorizationDrawer(props) {
   return <> {props.userData.isLoggedIn ? logined() : notLogined()}</>;
 }
 
-export default AutorizationDrawer;
+export default React.memo( AutorizationDrawer);

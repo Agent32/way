@@ -13,6 +13,7 @@ import { renderField, inputCondition } from "../../commonComponent/inputErorPane
 
 //---------------------------------------------------------------------------------------------
 function RegDrawer(props) {
+ 
   const ContactForm = reduxForm({
     form: 'registerForm'
   })(RegForm)

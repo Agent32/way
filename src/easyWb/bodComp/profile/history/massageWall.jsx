@@ -1,6 +1,6 @@
 import massWall from './massWall.module.css'
-
-function PostHistory (props) {
+import React from "react";
+const PostHistory = React.memo( (props) => {
   
   return (
     <div className={massWall.history}>
@@ -20,7 +20,7 @@ function PostHistory (props) {
       
     </div>
   )
-}
+})
 
 
 

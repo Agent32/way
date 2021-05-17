@@ -13,15 +13,20 @@ import reportWebVitals from './reportWebVitals';
 
 // renderAllTree(state, stateEditFunctions)
 
+/*
+ <React.StrictMode>
+ </React.StrictMode>
+*/
+
 
   ReactDOM.render(
-    <React.StrictMode>
+   
       <BrowserRouter>
      <Provider store={store}>
       <App state={store.getState()} dispatch={store.dispatch.bind(store)} store={store}/>
       </Provider>
       </BrowserRouter>
-    </React.StrictMode>,
+   ,
     document.getElementById('root')
   )
 
