@@ -9,6 +9,8 @@ import thunk from "redux-thunk";  //thunk middleware
 import { reducer as formReducer } from 'redux-form'
 import commonReduser from "./commonReduser";
 
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 
 
 
@@ -24,5 +26,5 @@ let reducersPush = combineReducers({
 
 
 
-const store = createStore(reducersPush, applyMiddleware(thunk));
+const store = createStore(reducersPush, composeWithDevTools(applyMiddleware(thunk)));
 export default store;

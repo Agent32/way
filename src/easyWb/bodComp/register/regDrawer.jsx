@@ -2,7 +2,7 @@ import reg from "./reg.module.css";
 import { Redirect} from "react-router-dom";
 import { Field, reduxForm } from 'redux-form'
 import { renderField, inputCondition } from "../../commonComponent/inputErorPanel/input";
-
+import React from "react";
 
 
 //---------------------------------------------------------------------------------------------
@@ -18,7 +18,7 @@ function RegDrawer(props) {
     form: 'registerForm'
   })(RegForm)
 //-----------------------****------------------------------
-   function RegForm  (props)
+   const RegForm = React.memo(  (props) =>
 {
   const {  pristine, submitting } = props
   return(
@@ -59,7 +59,7 @@ function RegDrawer(props) {
     </form>
     )
 }
-
+   )
 //-----------------------****------------------------------
 
 //if logined then redirect to profile
