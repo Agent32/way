@@ -12,7 +12,6 @@ const maxLength50 = inputCondition.maxLength(50);
 const minLength10 = inputCondition.minLength(10);
 
 const Profile = (props) => {
-
   const userData = props.userData;
   const postsWall = props.postsWall;
   // ---------------------------------------
@@ -136,7 +135,9 @@ const Profile = (props) => {
     const { pristine, submitting } = props;
     return (
       <form className={newPost.newpost} onSubmit={props.handleSubmit}>
-        <div className={userStyle.editText}>Двойной клик по полю для редактирования</div>
+        <div className={userStyle.editText}>
+          Двойной клик по полю для редактирования
+        </div>
         <h2> My posts</h2>
         <Field
           className={newPost.inputt}
@@ -174,7 +175,7 @@ const Profile = (props) => {
       {formWall}
     </div>
   );
-}
+};
 // ==================Profile end======================
 
 // ========================================
