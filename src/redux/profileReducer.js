@@ -267,6 +267,7 @@ function _changeLike(state, action) {
 export const getUserByIdTC =
   (userID = 1) =>
   async (dispatch) => {
+    try {
     dispatch(changeIsFinished(false));
 
     const userAnswer = await serverAL.getUserbyId(userID);
@@ -276,31 +277,37 @@ export const getUserByIdTC =
     dispatch(getUserWallPost(userQuote));
 
     dispatch(changeIsFinished(true));
+  }
+  catch (err) { console.log(err) }
   };
 // ---------------------------------------
 export const updateQuteServer = (id, whatEdit, text) => async (dispatch) => {
-  
+  try {
     dispatch(changeIsFinished(false));
  await  serverAL.updateElement(id, whatEdit, text)
       dispatch(diesableEditElement());
       dispatch(changeIsFinished(true));
    
- 
+    }
+    catch (err) { console.log(err) }
 };
 // ---------------------------------------
 export const likeChangeTC =
   (userID, postID, buttonEvent, subBool) => async (dispatch) => {
+    try {
     buttonEvent.target.disabled = true;
     dispatch(changeIsFinished(false));
     await serverAL.likeButtPressed(userID, postID, !subBool);
     dispatch(likeChange(userID, postID));
     buttonEvent.target.disabled = false;
     dispatch(changeIsFinished(true));
+  }
+  catch (err) { console.log(err) }
   };
 
 // ---------------------------------------
 export const newWallPostTC = (userID, data) => async (dispatch) =>{
-  
+  try {
     dispatch(changeIsFinished(false));
 
    const wallPostSucces = await serverAL.newWallPost(userID, data)
@@ -309,7 +316,8 @@ export const newWallPostTC = (userID, data) => async (dispatch) =>{
         dispatch(getUserWallPost(updateWallPost));
         dispatch(changeIsFinished(true));
     
-    
+      }
+      catch (err) { console.log(err) }
   
 };
 

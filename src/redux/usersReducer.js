@@ -191,16 +191,20 @@ function _setMaxUsers(state, action) {
 export const getUsersPageThunkCreator =
   (Page = 1, maxUsersAtPage = 5) =>
   async (dispatch) => {
+    try{
     dispatch(changeIsFinished(false));
     const userListData = await serverAL.getUsersList(Page, maxUsersAtPage);
     dispatch(getMaxUsers(userListData.count));
     dispatch(updateUserChange(userListData.data));
     dispatch(changeCurPage(Page));
     dispatch(changeIsFinished(true));
+  }
+  catch (err) { console.log(err) }
   };
 // ---------------------------------------
 export const changeSubscribeThunkCreator =
   (userID, buttonEvent, subBool) => async (dispatch) => {
+    try {
     buttonEvent.target.disabled = true;
     dispatch(changeIsFinished(false));
     const buttPressAnswer = await serverAL.buttonPressed(userID, !subBool);
@@ -208,6 +212,8 @@ export const changeSubscribeThunkCreator =
     dispatch(userFollowChange(userID));
     buttonEvent.target.disabled = false;
     dispatch(changeIsFinished(true));
+  }
+  catch (err) { console.log(err) }
   };
 
 // ========================================

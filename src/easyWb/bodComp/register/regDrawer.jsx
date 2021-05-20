@@ -1,5 +1,5 @@
 import reg from './reg.module.css'
-import { Redirect } from 'react-router-dom'
+
 import { Field, reduxForm } from 'redux-form'
 import {
   renderField,

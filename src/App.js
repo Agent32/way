@@ -1,7 +1,7 @@
 import './App.css'
 
-import { Route } from 'react-router-dom'
-
+import { Route, Switch } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import MusicPage from './easyWb/bodComp/music/music'
 import NewsPage from './easyWb/bodComp/news/news'
 import React from 'react'
@@ -32,6 +32,9 @@ function App ({ store, ...props }) {
       <LeftColone store={store} />
 
       <div className='mainCont'>
+        <Switch>
+        <Redirect exact from="/" to="/users" />
+        
         <Route
           path='/profile/:userId?'
           render={() => <ProfileContainer store={store} />}
@@ -50,6 +53,9 @@ function App ({ store, ...props }) {
         <Route path='/settings' component={SettingsPage} />
 
         <Route path='/register' render={() => (<React.Suspense fallback='Loadingu'> <RegiserContainer /> </React.Suspense>)} />
+
+        <Route path='*'  render={() => <div>404</div>} />
+        </Switch>
       </div>
     </div>
   )
