@@ -1,13 +1,12 @@
-import '../../App.css';
+import '../../App.css'
 
 import FriendColoneContainer from './friendPanel/friendsPanelContainer'
 import leftColone from './leftColone.module.css'
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 
 function LeftColon (props) {
+  // <LeftButton href='/settings' name='Settings' />
 
-// <LeftButton href='/settings' name='Settings' />
-  
   return (
     <div className='columLeft'>
       <LeftButton href='/profile' name='Profile' />
@@ -15,10 +14,8 @@ function LeftColon (props) {
       <LeftButton href='/news' name='News' />
       <LeftButton href='/music' name='Music' />
       <LeftButton href='/users' name='Users' />
-     
-      
-      <FriendColoneContainer store={props.store}/>
-      
+
+      <FriendColoneContainer store={props.store} />
     </div>
   )
 }
@@ -26,7 +23,9 @@ function LeftColon (props) {
 function LeftButton (props) {
   return (
     <div className={leftColone.button}>
-      <NavLink to={props.href} activeClassName={leftColone.active}>{props.name} </NavLink>
+      <NavLink to={props.href} activeClassName={leftColone.active}>
+        {props.name}{' '}
+      </NavLink>
     </div>
   )
 }

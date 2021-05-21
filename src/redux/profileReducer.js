@@ -69,20 +69,12 @@ export const likeChange = (userid, postId) => ({
 const init = {
   // ---------------------------------------
   postsWall: [
-    {
+     {
       id: 0,
       picture:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU",
-      text: "I hate my life",
-      createdAt: "27.01.21",
-      likes: false,
-    },
-    {
-      id: 1,
-      picture:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU",
-      text: "Fuck de system",
-      createdAt: "23.02.21",
+        "loading",
+      text: "loading",
+      createdAt: "loading",
       likes: false,
     },
   ],

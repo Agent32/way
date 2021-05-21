@@ -1,54 +1,65 @@
-// ========================================
+import { serverAL } from "./dal/api";
 
 // ========================================
-let init = {
+const UPDATE_FRIEND_PANEL = "UPDATE-FRIEND-PANEL/COLONY-REDUCER";
+// ========================================
+export const udpateFriends = (data) => ({
+  type: UPDATE_FRIEND_PANEL,
+  data,
+});
+// ========================================s
+const init = {
   friendPanel: [
-    {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9UFLmQd7NpWuL9uIZGl7dhgdZzvZNHfBUnQ&usqp=CAU",
-      url: "/profile",
-    },
-    {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGrJrIYwuzxXd1wyofUM2TS9CDfUCYJr0Qxw&usqp=CAU",
-      url: "/profile",
-    },
-    {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-W5InZ2e1xZmvfkOOMmoOK0hFfVLJyJW7cQ&usqp=CAU",
-      url: "/profile",
-    },
-    {
-      avatar:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbnjfsdxdZA8BDLxwd4GMC7zB10_SOuHk8KA&usqp=CAU",
-      url: "/profile",
-    },
+  
   ],
-}
+};
 // ========================================
 
-//state= this._state.massagePart//
-function leftColonePartReducer (state=init, action) {
+// state= this._state.massagePart//
+function leftColonePartReducer(state = init, action) {
   switch (action.type) {
     // --------------
 
+    case UPDATE_FRIEND_PANEL: {
+      return _setAvatars(state, action);
+    }
     // --------------
     default:
       return state;
   }
 }
 // ========================================
-
-// ---------------------------------------
-function _postMassage(state, action) {
-
-  return state;
+function _setAvatars(state, action) {
+ 
+  return {
+    ...state,
+    friendPanel: [...action.data],
+  };
 }
 // ---------------------------------------
-function _privMassTempAreaEdit(state, action) {
-  
-  return state;
-}
+export const updateFriendsTC = (data) => async (dispatch) => {
+  try {
+    //dispatch(changeIsFinished(false));
+
+    const wallPostSucces = await serverAL.getSubscrUsers();
+    
+   dispatch(udpateFriends(wallPostSucces.data));
+    
+    //  dispatch(changeIsFinished(true));
+  } catch (err) {
+    console.log(err);
+  }
+};
+// ---------------------------------------
+
+/* getUsersList: (CurrentPage = 0, maxUsersAtPage = 10) => {
+  return instanceMock
+    .get(`?page=${CurrentPage}&limit=${maxUsersAtPage}`)
+
+    .then((res) => {
+      return res.data;
+    });
+},   */
 // ---------------------------------------
 
 export default leftColonePartReducer;

@@ -103,5 +103,17 @@ export const serverAL = {
       }, 300);
     });
   },
+     //-----------friendPannel------------------
+  getSubscrUsers: () => {
+    
+    return instanceMock
+      .get(`?search=true&p=1&l=4`)
+
+      .then((res) => {
+        return res.data;
+      });
+  },
 };
 //https://60885809a6f4a300174263e9.mockapi.io/users/1/wallPost/
+
+//https://60885809a6f4a300174263e9.mockapi.io/users/?search=true&p=1&l=4

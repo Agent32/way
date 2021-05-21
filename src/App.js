@@ -7,7 +7,7 @@ import NewsPage from './easyWb/bodComp/news/news'
 import React from 'react'
 import SettingsPage from './easyWb/bodComp/settings/settings'
 import Header from './easyWb/headerPart/header'
-import LeftColone from './easyWb/leftColone/leftColone'
+import LeftColone from './easyWb/leftColone/leftColoneGlobal'
 import MassagePageContainer from './easyWb/bodComp/massage/massageContainer'
 import ProfileContainer from './easyWb/bodComp/profile/profileContainer'
 import UserContainer from './easyWb/bodComp/users/usersContainer'
@@ -60,5 +60,5 @@ function App ({ store, ...props }) {
     </div>
   )
 }
-
+ 
 export default App
