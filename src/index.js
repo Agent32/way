@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, HashRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import App from './App'
-import store from './redux/rStore'
+import store from './store/rStore'
 import reportWebVitals from './reportWebVitals'
 
 // ========================================
@@ -19,11 +19,11 @@ import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
 
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
       <Provider store={store}>
           <App state={store.getState()} dispatch={store.dispatch.bind(store)} store={store} />
         </Provider>
-    </BrowserRouter>
+    </HashRouter>
     ,
     document.getElementById('root')
 )

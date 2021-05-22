@@ -2,7 +2,7 @@ import autiruzationStyle from "./autorization.module.css";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
-import {renderField, inputCondition } from "../../../commonComponent/inputErorPanel/input";
+import {renderField, inputCondition } from "../../commonComponent/inputErorPanel/input";
 
 const maxLength10 = inputCondition.maxLength(10)
 const minLength2 = inputCondition.minLength(2)

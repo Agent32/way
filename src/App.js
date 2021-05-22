@@ -2,18 +2,18 @@ import './App.css'
 
 import { Route, Switch } from 'react-router-dom'
 import { Redirect } from 'react-router-dom'
-import MusicPage from './easyWb/bodComp/music/music'
-import NewsPage from './easyWb/bodComp/news/news'
+import MusicPage from './components/pages/music/music'
+import NewsPage from './components/pages/news/newsContainer'
 import React from 'react'
-import SettingsPage from './easyWb/bodComp/settings/settings'
-import Header from './easyWb/headerPart/header'
-import LeftColone from './easyWb/leftColone/leftColoneGlobal'
-import MassagePageContainer from './easyWb/bodComp/massage/massageContainer'
-import ProfileContainer from './easyWb/bodComp/profile/profileContainer'
-import UserContainer from './easyWb/bodComp/users/usersContainer'
+import SettingsPage from './components/pages/settings/settings'
+import Header from './components/header/header'
+import LeftColone from './components/sidebar/sidebar'
+import MassagePageContainer from './components/pages/massage/massageContainer'
+import ProfileContainer from './components/pages/profile/profileContainer'
+import UserContainer from './components/pages/users/usersContainer'
 
-// import RegiserContainer from "./easyWb/bodComp/register/regContainer";
-const RegiserContainer = React.lazy(() => import('./easyWb/bodComp/register/regContainer'))
+// import RegiserContainer from "./components/pages/register/regContainer";
+const RegiserContainer = React.lazy(() => import('./components/pages/register/regContainer'))
 /*
  <Route
             path='/massage' render={() => <MassagePage

@@ -1,10 +1,10 @@
 import '../../App.css'
 
 import FriendColoneContainer from './friendPanel/friendsPanelContainer'
-import leftColone from './leftColone.module.css'
+import leftColone from './sidebar.module.css'
 import { NavLink } from 'react-router-dom'
 
-function LeftColon (props) {
+function Sidebar (props) {
   // <LeftButton href='/settings' name='Settings' />
   //<LeftButton href='/music' name='Music' />
 
@@ -32,4 +32,4 @@ function LeftButton (props) {
   )
 }
 
-export default LeftColon
+export default Sidebar
