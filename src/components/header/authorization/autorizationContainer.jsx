@@ -4,7 +4,7 @@ import AutorizationDrawer from "./autorizationDrawer";
 import { connect } from "react-redux";
 import * as axios from "axios";
 import { Redirect, NavLink, withRouter } from "react-router-dom";
-import { tryLogin,  tryLogout, loginFormSubmit} from "../../../redux/autorizationReduser";
+import { tryLogin,  tryLogout, loginFormSubmit} from "../../../store/autorizationReduser";
 
 
 import { compose } from "redux";

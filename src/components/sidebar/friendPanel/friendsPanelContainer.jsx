@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import React from "react";
 import CompactFriendPanel from "./friendsPanelDrawer";
-import { updateFriendsTC } from "../../../redux/leftColonyReducer";
+import { updateFriendsTC } from "../../../store/leftColonyReducer";
 
 function FriendsPannelConnect(props) {
     React.useEffect(() => {

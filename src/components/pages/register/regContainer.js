@@ -2,7 +2,7 @@ import React from "react";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { serverAL } from "../../../redux/dal/api";
+import { serverAL } from "../../../api/api";
 import RegDrawer from "./regDrawer";
 import { withAutoredirectNotLogOut, withLoading } from "../../commonComponent/commonContainer";
 

@@ -11,7 +11,7 @@ function UsersPage(props) {
   const pagesToDraw = Math.ceil(maxPagesNumber / maxItemsInPage);
 
   //------------------------------
-  const pageButtOns = []; //зфпу
+  const pageButtOns = []; 
   for (let i = 1; i <= pagesToDraw; i++) {
     pageButtOns.push(
       <span key={i}>

@@ -5,6 +5,7 @@ import leftColonePartReducer from "./leftColonyReducer";
 import massageReducer from "./massageReducer";
 import usersReducer from "./usersReducer";
 import autorizationReduser from "./autorizationReduser";
+import newsReducer from "./newsReducer";
 import thunk from "redux-thunk";  //thunk middleware
 import { reducer as formReducer } from 'redux-form'
 import commonReduser from "./commonReduser";
@@ -21,6 +22,7 @@ let reducersPush = combineReducers({
   leftColonePart: leftColonePartReducer,
   autorizationPart: autorizationReduser,
    commonPart: commonReduser,
+   newsPart: newsReducer,
   form: formReducer,
 });
 

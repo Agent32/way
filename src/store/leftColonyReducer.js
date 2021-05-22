@@ -1,4 +1,4 @@
-import { serverAL } from "./dal/api";
+import { serverAL } from "../api/api";
 
 // ========================================
 const UPDATE_FRIEND_PANEL = "UPDATE-FRIEND-PANEL/COLONY-REDUCER";

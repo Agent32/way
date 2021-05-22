@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash";
-import { serverAL } from "./dal/api";
+import { serverAL } from "../api/api";
 
 // ========================================
 const CHANGE_FOLLOW = "CHANGE-FOLLOW";

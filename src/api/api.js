@@ -1,7 +1,7 @@
 import * as axios from "axios";
 
 const instanceDummy = axios.create({
-  baseURL: "https://dummyapi.io/data/api/user/",
+  baseURL: "https://dummyapi.io/data/api/post",
   headers: {
     "app-id": `608ec88017752b6496d65b8f`,
   },
@@ -113,6 +113,15 @@ export const serverAL = {
         return res.data;
       });
   },
+    //-----------NewsPart------------------
+    getNewsList: () => {
+      return instanceDummy
+        .get(`?limit=10`)
+  
+        .then((res) => {
+          return res.data;
+        });
+    },
 };
 //https://60885809a6f4a300174263e9.mockapi.io/users/1/wallPost/
 

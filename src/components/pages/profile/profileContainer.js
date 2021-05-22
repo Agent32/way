@@ -11,7 +11,7 @@ import {
   enableEditElement,
   likeChangeTC,
   newWallPostTC,
-} from "../../../redux/profileReducer";
+} from "../../../store/profileReducer";
 import Profile from "./profileDrawer";
 import { connect } from "react-redux";
 

@@ -1,6 +1,6 @@
 //import { cloneDeep } from "lodash";
 
-import { serverAL } from "./dal/api";
+import { serverAL } from "../api/api";
 
 // ========================================
 const WALL_POST_PUBLISH = "WALL-POST-PUBLISH";

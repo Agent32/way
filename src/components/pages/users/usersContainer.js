@@ -3,7 +3,7 @@ import * as axios from "axios";
 import {
   getUsersPageThunkCreator,
   changeSubscribeThunkCreator,
-} from "../../../redux/usersReducer";
+} from "../../../store/usersReducer";
 import UsersPage from "./usersDrawer";
 import React, { useEffect } from "react";
 import LoadingModule from "../../commonComponent/loader/loader";
