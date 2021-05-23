@@ -33,7 +33,7 @@ function App({ store, ...props }) {
           />
 
           <Route
-            path="/message"
+            path="/message/:userPMId?"
             render={() => <MassagePageContainer store={store} />}
           />
           <Route path="/news" component={NewsPage} />

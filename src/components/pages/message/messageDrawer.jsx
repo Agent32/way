@@ -1,118 +1,69 @@
 import message from "./message.module.css";
 import React, { useState } from "react";
 import { BrowserRouter, Route, NavLink } from "react-router-dom";
-
-
-
-
-function messagePage (props)
-{
-  return (
-    
-  )
-}
-
-
+import { Field, reduxForm } from "redux-form";
+import { bigField, inputCondition } from "../../modules/inputErorPanel/input";
 function MessagePage(props) {
-  const dialogsMain = props.massagePart.dialogsMain;
-  const [selecId, setTempID] = useState(0);
-  
-  // ========================================
-  function DrawAutors(props) {
-   
+  const userListForPM = props.usersPMlist.map((current, count) => {
     return (
-      <div className={message.nameAut}>
-        <NavLink
-          to={props.href}
-          activeClassName={message.active}
-          onClick={() => setTempID(props.selectedId)}
-        >
-          {props.autor}{" "}
-        </NavLink>
+      <NavLink
+        to={`/message/${current.id}`}
+        activeClassName={message.active}
+        key={current.id}
+      >
+        <div>{current.firstName}</div>
+      </NavLink>
+    );
+  });
+
+  //--------------------------------------------------------
+  const choosenPM = props.selectedDiadlog.map((current, count) => {
+    return (
+      <div className={message.oneMess} >
+        <img src={current.avatar} className={message.ava} />
+        <span
+          key={current.pmId}
+          className={message.text}
+        >{`${current.firstName}: ${current.text}`}</span>
       </div>
     );
-  }
-  // ========================================
+  });
+  //--------------------------------------------------------
 
-  const formDialog = dialogsMain.map((dialog, count) => (
-    <DrawAutors
-      key={dialog.id}
-      autor={dialog.name}
-      href={dialog.path}
-      selectedId={dialog.id}
-    />
-  ));
-  // ========================================
-  const formMassage = dialogsMain.map((dialog, count) => (
-    <Route
-      className={message.autorUser}
-      key={dialog.id}
-      path={dialog.path}
-      component={() => (
-        <DrawDialog autor={dialog.name} chat={dialog.userDialogs} />
-      )}
-    ></Route>
-  ));
-  // ========================================
-
-  // ========================================
-  
+  const sendPanel = (props) => {
+    const { pristine, submitting } = props;
+    return (
+      <form onSubmit={props.handleSubmit}>
+        <Field
+          component="textarea"
+          label={`What on mind?`}
+          component={bigField}
+          validate={[inputCondition.required]}
+          name="text"
+        />
+        <br />
+        <button type="submit" disabled={pristine || submitting}>
+          Send
+        </button>
+      </form>
+    );
+  };
+  //----------------
+  const SendPostForm = reduxForm({
+    form: "wallPostForm",
+  })(sendPanel);
+  //--------------------------------------------------------
   return (
-    <BrowserRouter>
-      <div className={message.main}>
-        <div className={message.autor}>{formDialog}</div>
-        {formMassage}
-      </div> <NewPost
-        id={selecId}
-        editPM={props.editPM}
-        sendPM={props.sendPM}
-        changedText={props.massagePart.changedText}
-      /> 
-     
-     
-    </BrowserRouter>
-  );
-}
-
-function DrawDialog(props) {
-  return (
-    <span className={message.dialogMassage}>
-      <DrawMassageText autor={props.autor} dialog={props.chat} />
-    </span>
-  );
-}
-
-function DrawMassageText(props) {
-  const baba = props.dialog.map((current, count) => (
-    <div
-      key={count}
-      className={
-        current.slice(0, props.autor.length).includes(props.autor)
-          ? message.autorUser
-          : message.autorNotUser
-      }
-    >
-      {current}
-    </div>
-  ));
-  return baba;
-}
-
-function NewPost(props) {
-  let areaPMtemp = React.createRef();
-
-
-  return (
-    <div className={message.newpost}>
-      <h2> My posts</h2>
-      <textarea
-        ref={areaPMtemp}
-        onChange={() => props.editPM(areaPMtemp.current.value)}
-        value={props.changedText.PMtext}
-        placeholder="your news..."
-      />
-      <div />
-      <button onClick={() => props.sendPM(props.id)}> Send</button>
+    <div className={message.main}>
+      {" "}
+      <div className={message.autor}>{userListForPM}</div>
+      <div className={message.dialogMassage}>
+        {choosenPM}
+        <div className={message.inputArea}>
+          {" "}
+          <SendPostForm onSubmit={props.sendMassageToServer} />{" "}
+        </div>
+      </div>
     </div>
   );
 }

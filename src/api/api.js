@@ -1,4 +1,5 @@
 import * as axios from "axios";
+import { changeLoadStatus } from "../store/commonReduser";
 
 const instanceDummy = axios.create({
   baseURL: "https://dummyapi.io/data/api/post",
@@ -122,7 +123,26 @@ export const serverAL = {
           return res.data;
         });
     },
+
+  //-----------pm------------------
+    getCurrPM: (id) => {
+      return instanceMock
+        .get( `${id}/privatMassage`)
+  
+        .then((res) => {
+          return res.data;
+        });
+    },
+    sendPM: (userID, data) => {
+      return instanceMock
+        .post(`${userID}/privatMassage/`, {
+          ...data
+        })
+        .then((res) => {
+          return res.data;
+        });
+    },
 };
 //https://60885809a6f4a300174263e9.mockapi.io/users/1/wallPost/
 
-//https://60885809a6f4a300174263e9.mockapi.io/users/?search=true&p=1&l=4
+//https://60885809a6f4a300174263e9.mockapi.io/users/?search=true&p=1&l=4 getPM

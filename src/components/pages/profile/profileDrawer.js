@@ -25,7 +25,7 @@ const Profile = (props) => {
       props.enableEditElement(stringName);
     }
   };
-  // ---------------------------------------
+  // --------------------изменить примитив при двойном нажатии-------------------------
   const DrawEditor = () => {
     const areaNewPost = React.createRef();
     const nothing = () => {
