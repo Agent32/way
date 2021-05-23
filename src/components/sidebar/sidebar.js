@@ -12,7 +12,7 @@ function Sidebar (props) {
     <div className='columLeft'>
         <LeftButton href='/users' name='Users' />
       <LeftButton href='/profile' name='Profile' />
-      <LeftButton href='/massage' name='Massage' />
+      <LeftButton href='/message' name='Massage' />
       <LeftButton href='/news' name='News' />
       
     

@@ -1,10 +1,10 @@
 import { cloneDeep } from "lodash";
 // ========================================
-const POST_PRIVATE_MASSAGE = "POST-PRIVATE-MASSAGE";
+const POST_PRIVATE_MESSAGE = "POST-PRIVATE-MASSAGE";
 const EDIT_PM_AREA = "EDIT-PM-AREA";
 // ========================================
 export const pmSendActionCreator = (id, text) => ({
-  type: POST_PRIVATE_MASSAGE,
+  type: POST_PRIVATE_MESSAGE,
   id: id,
   text: text,
 });
@@ -20,7 +20,7 @@ const init = {
     {
       id: 0,
       name: "Борян",
-      path: "/massage/test",
+      path: "/message/test",
       userDialogs: [
         "Борян: Еп, никитин баланс",
         "Я: Похуй",
@@ -32,7 +32,7 @@ const init = {
     {
       id: 1,
       name: "Саня",
-      path: "/massage/test2",
+      path: "/message/test2",
       userDialogs: [
         "Саня: Объявляю крестовый поход на Харьков",
         "Саня: Ну отслужил и иди на пограмиста",
@@ -47,12 +47,12 @@ const init = {
   },
 };
 // ========================================
-function massageReducer(state = init, action) {
+function messageReducer(state = init, action) {
   switch (action.type) {
     // --------------
 
-    case POST_PRIVATE_MASSAGE: {
-      return _postMassage(state, action);
+    case POST_PRIVATE_MESSAGE: {
+      return _postMessage(state, action);
     }
     // --------------
     case EDIT_PM_AREA: {
@@ -67,7 +67,7 @@ function massageReducer(state = init, action) {
 // ========================================
 
 // ---------------------------------------
-function _postMassage(state, action) {
+function _postMessage(state, action) {
   const currState = cloneDeep(state);
   const curr = "Я: " + state.changedText.PMtext;
   currState.dialogsMain[action.id].userDialogs.push(curr);
@@ -83,4 +83,4 @@ function _privMassTempAreaEdit(state, action) {
 }
 // ---------------------------------------
 
-export default massageReducer;
+export default messageReducer;

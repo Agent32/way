@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from "redux";
 
 import bodyReducer from "./profileReducer";
 import leftColonePartReducer from "./leftColonyReducer";
-import massageReducer from "./massageReducer";
+import messageReducer from "./messageReducer";
 import usersReducer from "./usersReducer";
 import autorizationReduser from "./autorizationReduser";
 import newsReducer from "./newsReducer";
@@ -17,7 +17,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 let reducersPush = combineReducers({
   bodyPart: bodyReducer,
-  massagePart: massageReducer,
+  massagePart: messageReducer,
   usersPart: usersReducer,
   leftColonePart: leftColonePartReducer,
   autorizationPart: autorizationReduser,

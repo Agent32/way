@@ -75,14 +75,6 @@ const friendTest = [
   },
 ];
 // ========================================
-//https://60885809a6f4a300174263e9.mockapi.io/Test
-//state= this._state.massagePart//
-
-/*
-https://60885809a6f4a300174263e9.mockapi.io/Test/?id=5 
-https://60885809a6f4a300174263e9.mockapi.io/Test/?page=1&limit=10
-https://mockapi.io/docs
-*/
 
 const init = {
   usersList: [
@@ -139,7 +131,6 @@ function usersReducer(state = init, action) {
 }
 // ========================================
 
-// ---------------------------------------
 function _changeFollowed(state, action) {
   return {
     ...state,
@@ -191,29 +182,31 @@ function _setMaxUsers(state, action) {
 export const getUsersPageThunkCreator =
   (Page = 1, maxUsersAtPage = 5) =>
   async (dispatch) => {
-    try{
-    dispatch(changeIsFinished(false));
-    const userListData = await serverAL.getUsersList(Page, maxUsersAtPage);
-    dispatch(getMaxUsers(userListData.count));
-    dispatch(updateUserChange(userListData.data));
-    dispatch(changeCurPage(Page));
-    dispatch(changeIsFinished(true));
-  }
-  catch (err) { console.log(err) }
+    try {
+      dispatch(changeIsFinished(false));
+      const userListData = await serverAL.getUsersList(Page, maxUsersAtPage);
+      dispatch(getMaxUsers(userListData.count));
+      dispatch(updateUserChange(userListData.data));
+      dispatch(changeCurPage(Page));
+      dispatch(changeIsFinished(true));
+    } catch (err) {
+      console.log(err);
+    }
   };
 // ---------------------------------------
 export const changeSubscribeThunkCreator =
   (userID, buttonEvent, subBool) => async (dispatch) => {
     try {
-    buttonEvent.target.disabled = true;
-    dispatch(changeIsFinished(false));
-    const buttPressAnswer = await serverAL.buttonPressed(userID, !subBool);
-    console.log(buttPressAnswer);
-    dispatch(userFollowChange(userID));
-    buttonEvent.target.disabled = false;
-    dispatch(changeIsFinished(true));
-  }
-  catch (err) { console.log(err) }
+      buttonEvent.target.disabled = true;
+      dispatch(changeIsFinished(false));
+      const buttPressAnswer = await serverAL.buttonPressed(userID, !subBool);
+      console.log(buttPressAnswer);
+      dispatch(userFollowChange(userID));
+      buttonEvent.target.disabled = false;
+      dispatch(changeIsFinished(true));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
 // ========================================

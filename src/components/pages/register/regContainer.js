@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { serverAL } from "../../../api/api";
 import RegDrawer from "./regDrawer";
-import { withAutoredirectNotLogOut, withLoading } from "../../commonComponent/commonContainer";
+import { withAutoredirectNotLogOut, withLoading } from "../../modules/HOC";
 
 
 class RegFormConnectContainer extends React.Component {

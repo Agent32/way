@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form'
 import {
   renderField,
   inputCondition
-} from '../../commonComponent/inputErorPanel/input'
+} from '../../modules/inputErorPanel/input'
 import React from 'react'
 
 // ---------------------------------------------------------------------------------------------

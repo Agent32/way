@@ -1,9 +1,19 @@
-import massage from "./massage.module.css";
+import message from "./message.module.css";
 import React, { useState } from "react";
 import { BrowserRouter, Route, NavLink } from "react-router-dom";
 
 
-function MassagePage(props) {
+
+
+function messagePage (props)
+{
+  return (
+    
+  )
+}
+
+
+function MessagePage(props) {
   const dialogsMain = props.massagePart.dialogsMain;
   const [selecId, setTempID] = useState(0);
   
@@ -11,10 +21,10 @@ function MassagePage(props) {
   function DrawAutors(props) {
    
     return (
-      <div className={massage.nameAut}>
+      <div className={message.nameAut}>
         <NavLink
           to={props.href}
-          activeClassName={massage.active}
+          activeClassName={message.active}
           onClick={() => setTempID(props.selectedId)}
         >
           {props.autor}{" "}
@@ -35,7 +45,7 @@ function MassagePage(props) {
   // ========================================
   const formMassage = dialogsMain.map((dialog, count) => (
     <Route
-      className={massage.autorUser}
+      className={message.autorUser}
       key={dialog.id}
       path={dialog.path}
       component={() => (
@@ -49,8 +59,8 @@ function MassagePage(props) {
   
   return (
     <BrowserRouter>
-      <div className={massage.main}>
-        <div className={massage.autor}>{formDialog}</div>
+      <div className={message.main}>
+        <div className={message.autor}>{formDialog}</div>
         {formMassage}
       </div> <NewPost
         id={selecId}
@@ -66,7 +76,7 @@ function MassagePage(props) {
 
 function DrawDialog(props) {
   return (
-    <span className={massage.dialogMassage}>
+    <span className={message.dialogMassage}>
       <DrawMassageText autor={props.autor} dialog={props.chat} />
     </span>
   );
@@ -78,8 +88,8 @@ function DrawMassageText(props) {
       key={count}
       className={
         current.slice(0, props.autor.length).includes(props.autor)
-          ? massage.autorUser
-          : massage.autorNotUser
+          ? message.autorUser
+          : message.autorNotUser
       }
     >
       {current}
@@ -93,7 +103,7 @@ function NewPost(props) {
 
 
   return (
-    <div className={massage.newpost}>
+    <div className={message.newpost}>
       <h2> My posts</h2>
       <textarea
         ref={areaPMtemp}
@@ -107,4 +117,4 @@ function NewPost(props) {
   );
 }
 
-export default React.memo(MassagePage);
+export default React.memo(MessagePage);

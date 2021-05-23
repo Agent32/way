@@ -6,7 +6,7 @@ import { Field, reduxForm } from "redux-form";
 import {
   bigField,
   inputCondition,
-} from "../../commonComponent/inputErorPanel/input";
+} from "../../modules/inputErorPanel/input";
 
 const maxLength50 = inputCondition.maxLength(50);
 const minLength10 = inputCondition.minLength(10);

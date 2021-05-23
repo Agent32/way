@@ -1,5 +1,3 @@
-//import { cloneDeep } from "lodash";
-
 import { serverAL } from "../api/api";
 
 // ========================================
@@ -55,24 +53,13 @@ export const likeChange = (userid, postId) => ({
   postId,
 });
 // ========================================
-//state= this._state.bodyPart
-
-/*
-"https://www.vokrug.tv/pic/person/2/b/f/4/2bf448098b7badf3b37e87c510da29bc.jpeg",
-    "Anon",
-    "2 jan",
-    "Minsk",
-    "HNAGH-11",
-    "https://learn.javascript",
-    */
 
 const init = {
   // ---------------------------------------
   postsWall: [
-     {
+    {
       id: 0,
-      picture:
-        "loading",
+      picture: "loading",
       text: "loading",
       createdAt: "loading",
       likes: false,
@@ -200,9 +187,6 @@ function _editChangeStatus(state, action) {
 }
 // ---------------------------------------
 function _enableEditElement(state, action) {
-  /*   state.userData.[action.elem] = 'zaebus'
-  console.log(state.userData.picture)
-  debugger */
   return {
     ...state,
     changedText: {
@@ -214,9 +198,6 @@ function _enableEditElement(state, action) {
 }
 // ---------------------------------------
 function _disableEditElement(state, action) {
-  /*   state.userData.[action.elem] = 'zaebus'
-  console.log(state.userData.picture)
-  debugger */
   return {
     ...state,
     changedText: {
@@ -260,57 +241,58 @@ export const getUserByIdTC =
   (userID = 1) =>
   async (dispatch) => {
     try {
-    dispatch(changeIsFinished(false));
+      dispatch(changeIsFinished(false));
 
-    const userAnswer = await serverAL.getUserbyId(userID);
-    dispatch(getUser(userAnswer));
+      const userAnswer = await serverAL.getUserbyId(userID);
+      dispatch(getUser(userAnswer));
 
-    const userQuote = await serverAL.getQuotebyUsrId(userID);
-    dispatch(getUserWallPost(userQuote));
+      const userQuote = await serverAL.getQuotebyUsrId(userID);
+      dispatch(getUserWallPost(userQuote));
 
-    dispatch(changeIsFinished(true));
-  }
-  catch (err) { console.log(err) }
+      dispatch(changeIsFinished(true));
+    } catch (err) {
+      console.log(err);
+    }
   };
 // ---------------------------------------
 export const updateQuteServer = (id, whatEdit, text) => async (dispatch) => {
   try {
     dispatch(changeIsFinished(false));
- await  serverAL.updateElement(id, whatEdit, text)
-      dispatch(diesableEditElement());
-      dispatch(changeIsFinished(true));
-   
-    }
-    catch (err) { console.log(err) }
+    await serverAL.updateElement(id, whatEdit, text);
+    dispatch(diesableEditElement());
+    dispatch(changeIsFinished(true));
+  } catch (err) {
+    console.log(err);
+  }
 };
 // ---------------------------------------
 export const likeChangeTC =
   (userID, postID, buttonEvent, subBool) => async (dispatch) => {
     try {
-    buttonEvent.target.disabled = true;
-    dispatch(changeIsFinished(false));
-    await serverAL.likeButtPressed(userID, postID, !subBool);
-    dispatch(likeChange(userID, postID));
-    buttonEvent.target.disabled = false;
-    dispatch(changeIsFinished(true));
-  }
-  catch (err) { console.log(err) }
+      buttonEvent.target.disabled = true;
+      dispatch(changeIsFinished(false));
+      await serverAL.likeButtPressed(userID, postID, !subBool);
+      dispatch(likeChange(userID, postID));
+      buttonEvent.target.disabled = false;
+      dispatch(changeIsFinished(true));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
 // ---------------------------------------
-export const newWallPostTC = (userID, data) => async (dispatch) =>{
+export const newWallPostTC = (userID, data) => async (dispatch) => {
   try {
     dispatch(changeIsFinished(false));
 
-   const wallPostSucces = await serverAL.newWallPost(userID, data)
+    const wallPostSucces = await serverAL.newWallPost(userID, data);
 
-    const updateWallPost= await  serverAL.getQuotebyUsrId(userID)
-        dispatch(getUserWallPost(updateWallPost));
-        dispatch(changeIsFinished(true));
-    
-      }
-      catch (err) { console.log(err) }
-  
+    const updateWallPost = await serverAL.getQuotebyUsrId(userID);
+    dispatch(getUserWallPost(updateWallPost));
+    dispatch(changeIsFinished(true));
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // ---------------------------------------

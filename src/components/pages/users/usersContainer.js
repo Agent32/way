@@ -6,7 +6,7 @@ import {
 } from "../../../store/usersReducer";
 import UsersPage from "./usersDrawer";
 import React, { useEffect } from "react";
-import LoadingModule from "../../commonComponent/loader/loader";
+import LoadingModule from "../../modules/loader/loader";
 import { compose } from "redux";
 
 const UserConnectConreiner = (props) =>  {

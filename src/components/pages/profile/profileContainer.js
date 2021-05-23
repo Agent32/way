@@ -16,14 +16,14 @@ import Profile from "./profileDrawer";
 import { connect } from "react-redux";
 
 import { withRouter } from "react-router-dom";
-import LoadingModule from "../../commonComponent/loader/loader";
+import LoadingModule from "../../modules/loader/loader";
 
 import { compose } from "redux";
 
 function ProfileConnectContainer(props) {
   const usrID = props.match.params.userId;
   const usrFunc = props.getUserByIdTC;
-//console.log(`2`)
+ 
   useEffect(() => {
     usrFunc(usrID);
   }, [usrID, usrFunc]);
@@ -37,7 +37,6 @@ function ProfileConnectContainer(props) {
   };
 
   const wallSend = (data) => {
-   
     props.newWallPostTC(props.userData.id, data);
   };
 
@@ -62,44 +61,6 @@ function ProfileConnectContainer(props) {
     </>
   );
 }
-/* 
-class ProfileConnectContainer extends React.Component {
-  componentDidMount() {
-    this.props.getUserByIdTC(this.props.match.params.userId);
-
-    //props.match.params - navlink income
-  }
-
-  updateQuoteOnServer = () => {
-    this.props.updateQuteServer(
-      this.props.userData.id,
-      this.props.changedText.whatEdit,
-      this.props.userData[this.props.changedText.whatEdit]
-    );
-  };
-  render() {
-    return (
-      <>
-        {this.props.changedText.isLoadinFinished ? null : <LoadingModule />}
-
-        <Profile
-          changedText={this.props.changedText}
-          userData={this.props.userData}
-          postsWall={this.props.postsWall}
-          wallPostSend={this.props.wallPostSend}
-          wallPostEdit={this.props.wallPostEdit}
-          getUser={this.props.getUser}
-          editQuote={this.props.editQuote}
-          updateQuoteOnServer={this.updateQuoteOnServer}
-          enableEditElement={this.props.enableEditElement}
-          editProfilePart={this.props.editProfilePart}
-        />
-      </>
-    );
-  }
-} */
-
-// ========================================
 
 // ========================================
 const mapStateToProps = (state) => {

@@ -9,13 +9,9 @@ export const udpateFriends = (data) => ({
 });
 // ========================================s
 const init = {
-  friendPanel: [
-  
-  ],
+  friendPanel: [],
 };
-// ========================================
 
-// state= this._state.massagePart//
 function leftColonePartReducer(state = init, action) {
   switch (action.type) {
     // --------------
@@ -30,7 +26,6 @@ function leftColonePartReducer(state = init, action) {
 }
 // ========================================
 function _setAvatars(state, action) {
- 
   return {
     ...state,
     friendPanel: [...action.data],
@@ -39,27 +34,13 @@ function _setAvatars(state, action) {
 // ---------------------------------------
 export const updateFriendsTC = (data) => async (dispatch) => {
   try {
-    //dispatch(changeIsFinished(false));
-
     const wallPostSucces = await serverAL.getSubscrUsers();
-    
-   dispatch(udpateFriends(wallPostSucces.data));
-    
-    //  dispatch(changeIsFinished(true));
+
+    dispatch(udpateFriends(wallPostSucces.data));
   } catch (err) {
     console.log(err);
   }
 };
-// ---------------------------------------
-
-/* getUsersList: (CurrentPage = 0, maxUsersAtPage = 10) => {
-  return instanceMock
-    .get(`?page=${CurrentPage}&limit=${maxUsersAtPage}`)
-
-    .then((res) => {
-      return res.data;
-    });
-},   */
 // ---------------------------------------
 
 export default leftColonePartReducer;

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import {
   pmSendActionCreator,
   editPmTempActionCreator,
-} from "../../../store/massageReducer";
+} from "../../../store/messageReducer";
 
 import MassagePage from "./messageDrawer";
 

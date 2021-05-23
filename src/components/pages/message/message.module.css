@@ -1,0 +1,77 @@
+.main {
+  display: grid;
+  grid-template-areas: "autor dialogMassage";
+  grid-template-rows: auto;
+  grid-template-columns: 2fr 12fr;
+  grid-gap: 3px;
+}
+
+.autor {
+  grid-area: autor;
+
+  padding: 10px;
+  background-color: rgb(112, 110, 110);
+}
+
+.autor .nameAut {
+  margin-top: 10px;
+}
+
+.autor .nameAut a {
+  color: black;
+  margin-top: 10px;
+}
+
+.autor .nameAut a.active {
+  color: orange;
+}
+
+.dialogMassage {
+  grid-area: dialogMassage;
+  background-color: rgb(206, 203, 203);
+}
+
+.dialogMassage .autorNotUser {
+  text-indent: 10%;
+  color: black;
+  background: radial-gradient(
+      30px 30px at 5% 50%,
+      rgb(80, 158, 247) 20%,
+      transparent 80%
+    ),
+    radial-gradient(100% 100% at 50% 50%, white, 100%, transparent 90%);
+}
+
+.dialogMassage .autorUser {
+  color: rgb(13, 17, 13);
+  text-indent: 10%;
+
+  background: radial-gradient(
+      30px 30px at 5% 50%,
+      rgb(150, 255, 159) 20%,
+      transparent 80%
+    ),
+    radial-gradient(100% 100% at 50% 50%, white, 100%, transparent 100%);
+}
+
+.dialogMassage div {
+  margin-top: 8px;
+}
+
+.newpost {
+  padding-left: 20%;
+  background-color: gray;
+  grid-area: dialogMassage;
+}
+
+.newpost textarea {
+  width: 600px;
+  height: 100px;
+}
+.newpost button {
+  border: 1px solid orange;
+  background: #fff5d7;
+}
+
+background: < "background-color" > || <image> || <position> [ / <size> ]? ||
+  <repeat> || <attachment> || <origin> || <clip>;

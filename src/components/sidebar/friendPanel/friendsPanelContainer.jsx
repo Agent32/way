@@ -4,17 +4,14 @@ import CompactFriendPanel from "./friendsPanelDrawer";
 import { updateFriendsTC } from "../../../store/leftColonyReducer";
 
 function FriendsPannelConnect(props) {
-    React.useEffect(() => {
-     if (props.isLoggedIn) {props.updateFriendsTC()}
-    }, [props.isLoggedIn]); 
+  React.useEffect(() => {
+    if (props.isLoggedIn) {
+      props.updateFriendsTC();
+    }
+  }, [props.isLoggedIn]);
 
   return <CompactFriendPanel {...props} />;
 }
-
-/* function FriendsPannelConnect(...props) {
-    React.useEffect(() => {
-     props.updateFriendsTC();
-    }, [props.isLoggedIn]); */
 
 const mapStateToProps = (state) => {
   return {
@@ -28,4 +25,3 @@ const FriendColoneContainer = connect(mapStateToProps, { updateFriendsTC })(
 );
 
 export default FriendColoneContainer;
-// isLoginned={props.state.autorizationPart.userData.isLoggedIn}
