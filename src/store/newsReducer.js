@@ -1,4 +1,5 @@
 import { serverAL } from "../api/api";
+import { changeLoadStatus } from "./commonReduser";
 
 // ========================================
 
@@ -63,8 +64,10 @@ function _setPosts(state, action) {
 // ========================================
 export const getNewsPostsTC = () => async (dispatch) => {
   try {
+    dispatch(changeLoadStatus(true));
     const newsAnswData = await serverAL.getNewsList();
     dispatch(setNewsPosts(newsAnswData.data));
+    dispatch(changeLoadStatus(false));
   } catch (err) {
     console.log(err);
   }
