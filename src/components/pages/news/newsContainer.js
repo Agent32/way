@@ -5,13 +5,13 @@ import NewsPage from "./newsDrawer";
 
 function NewsConnectContainer(props) {
     useEffect(() => {
-    props.getNewsPostsTC()
-    
+    props.getNewsPostsTC()    
   }, []); 
+  
   // {props.changedText.isLoadinFinished ? null : <LoadingModule />}
   return (
     <>
-      <NewsPage />
+      <NewsPage {...props} />
     </>
   );
 }

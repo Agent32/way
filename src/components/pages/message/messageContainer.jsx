@@ -25,7 +25,7 @@ function MessageContainerConnect(props) {
     if (!isNaN(pmID)) {
       props.getCurrentDialogPM(pmID);
     } else {
-      props.getCurrentDialogPM(1);
+      props.getCurrentDialogPM(2);
     }
   }, [pmID]);
 
