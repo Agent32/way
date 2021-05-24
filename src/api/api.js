@@ -117,7 +117,7 @@ export const serverAL = {
     //-----------NewsPart------------------
     getNewsList: () => {
       return instanceDummy
-        .get(`?limit=10`)
+        .get(`?limit=9`)
   
         .then((res) => {
           return res.data;

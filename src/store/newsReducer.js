@@ -16,13 +16,21 @@ export const setNewsPosts = (data) => ({
 const init = {
   newsList: [
     {
+      owner: {
+        id: "",
+        email: "",
+        title: "",
+        picture: "",
+        firstName: "",
+        lastName: "",
+      },
+      tags: [],
       text: "",
       image: "",
       likes: "",
       link: "",
       tags: "",
       publishDate: "",
-      owner: {},
     },
   ],
 };
@@ -55,12 +63,8 @@ function _setPosts(state, action) {
 // ========================================
 export const getNewsPostsTC = () => async (dispatch) => {
   try {
-    // dispatch(changeIsFinished(false));
     const newsAnswData = await serverAL.getNewsList();
-
-    dispatch(setNewsPosts(newsAnswData));
-
-    //dispatch(changeIsFinished(true));
+    dispatch(setNewsPosts(newsAnswData.data));
   } catch (err) {
     console.log(err);
   }
