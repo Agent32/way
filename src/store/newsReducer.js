@@ -15,9 +15,14 @@ export const setNewsPosts = (data) => ({
 
 const init = {
   newsList: [
-    { 
-      owner:{
-        id: '', email: '', title: '', picture: '', firstName: '', lastName: '',
+    {
+      owner: {
+        id: "",
+        email: "",
+        title: "",
+        picture: "",
+        firstName: "",
+        lastName: "",
       },
       tags: [],
       text: "",
@@ -26,7 +31,6 @@ const init = {
       link: "",
       tags: "",
       publishDate: "",
-      owner: {},
     },
   ],
 };
@@ -49,7 +53,6 @@ function newsReducer(state = init, action) {
 //, owner: ...action.data.owner
 // ---------------------------------------
 function _setPosts(state, action) {
-  
   return {
     ...state,
     newsList: [...action.data],
@@ -60,12 +63,8 @@ function _setPosts(state, action) {
 // ========================================
 export const getNewsPostsTC = () => async (dispatch) => {
   try {
-    // dispatch(changeIsFinished(false));
     const newsAnswData = await serverAL.getNewsList();
-
     dispatch(setNewsPosts(newsAnswData.data));
-
-    //dispatch(changeIsFinished(true));
   } catch (err) {
     console.log(err);
   }

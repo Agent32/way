@@ -4,11 +4,10 @@ import { getNewsPostsTC } from "../../../store/newsReducer";
 import NewsPage from "./newsDrawer";
 
 function NewsConnectContainer(props) {
-    useEffect(() => {
-    props.getNewsPostsTC()    
-  }, []); 
-  
-  // {props.changedText.isLoadinFinished ? null : <LoadingModule />}
+  useEffect(() => {
+    props.getNewsPostsTC();
+  }, []);
+
   return (
     <>
       <NewsPage {...props} />
