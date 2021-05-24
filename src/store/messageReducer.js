@@ -126,18 +126,4 @@ export const getCurrentDialogPM = (id) => async (dispatch) => {
   }
 };
 
-export const newPM = (userID, data) => async (dispatch) => {
-  try {
-    dispatch(changeLoadStatus(false));
-
-    const wallPostSucces = await serverAL.sendPM(userID, data);
-
-    const updateWallPost = await serverAL.getQuotebyUsrId(userID);
-    dispatch(updateWallPost);
-    dispatch(changeLoadStatus(true));
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 export default messageReducer;

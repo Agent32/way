@@ -10,8 +10,9 @@ function NewsPage(props) {
           {`${current.owner.firstName} ${current.owner.lastName}`} <hr />{" "}
         </div>
         <div className={news.infoBody}>
-          <img src={current.image} className={news.smallAva} alt={`DogPict`}/>
-           {current.text} </div>
+          <img src={current.image} className={news.image} alt={`DogPict`}/>
+          <div> {current. tags + ''}<hr/></div>
+          <div>  {current.text} </div> </div>
       </div>
     );
   });
