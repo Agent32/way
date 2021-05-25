@@ -5,10 +5,5 @@
 Для форм используется reduxForm
 Запросы axios
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a8ac467146f5a03fb21d048999fa0f958daca617
-
 Поднятая страничка на гитке 
 https://agent32.github.io/way/
