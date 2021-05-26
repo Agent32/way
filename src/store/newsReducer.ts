@@ -3,40 +3,69 @@ import { changeLoadStatus } from "./commonReduser";
 
 // ========================================
 
+
 const SET_NEWS_POSTS = "SET-NEWS-POSTS/newsPart";
 
+type actionType = typeof SET_NEWS_POSTS
 // ========================================
 
-// --------------
-export const setNewsPosts = (data) => ({
+type actionCreatorType = {
+  type: actionType,
+  data: any
+}
+
+
+
+export const setNewsPosts = (data: actionCreatorType) => ({
   type: SET_NEWS_POSTS,
   data,
 });
 // --------------
 
-const init = {
+type initNewsType =
+  {
+    newsList: [
+      {
+        owner: {
+          id: string,
+          email: string,
+          title: string,
+          picture: string,
+          firstName: string,
+          lastName: string,
+        },
+        tags: Array<string>,
+        text: string,
+        image: string,
+        likes: number,
+        link: string,
+        publishDate: string,
+      },
+    ],
+  }
+
+const init: initNewsType = {
   newsList: [
     {
       owner: {
-        id: "",
-        email: "",
-        title: "",
-        picture: "",
-        firstName: "",
-        lastName: "",
+        id: "load",
+        email: "load",
+        title: "load",
+        picture: "load",
+        firstName: "load",
+        lastName: "load",
       },
-      tags: [],
-      text: "",
-      image: "",
-      likes: "",
-      link: "",
-      tags: "",
-      publishDate: "",
+      tags: ['load', 'ing'],
+      text: "load",
+      image: "href",
+      likes: 22,
+      link: "href",
+      publishDate: "1020",
     },
   ],
 };
 // ========================================
-function newsReducer(state = init, action) {
+function newsReducer(state = init, action: actionCreatorType) {
   switch (action.type) {
     // --------------
 
@@ -53,7 +82,7 @@ function newsReducer(state = init, action) {
 // ========================================
 //, owner: ...action.data.owner
 // ---------------------------------------
-function _setPosts(state, action) {
+function _setPosts(state: initNewsType, action: actionCreatorType) {
   return {
     ...state,
     newsList: [...action.data],
@@ -62,7 +91,7 @@ function _setPosts(state, action) {
 // ---------------------------------------
 
 // ========================================
-export const getNewsPostsTC = () => async (dispatch) => {
+export const getNewsPostsTC = () => async (dispatch: Function) => {
   try {
     dispatch(changeLoadStatus(true));
     const newsAnswData = await serverAL.getNewsList();
