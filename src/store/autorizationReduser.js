@@ -72,8 +72,8 @@ function _loginSend(state, action) {
 
 // ---------------------------------------
 // ---------------------------------------
-function _loginFormSubmit (state, action) {
-//if (!action.elem.login) { return state} 
+function _loginFormSubmit(state, action) {
+  //if (!action.elem.login) { return state}
   return {
     ...state,
     userData: {
@@ -81,7 +81,7 @@ function _loginFormSubmit (state, action) {
       isLoggedIn: true,
       inputLogin: "",
       inputPassword: "",
-      token: 'agagag',
+      token: "agagag",
       loginData: {
         userName: action.elem.login,
       },
