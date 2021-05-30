@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import {
-  wallPostSend,
-  wallPostEdit,
   getUser,
-  changeIsFinished,
   getUserByIdTC,
-  editQuote,
   updateQuteServer,
   editProfilePart,
   enableEditElement,
@@ -23,7 +19,7 @@ import { compose } from "redux";
 function ProfileConnectContainer(props) {
   const usrID = props.match.params.userId;
   const usrFunc = props.getUserByIdTC;
- 
+
   useEffect(() => {
     usrFunc(usrID);
   }, [usrID, usrFunc]);
@@ -49,7 +45,6 @@ function ProfileConnectContainer(props) {
         userData={props.userData}
         postsWall={props.postsWall}
         wallSend={wallSend}
-        wallPostEdit={props.wallPostEdit}
         getUser={props.getUser}
         editQuote={props.editQuote}
         updateQuoteOnServer={updateQuoteOnServer}
@@ -73,12 +68,8 @@ const mapStateToProps = (state) => {
 
 export default compose(
   connect(mapStateToProps, {
-    wallPostSend,
-    wallPostEdit,
     getUser,
-    changeIsFinished,
     getUserByIdTC,
-    editQuote,
     updateQuteServer,
     enableEditElement,
     editProfilePart,

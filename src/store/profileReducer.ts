@@ -1,8 +1,7 @@
 import { serverAL } from "../api/api";
+import { profileMainType,userType } from "./types/redusersTypes";
 
 // ========================================
-const WALL_POST_PUBLISH = "WALL-POST-PUBLISH";
-const TEXTAREA_EDIT_WALL = "TEXTAREA-EDIT-WALL";
 const GET_USER = "GET-USER";
 const LODAER_WAITER_CHANGER = "LODAER-WAITER-CHANGER";
 const EDIT_QUOTE_TEXT = "EDIT-QUOTE-TEXT";
@@ -12,23 +11,19 @@ const EDIT_CURR_ELEM = "EDIT-CURR-ELEM";
 const GET_USER_WALL = "GET-USER-WALL";
 const WALL_LIKE_BUTTON_CHANGE = "WALL-LIKE-BUTTON-CHANGE";
 // ========================================
-export const wallPostSend = (text) => ({ type: WALL_POST_PUBLISH, text });
 //----------------------------
-export const wallPostEdit = (text) => ({
-  type: TEXTAREA_EDIT_WALL,
-  text: text,
-});
+
 //----------------------------
-export const getUser = (text) => ({ type: GET_USER, text });
+export const getUser = (userProfiledata: userType)=> ({ type: GET_USER, userProfiledata });
 // --------------
-export const changeIsFinished = (isFinished) => ({
+export const changeIsFinished = (isFinished: boolean) => ({
   type: LODAER_WAITER_CHANGER,
   isFinished: isFinished,
 });
 // --------------
-export const editQuote = (text) => ({ type: EDIT_QUOTE_TEXT, text });
+export const editQuote = (text: string) => ({ type: EDIT_QUOTE_TEXT, text });
 // --------------
-export const enableEditElement = (elem) => ({
+export const enableEditElement = (elem: any) => ({
   type: ENABLE_EDIT_ELEMENT,
   elem,
 });
@@ -37,28 +32,45 @@ export const diesableEditElement = () => ({
   type: DISABLE_EDIT_ELEMENT,
 });
 // --------------
-export const editProfilePart = (text) => ({
+export const editProfilePart = (text: string) => ({
   type: EDIT_CURR_ELEM,
   text,
 });
 // --------------
-export const getUserWallPost = (data) => ({
+export const getUserWallPost = (data: any) => ({
   type: GET_USER_WALL,
   data,
 });
 // --------------
-export const likeChange = (userid, postId) => ({
+export const likeChange = (userid: number, postId: number) => ({
   type: WALL_LIKE_BUTTON_CHANGE,
   userid,
   postId,
 });
 // ========================================
+type profileActionType =
+  {
+    type:  typeof GET_USER |
+    typeof LODAER_WAITER_CHANGER | typeof EDIT_QUOTE_TEXT | typeof DISABLE_EDIT_ELEMENT |
+    typeof EDIT_CURR_ELEM | typeof GET_USER_WALL | typeof WALL_LIKE_BUTTON_CHANGE | typeof ENABLE_EDIT_ELEMENT,
+    text?: any,
+    elem?: any,
+    userid?: number,
+    postId?: number,
+    isFinished: boolean ,
+    userProfiledata:userType,
+    data?: any
+  }
+
+type reducerProfileExecutiveFunction = (state: profileMainType, action: profileActionType) => profileMainType
+
 
 const init = {
   // ---------------------------------------
   postsWall: [
     {
-      id: 0,
+      id: 1,
+      userId: 1,
       picture: "loading",
       text: "loading",
       createdAt: "loading",
@@ -74,12 +86,13 @@ const init = {
   },
   // ---------------------------------------
   userData: {
-    id: `loading`,
+    id: 1,
     title: `loading`,
     firstName: `loading`,
     lastName: `loading`,
     email: `loading`,
     dateOfBirth: `loading`,
+    isFollow: false,
     registerDate: `loading`,
     phone: `loading`,
     quote: ``,
@@ -90,17 +103,11 @@ const init = {
 };
 // ========================================
 
-function bodyReducer(state = init, action) {
+function bodyReducer(state = init, action: profileActionType): profileMainType {
   switch (action.type) {
     // --------------
 
-    case TEXTAREA_EDIT_WALL: {
-      return _textAreaEditWall(state, action);
-    }
-    // --------------
-    case WALL_POST_PUBLISH: {
-      return _postWallComment(state, action);
-    }
+ 
     // --------------
     case GET_USER: {
       return _getUser(state, action);
@@ -142,51 +149,28 @@ function bodyReducer(state = init, action) {
 // ========================================
 
 // ---------------------------------------
-function _textAreaEditWall(state, action) {
+const _getUser: reducerProfileExecutiveFunction = (state, action) => {
   return {
     ...state,
-    changedText: { ...state.changedText, wallText: action.text },
+    userData: { ...action.userProfiledata },
   };
 }
 // ---------------------------------------
-function _postWallComment(state, action) {
-  const curr = {
-    avatarImg:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_I0JFO2DxoAV3J-sI7ajtx0qW0Q5neaY_A&usqp=CAU",
-    text: action.text.postArea,
-    date: "15.04.21",
-    likes: 0,
-  };
-
-  return {
-    ...state,
-    postsWall: [...state.postsWall, curr],
-    changedText: { ...state.changedText, wallText: "" },
-  };
-}
-// ---------------------------------------
-function _getUser(state, action) {
-  return {
-    ...state,
-    userData: { ...action.text },
-  };
-}
-// ---------------------------------------
-function _loaderWaitSwitch(state, action) {
+const _loaderWaitSwitch: reducerProfileExecutiveFunction = (state, action) => {
   return {
     ...state,
     changedText: { ...state.changedText, isLoadinFinished: action.isFinished },
   };
 }
 // ---------------------------------------
-function _editChangeStatus(state, action) {
+const _editChangeStatus: reducerProfileExecutiveFunction = (state, action) => {
   return {
     ...state,
     userData: { ...state.userData, quote: action.text },
   };
 }
 // ---------------------------------------
-function _enableEditElement(state, action) {
+const _enableEditElement: reducerProfileExecutiveFunction = (state, action) => {
   return {
     ...state,
     changedText: {
@@ -197,7 +181,7 @@ function _enableEditElement(state, action) {
   };
 }
 // ---------------------------------------
-function _disableEditElement(state, action) {
+const _disableEditElement: reducerProfileExecutiveFunction = (state, action) => {
   return {
     ...state,
     changedText: {
@@ -208,21 +192,21 @@ function _disableEditElement(state, action) {
   };
 }
 // ---------------------------------------
-function _editCurrElem(state, action) {
+const _editCurrElem: reducerProfileExecutiveFunction = (state, action) => {
   return {
     ...state,
     userData: { ...state.userData, [state.changedText.whatEdit]: action.text },
   };
 }
 // ---------------------------------------
-function _getUsrWall(state, action) {
+const _getUsrWall: reducerProfileExecutiveFunction = (state, action) => {
   return {
     ...state,
     postsWall: [...action.data],
   };
 }
 // ---------------------------------------
-function _changeLike(state, action) {
+const _changeLike: reducerProfileExecutiveFunction = (state, action) => {
   return {
     ...state,
     postsWall: state.postsWall.map((now, id) => {
@@ -239,23 +223,23 @@ function _changeLike(state, action) {
 
 export const getUserByIdTC =
   (userID = 1) =>
-  async (dispatch) => {
-    try {
-      dispatch(changeIsFinished(false));
+    async (dispatch:Function) => {
+      try {
+        dispatch(changeIsFinished(false));
 
-      const userAnswer = await serverAL.getUserbyId(userID);
-      dispatch(getUser(userAnswer));
+        const userAnswer = await serverAL.getUserbyId(userID);
+        dispatch(getUser(userAnswer));
 
-      const userQuote = await serverAL.getQuotebyUsrId(userID);
-      dispatch(getUserWallPost(userQuote));
+        const userQuote = await serverAL.getQuotebyUsrId(userID);
+        dispatch(getUserWallPost(userQuote));
 
-      dispatch(changeIsFinished(true));
-    } catch (err) {
-      console.log(err);
-    }
-  };
+        dispatch(changeIsFinished(true));
+      } catch (err) {
+        console.log(err);
+      }
+    };
 // ---------------------------------------
-export const updateQuteServer = (id, whatEdit, text) => async (dispatch) => {
+export const updateQuteServer = (id:number, whatEdit:string, text:string) => async (dispatch:Function) => {
   try {
     dispatch(changeIsFinished(false));
     await serverAL.updateElement(id, whatEdit, text);
@@ -267,7 +251,7 @@ export const updateQuteServer = (id, whatEdit, text) => async (dispatch) => {
 };
 // ---------------------------------------
 export const likeChangeTC =
-  (userID, postID, buttonEvent, subBool) => async (dispatch) => {
+  (userID:number, postID:number, buttonEvent:any, subBool:boolean) => async (dispatch:Function) => {
     try {
       buttonEvent.target.disabled = true;
       dispatch(changeIsFinished(false));
@@ -281,7 +265,7 @@ export const likeChangeTC =
   };
 
 // ---------------------------------------
-export const newWallPostTC = (userID, data) => async (dispatch) => {
+export const newWallPostTC = (userID:number, data:any) => async (dispatch:Function) => {
   try {
     dispatch(changeIsFinished(false));
 

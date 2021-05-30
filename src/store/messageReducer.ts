@@ -1,41 +1,62 @@
-import { cloneDeep } from "lodash";
 import { serverAL } from "../api/api";
 import { changeLoadStatus } from "./commonReduser";
+import { pmMainType } from "./types/redusersTypes";
 
 // ========================================
 
 const SET_USERS_LIST_PM = "SET-USERS-LIST-PM/message-part";
 const SET_CURRENT_DIEALOGS_PM = "SET-CURRENT-DIEALOGS-PM/message-part";
-const CHANGE_ISSELECTED_USER = "CHANGE_ISSELECTED_USER/message-part";
 const ADD_NEW_PM = "ADD-NEW-PM/message-part";
 // ========================================
 
-export const setUsersListPM = (data) => ({
+export const setUsersListPM = (data: any) => ({
   type: SET_USERS_LIST_PM,
   data,
 });
-export const setCuttentDialog = (data) => ({
+export const setCuttentDialog = (data: any) => ({
   type: SET_CURRENT_DIEALOGS_PM,
   data,
 });
-export const setIsUserSelected = (bul) => ({
+export const setIsUserSelected = (bul: boolean) => ({
   type: SET_CURRENT_DIEALOGS_PM,
   bul,
 });
-export const addSendPm = (data) => ({
+export const addSendPm = (data: any) => ({
   type: ADD_NEW_PM,
   data,
 });
 // ========================================
+type pmActionType =
+  {
+    type: typeof SET_USERS_LIST_PM | typeof SET_CURRENT_DIEALOGS_PM | typeof ADD_NEW_PM,
+    bul?: boolean,
+    data?: any
+  }
+
+type reducerExecutiveFunction = (state: pmMainType, action: pmActionType) => pmMainType
 
 const init = {
-  usersPMlist: [{ id: 0, firstName: "Borya", picture: "" }],
+  usersPMlist: [{
+    adressCity: "load",
+    adressCountry: "load",
+    email: "load",
+    firstName: "load",
+    id: 2,
+    isFollow: false,
+    lastName: "load",
+    phone: "load",
+    picture: "load",
+    quote: "load",
+    registerDate: "load",
+    title: "load",
+  }],
   selectedDiadlog: [
     {
-      text: "",
-      avatar: "",
-      pmId: "",
-      firstName: "",
+      userId: 2,
+      text: "load",
+      avatar: "load",
+      pmId: 2,
+      firstName: "load",
     },
   ],
   pmSettings: {
@@ -44,7 +65,7 @@ const init = {
 };
 
 // ========================================
-function messageReducer(state = init, action) {
+function messageReducer(state = init, action: pmActionType): pmMainType {
   switch (action.type) {
     // --------------
 
@@ -56,10 +77,7 @@ function messageReducer(state = init, action) {
     case SET_CURRENT_DIEALOGS_PM: {
       return _setCurrentDialog(state, action);
     }
-    // --------------
-    case CHANGE_ISSELECTED_USER: {
-      return _switchIsSelected(state, action);
-    }
+
     // --------------
     case ADD_NEW_PM: {
       return _pushPM(state, action);
@@ -71,38 +89,30 @@ function messageReducer(state = init, action) {
 }
 // ========================================
 
-// ---------------------------------------
 
 // ---------------------------------------
-function _switchIsSelected(state, action) {
-  return {
-    ...state,
-    changedText: { ...state.changedText, PMtext: action.text },
-  };
-}
-// ---------------------------------------
-function _setUsersList(state, action) {
+const _setUsersList: reducerExecutiveFunction = (state, action) => {
   return {
     ...state,
     usersPMlist: [...action.data],
   };
 }
 // ---------------------------------------
-function _setCurrentDialog(state, action) {
+const _setCurrentDialog: reducerExecutiveFunction = (state, action) => {
   return {
     ...state,
     selectedDiadlog: [...action.data],
   };
 }
 // ---------------------------------------
-function _pushPM(state, action) {
+const _pushPM: reducerExecutiveFunction = (state, action) => {
   return {
     ...state,
     selectedDiadlog: [...state.selectedDiadlog, action.data],
   };
 }
 // ---------------------------------------
-export const getUsersPMlistTC = (data) => async (dispatch) => {
+export const getUsersPMlistTC = (data: any) => async (dispatch: Function) => {
   try {
     dispatch(changeLoadStatus(true));
     const userAnsw = await serverAL.getSubscrUsers();
@@ -114,7 +124,7 @@ export const getUsersPMlistTC = (data) => async (dispatch) => {
   }
 };
 
-export const getCurrentDialogPM = (id) => async (dispatch) => {
+export const getCurrentDialogPM = (id: number) => async (dispatch: Function) => {
   try {
     dispatch(changeLoadStatus(true));
     const dialogsAnsw = await serverAL.getCurrPM(id);

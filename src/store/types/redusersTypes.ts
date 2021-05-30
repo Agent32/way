@@ -13,6 +13,8 @@ export type userType =
         adressCountry: string | null,
         adressCity: string | null,
         registerDate: string | null,
+        dateOfBirth? : string | null,
+        phone?: string | null,
     }
 type pageSetType =
     {
@@ -27,4 +29,70 @@ export type usersListStateType = {
     pageSettings: pageSetType
 };
 
-//----------------UserList------------------------
+//----------------Profile------------------------
+
+
+type wallPostType =
+{
+    id: number,
+    userId:number,
+    picture: string | null,
+    text: string | null,
+    createdAt: string | null,
+    likes: boolean,
+  }
+  type profileSettingsType =
+{
+    wallText: string | null,
+    isLoadinFinished: boolean,
+    whatEdit: any,
+    isEditorOneNeed: boolean,
+  }
+
+
+export type profileMainType = {
+    postsWall: Array<wallPostType>,
+    userData: userType,
+    changedText:profileSettingsType
+
+};
+
+//----------------PMlist------------------------
+
+export type usersPmListType =
+    {
+        adressCity: string | null,
+        adressCountry: string | null,
+        email: string | null,
+        firstName: string | null,
+        id: number | null,
+        isFollow: boolean | null,
+        lastName: string | null,
+        phone: string | null,
+        picture: string | null,
+        quote: string | null,
+        registerDate: string | null,
+        title: string | null,
+    }
+
+export type selectedDiadlogType =
+    {
+        userId: number | null,
+        text: string | null,
+        avatar: string | null,
+        pmId: number | null,
+        firstName: string | null
+    }
+
+type pmSettings =
+    {
+        isUserSelected: boolean,
+    }
+
+
+
+  export  type pmMainType = {
+        usersPMlist: Array<usersPmListType>,
+        selectedDiadlog: Array<selectedDiadlogType>,
+        pmSettings: pmSettings
+    }

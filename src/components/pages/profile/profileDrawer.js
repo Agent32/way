@@ -130,7 +130,7 @@ const Profile = (props) => {
     form: "wallPostForm",
   })(SendPost);
   //---------------------------------------------------------
-  //wallPostSend
+
   function SendPost(props) {
     const { pristine, submitting } = props;
     return (
