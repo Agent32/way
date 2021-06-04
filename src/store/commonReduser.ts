@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 //import { cloneDeep } from "lodash";
 
 import { serverAL } from "../api/api";
@@ -6,22 +7,33 @@ import { serverAL } from "../api/api";
 const CHANGE_LOADING_STATUS = "CHANGE-LOADING-STATUS";
 const APP_INIT_DONE = "APP-INIT-DONE";
 
-
 // ========================================
-export const changeLoadStatus = (status) => ({ type: CHANGE_LOADING_STATUS, status });
+
+//--------------
+// ========================================
+export const changeLoadStatus = (status: boolean) => ({
+  type: CHANGE_LOADING_STATUS,
+  status,
+});
+
+
 // --------------
 export const initComplete = () => ({ type: APP_INIT_DONE });
 // ========================================
 
+type actionTypes = ReturnType<typeof changeLoadStatus> | ReturnType<typeof initComplete> 
+  
 const init = {
   loadingModules: {
- isSomethingLoading:false,
- isInitComplete:false,
+    isSomethingLoading: false,
+    isInitComplete: false,
   },
 };
+
+ type stateType = typeof init
 // ========================================
 
-function commonReduser(state = init, action) {
+function commonReduser(state = init, action:actionTypes) {
   switch (action.type) {
     // --------------
 
@@ -37,18 +49,15 @@ function commonReduser(state = init, action) {
 }
 // ========================================
 
-
 // ---------------------------------------
-function _changeLoadStatus(state, action) {
-  
+function _changeLoadStatus(state:stateType, action:any) {
   return {
     ...state,
     loadingModules: { isSomethingLoading: action.status },
   };
 }
 // ---------------------------------------
-function _appInitComplete(state, action) {
-  
+function _appInitComplete(state:stateType, action:actionTypes) {
   return {
     ...state,
     loadingModules: { isInitComplete: true },
@@ -58,16 +67,16 @@ function _appInitComplete(state, action) {
 // ========================================
 
 export const initPageTC = () => {
-  return (dispatch) => {
-   
+  return (dispatch:Function) => {
     dispatch(changeLoadStatus(false));
 
-  const promiseMass = promiseMass.push(  serverAL.userInit() )
+    const promiseMass: any = []
+      promiseMass.push(serverAL.userInit());
 
-   Promise.all([promiseMass]).then ( ()=> { 
-      dispatch(initComplete())
+    Promise.all([promiseMass]).then(() => {
+      dispatch(initComplete());
       dispatch(changeLoadStatus(true));
-    })
+    });
   };
 };
 export default commonReduser;

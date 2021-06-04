@@ -27,8 +27,8 @@ function ProfileConnectContainer(props) {
   const updateQuoteOnServer = () => {
     props.updateQuteServer(
       props.userData.id,
-      props.changedText.whatEdit,
-      props.userData[props.changedText.whatEdit]
+      props.profileSettings.whatEdit,
+      props.userData[props.profileSettings.whatEdit]
     );
   };
 
@@ -38,10 +38,10 @@ function ProfileConnectContainer(props) {
 
   return (
     <>
-      {props.changedText.isLoadinFinished ? null : <LoadingModule />}
+      {props.profileSettings.isLoadinFinished ? null : <LoadingModule />}
 
       <Profile
-        changedText={props.changedText}
+        profileSettings={props.profileSettings}
         userData={props.userData}
         postsWall={props.postsWall}
         wallSend={wallSend}
@@ -60,7 +60,7 @@ function ProfileConnectContainer(props) {
 // ========================================
 const mapStateToProps = (state) => {
   return {
-    changedText: state.bodyPart.changedText,
+    profileSettings: state.bodyPart.profileSettings,
     userData: state.bodyPart.userData,
     postsWall: state.bodyPart.postsWall,
   };

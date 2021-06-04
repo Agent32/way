@@ -21,7 +21,7 @@ const Profile = (props) => {
   const doubleClickHolder = (stringName) => {
     console.log(userData.picture);
 
-    if (!props.changedText.isEditorOneNeed) {
+    if (!props.profileSettings.isEditorOneNeed) {
       props.enableEditElement(stringName);
     }
   };
@@ -39,7 +39,7 @@ const Profile = (props) => {
             ref={areaNewPost}
             onChange={() => props.editProfilePart(areaNewPost.current.value)}
             autoFocus={true}
-            value={props.userData[props.changedText.whatEdit]}
+            value={props.userData[props.profileSettings.whatEdit]}
             onBlur={() => {
               props.updateQuoteOnServer();
             }}
@@ -53,7 +53,7 @@ const Profile = (props) => {
     //
     return (
       <>
-        {props.changedText.isLoadinFinished && props.changedText.isEditorOneNeed
+        {props.profileSettings.isLoadinFinished && props.profileSettings.isEditorOneNeed
           ? textForm()
           : nothing()}
       </>

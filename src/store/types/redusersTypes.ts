@@ -53,7 +53,7 @@ type wallPostType =
 export type profileMainType = {
     postsWall: Array<wallPostType>,
     userData: userType,
-    changedText:profileSettingsType
+    profileSettings:profileSettingsType
 
 };
 

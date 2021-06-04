@@ -1,6 +1,5 @@
 import { serverAL } from "../api/api";
-import { profileMainType,userType } from "./types/redusersTypes";
-
+import { profileMainType, userType } from "./types/redusersTypes";
 // ========================================
 const GET_USER = "GET-USER";
 const LODAER_WAITER_CHANGER = "LODAER-WAITER-CHANGER";
@@ -12,42 +11,47 @@ const GET_USER_WALL = "GET-USER-WALL";
 const WALL_LIKE_BUTTON_CHANGE = "WALL-LIKE-BUTTON-CHANGE";
 // ========================================
 //----------------------------
-
+function actionTypesString < T extends string > (arg: T): T {return arg}
 //----------------------------
-export const getUser = (userProfiledata: userType)=> ({ type: GET_USER, userProfiledata });
+export const getUser = (userProfiledata: userType) => ({ type: GET_USER, userProfiledata });
+
+
+//export const getUser = createAction('GET-USER', (userProfiledata: userType) => userProfiledata);
 // --------------
 export const changeIsFinished = (isFinished: boolean) => ({
-  type: LODAER_WAITER_CHANGER,
+  type: actionTypesString('LODAER-WAITER-CHANGER'),
   isFinished: isFinished,
-});
+}as const);
 // --------------
 export const editQuote = (text: string) => ({ type: EDIT_QUOTE_TEXT, text });
 // --------------
 export const enableEditElement = (elem: any) => ({
   type: ENABLE_EDIT_ELEMENT,
   elem,
-});
+}as const);
 // --------------
 export const diesableEditElement = () => ({
   type: DISABLE_EDIT_ELEMENT,
-});
+} as const);
 // --------------
 export const editProfilePart = (text: string) => ({
   type: EDIT_CURR_ELEM,
   text,
-});
+} as const);
 // --------------
 export const getUserWallPost = (data: any) => ({
   type: GET_USER_WALL,
   data,
-});
+} as const);
 // --------------
 export const likeChange = (userid: number, postId: number) => ({
   type: WALL_LIKE_BUTTON_CHANGE,
   userid,
   postId,
-});
+} as const);
 // ========================================
+
+
 type profileActionType =
   {
     type:  typeof GET_USER |
@@ -78,7 +82,7 @@ const init = {
     },
   ],
   // ---------------------------------------
-  changedText: {
+  profileSettings: {
     wallText: "",
     isLoadinFinished: false,
     whatEdit: null,
@@ -122,7 +126,7 @@ function bodyReducer(state = init, action: profileActionType): profileMainType {
     }
     // --------------
     case EDIT_QUOTE_TEXT: {
-      return _editChangeStatus(state, action);
+      return _editChangeStatus(state, action)
     }
     // --------------
     case ENABLE_EDIT_ELEMENT: {
@@ -159,7 +163,7 @@ const _getUser: reducerProfileExecutiveFunction = (state, action) => {
 const _loaderWaitSwitch: reducerProfileExecutiveFunction = (state, action) => {
   return {
     ...state,
-    changedText: { ...state.changedText, isLoadinFinished: action.isFinished },
+    profileSettings: { ...state.profileSettings, isLoadinFinished: action.isFinished },
   };
 }
 // ---------------------------------------
@@ -168,13 +172,13 @@ const _editChangeStatus: reducerProfileExecutiveFunction = (state, action) => {
     ...state,
     userData: { ...state.userData, quote: action.text },
   };
-}
+}  
 // ---------------------------------------
 const _enableEditElement: reducerProfileExecutiveFunction = (state, action) => {
   return {
     ...state,
-    changedText: {
-      ...state.changedText,
+    profileSettings: {
+      ...state.profileSettings,
       isEditorOneNeed: true,
       whatEdit: action.elem,
     },
@@ -184,8 +188,8 @@ const _enableEditElement: reducerProfileExecutiveFunction = (state, action) => {
 const _disableEditElement: reducerProfileExecutiveFunction = (state, action) => {
   return {
     ...state,
-    changedText: {
-      ...state.changedText,
+    profileSettings: {
+      ...state.profileSettings,
       isEditorOneNeed: false,
       whatEdit: "",
     },
@@ -195,7 +199,7 @@ const _disableEditElement: reducerProfileExecutiveFunction = (state, action) => 
 const _editCurrElem: reducerProfileExecutiveFunction = (state, action) => {
   return {
     ...state,
-    userData: { ...state.userData, [state.changedText.whatEdit]: action.text },
+    userData: { ...state.userData, [state.profileSettings.whatEdit]: action.text },
   };
 }
 // ---------------------------------------
