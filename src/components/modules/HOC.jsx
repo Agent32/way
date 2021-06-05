@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import React from "react";
 import { compose } from "redux";
 import LoadingModule from "./loader/loader";
-import { changeLoadStatus } from "../../store/commonReduser";
 import { renderField, inputCondition } from "./inputErorPanel/input";
+import { changeLoadStatus } from "../../store/actions/actionCommonReduser";
 //---------------------------------------------------------
 export const withAutoredirectNotLogIn = (Component) => {
   const mapStateToProps = (state) => {

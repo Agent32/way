@@ -1,5 +1,5 @@
 import { serverAL } from "../api/api";
-import { changeLoadStatus } from "./commonReduser";
+import { changeLoadStatus } from "./actions/actionCommonReduser";
 import { pmMainType } from "./types/redusersTypes";
 
 // ========================================

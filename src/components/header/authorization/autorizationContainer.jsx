@@ -1,21 +1,22 @@
-import React from "react";
+import React from 'react'
 
-import AutorizationDrawer from "./autorizationDrawer";
-import { connect } from "react-redux";
-import * as axios from "axios";
-import { Redirect, NavLink, withRouter } from "react-router-dom";
+import AutorizationDrawer from './autorizationDrawer'
+import { connect } from 'react-redux'
+import * as axios from 'axios'
+import { Redirect, NavLink, withRouter } from 'react-router-dom'
+
 import {
   tryLogin,
   tryLogout,
-  loginFormSubmit,
-} from "../../../store/autorizationReduser";
+  loginFormSubmit
+} from '../../../store/actions/autorizationActions'
 
-import { compose } from "redux";
+import { compose } from 'redux'
 
 class AutorizationContainerConnect extends React.Component {
   regButtonPress = () => {
-    return <Redirect to={"/register"} />;
-  };
+    return <Redirect to={'/register'} />
+  }
 
   render() {
     return (
@@ -29,7 +30,7 @@ class AutorizationContainerConnect extends React.Component {
           loginFormSubmit={this.props.loginFormSubmit}
         />
       </>
-    );
+    )
   }
 }
 
@@ -37,10 +38,10 @@ class AutorizationContainerConnect extends React.Component {
 
 // ========================================
 const mapStateToProps = (state) => {
-  return { userData: state.autorizationPart.userData };
-};
+  return { userData: state.autorizationPart.userData }
+}
 
 export default compose(
   connect(mapStateToProps, { tryLogin, tryLogout, loginFormSubmit }),
   withRouter
-)(AutorizationContainerConnect);
+)(AutorizationContainerConnect)

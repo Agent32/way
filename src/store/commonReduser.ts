@@ -1,82 +1,54 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-//import { cloneDeep } from "lodash";
+// import { cloneDeep } from "lodash";
 
-import { serverAL } from "../api/api";
-
-// ========================================
-const CHANGE_LOADING_STATUS = "CHANGE-LOADING-STATUS";
-const APP_INIT_DONE = "APP-INIT-DONE";
-
-// ========================================
-
-//--------------
-// ========================================
-export const changeLoadStatus = (status: boolean) => ({
-  type: CHANGE_LOADING_STATUS,
-  status,
-});
+import { serverAL } from '../api/api'
 
 
-// --------------
-export const initComplete = () => ({ type: APP_INIT_DONE });
-// ========================================
+import * as actions from './actions/actionCommonReduser'
+type getOnlyActionTypes<T> = T extends { [key: string]: infer U } ? U : never
+type ActionTypesM = ReturnType<getOnlyActionTypes<typeof actions>>
 
-type actionTypes = ReturnType<typeof changeLoadStatus> | ReturnType<typeof initComplete> 
-  
 const init = {
   loadingModules: {
     isSomethingLoading: false,
-    isInitComplete: false,
-  },
-};
+    isInitComplete: false
+  }
+}
 
- type stateType = typeof init
-// ========================================
-
-function commonReduser(state = init, action:actionTypes) {
+function commonReduser(state = init, action: ActionTypesM) {
   switch (action.type) {
     // --------------
 
-    case CHANGE_LOADING_STATUS: {
-      return _changeLoadStatus(state, action);
+    case 'CHANGE-LOADING-STATUS': {
+      //-----------------------------------------------
+      return {
+        ...state,
+        loadingModules: { isSomethingLoading: action.status }
+      }
     }
-    case APP_INIT_DONE: {
-      return _appInitComplete(state, action);
+    case 'APP-INIT-DONE': {
+      //-----------------------------------------------
+      return {
+        ...state,
+        loadingModules: { isInitComplete: true }
+      }
     }
     default:
-      return state;
+      return state
   }
 }
 // ========================================
 
-// ---------------------------------------
-function _changeLoadStatus(state:stateType, action:any) {
-  return {
-    ...state,
-    loadingModules: { isSomethingLoading: action.status },
-  };
-}
-// ---------------------------------------
-function _appInitComplete(state:stateType, action:actionTypes) {
-  return {
-    ...state,
-    loadingModules: { isInitComplete: true },
-  };
-}
-// ========================================
-// ========================================
-
 export const initPageTC = () => {
-  return (dispatch:Function) => {
-    dispatch(changeLoadStatus(false));
+  return (dispatch: Function) => {
+    dispatch(actions.changeLoadStatus(false))
 
     const promiseMass: any = []
-      promiseMass.push(serverAL.userInit());
+    promiseMass.push(serverAL.userInit())
 
     Promise.all([promiseMass]).then(() => {
-      dispatch(initComplete());
-      dispatch(changeLoadStatus(true));
-    });
-  };
-};
-export default commonReduser;
+      dispatch(actions.initComplete())
+      dispatch(actions.changeLoadStatus(true))
+    })
+  }
+}
+export default commonReduser

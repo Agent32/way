@@ -42,7 +42,7 @@ function AutorizationDrawer(props) {
           <div>
             <Field 
             
-            component="input" name="login" placeholder={`Login`}
+            component="input" name="userName" placeholder={`Login`}
             validate={[inputCondition.required, maxLength10, minLength2]}
             
               />{" "}
