@@ -1,40 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react'
 import {
   getUser,
-  getUserByIdTC,
-  updateQuteServer,
   editProfilePart,
-  enableEditElement,
+  enableEditElement
+} from '../../../store/actions/profileActions'
+import {
+  updateQuteServerTC,
+  getUserByIdTC,
   likeChangeTC,
-  newWallPostTC,
-} from "../../../store/profileReducer";
-import Profile from "./profileDrawer";
-import { connect } from "react-redux";
+  newWallPostTC
+} from '../../../store/profileReducer'
 
-import { withRouter } from "react-router-dom";
-import LoadingModule from "../../modules/loader/loader";
+import Profile from './profileDrawer'
+import { connect } from 'react-redux'
 
-import { compose } from "redux";
+import { withRouter } from 'react-router-dom'
+import LoadingModule from '../../modules/loader/loader'
+
+import { compose } from 'redux'
 
 function ProfileConnectContainer(props) {
-  const usrID = props.match.params.userId;
-  const usrFunc = props.getUserByIdTC;
+  const usrID = props.match.params.userId
+  const usrFunc = props.getUserByIdTC
 
   useEffect(() => {
-    usrFunc(usrID);
-  }, [usrID, usrFunc]);
+    usrFunc(usrID)
+  }, [usrID, usrFunc])
 
   const updateQuoteOnServer = () => {
-    props.updateQuteServer(
+    props.updateQuteServerTC(
       props.userData.id,
       props.profileSettings.whatEdit,
       props.userData[props.profileSettings.whatEdit]
-    );
-  };
+    )
+  }
 
   const wallSend = (data) => {
-    props.newWallPostTC(props.userData.id, data);
-  };
+    props.newWallPostTC(props.userData.id, data)
+  }
 
   return (
     <>
@@ -54,7 +57,7 @@ function ProfileConnectContainer(props) {
         newWallPostTC={props.newWallPostTC}
       />
     </>
-  );
+  )
 }
 
 // ========================================
@@ -62,19 +65,19 @@ const mapStateToProps = (state) => {
   return {
     profileSettings: state.bodyPart.profileSettings,
     userData: state.bodyPart.userData,
-    postsWall: state.bodyPart.postsWall,
-  };
-};
+    postsWall: state.bodyPart.postsWall
+  }
+}
 
 export default compose(
   connect(mapStateToProps, {
     getUser,
     getUserByIdTC,
-    updateQuteServer,
+    updateQuteServerTC,
     enableEditElement,
     editProfilePart,
     likeChangeTC,
-    newWallPostTC,
+    newWallPostTC
   }),
   withRouter
-)(ProfileConnectContainer);
+)(ProfileConnectContainer)

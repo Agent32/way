@@ -1,139 +1,106 @@
-import { serverAL } from "../api/api";
-import { changeLoadStatus } from "./actions/actionCommonReduser";
-import { pmMainType } from "./types/redusersTypes";
+import { serverAL } from '../api/api'
+import { changeLoadStatus } from './actions/actionCommonReduser'
+import { pmMainType } from './types/redusersTypes'
 
+// ==================action import======================
+import * as actions from './actions/privateMassageActions'
+type getOnlyActionTypes<T> = T extends { [key: string]: infer U } ? U : never
+type ActionTypesM = ReturnType<getOnlyActionTypes<typeof actions>>
 // ========================================
 
-const SET_USERS_LIST_PM = "SET-USERS-LIST-PM/message-part";
-const SET_CURRENT_DIEALOGS_PM = "SET-CURRENT-DIEALOGS-PM/message-part";
-const ADD_NEW_PM = "ADD-NEW-PM/message-part";
 // ========================================
-
-export const setUsersListPM = (data: any) => ({
-  type: SET_USERS_LIST_PM,
-  data,
-});
-export const setCuttentDialog = (data: any) => ({
-  type: SET_CURRENT_DIEALOGS_PM,
-  data,
-});
-export const setIsUserSelected = (bul: boolean) => ({
-  type: SET_CURRENT_DIEALOGS_PM,
-  bul,
-});
-export const addSendPm = (data: any) => ({
-  type: ADD_NEW_PM,
-  data,
-});
-// ========================================
-type pmActionType =
-  {
-    type: typeof SET_USERS_LIST_PM | typeof SET_CURRENT_DIEALOGS_PM | typeof ADD_NEW_PM,
-    bul?: boolean,
-    data?: any
-  }
-
-type reducerExecutiveFunction = (state: pmMainType, action: pmActionType) => pmMainType
 
 const init = {
-  usersPMlist: [{
-    adressCity: "load",
-    adressCountry: "load",
-    email: "load",
-    firstName: "load",
-    id: 2,
-    isFollow: false,
-    lastName: "load",
-    phone: "load",
-    picture: "load",
-    quote: "load",
-    registerDate: "load",
-    title: "load",
-  }],
+  usersPMlist: [
+    {
+      adressCity: 'load',
+      adressCountry: 'load',
+      email: 'load',
+      firstName: 'load',
+      id: 2,
+      isFollow: false,
+      lastName: 'load',
+      phone: 'load',
+      picture: 'load',
+      quote: 'load',
+      registerDate: 'load',
+      title: 'load'
+    }
+  ],
   selectedDiadlog: [
     {
       userId: 2,
-      text: "load",
-      avatar: "load",
+      text: 'load',
+      avatar: 'load',
       pmId: 2,
-      firstName: "load",
-    },
+      firstName: 'load'
+    }
   ],
   pmSettings: {
-    isUserSelected: false,
-  },
-};
+    isUserSelected: false
+  }
+}
 
 // ========================================
-function messageReducer(state = init, action: pmActionType): pmMainType {
+function messageReducer(
+  state: pmMainType = init,
+  action: ActionTypesM
+): pmMainType {
   switch (action.type) {
     // --------------
 
     // --------------
-    case SET_USERS_LIST_PM: {
-      return _setUsersList(state, action);
+    case 'SET-USERS-LIST-PM/message-part': {
+      return {
+        ...state,
+        usersPMlist: [...action.data]
+      }
     }
     // --------------
-    case SET_CURRENT_DIEALOGS_PM: {
-      return _setCurrentDialog(state, action);
+    case 'SET-CURRENT-DIEALOGS-PM/message-part': {
+      return {
+        ...state,
+        selectedDiadlog: [...action.data]
+      }
     }
 
     // --------------
-    case ADD_NEW_PM: {
-      return _pushPM(state, action);
+    case 'ADD-NEW-PM/message-part': {
+      return {
+        ...state,
+        selectedDiadlog: [...state.selectedDiadlog, action.data]
+      }
     }
     // --------------
     default:
-      return state;
+      return state
   }
 }
 // ========================================
 
-
-// ---------------------------------------
-const _setUsersList: reducerExecutiveFunction = (state, action) => {
-  return {
-    ...state,
-    usersPMlist: [...action.data],
-  };
-}
-// ---------------------------------------
-const _setCurrentDialog: reducerExecutiveFunction = (state, action) => {
-  return {
-    ...state,
-    selectedDiadlog: [...action.data],
-  };
-}
-// ---------------------------------------
-const _pushPM: reducerExecutiveFunction = (state, action) => {
-  return {
-    ...state,
-    selectedDiadlog: [...state.selectedDiadlog, action.data],
-  };
-}
-// ---------------------------------------
 export const getUsersPMlistTC = (data: any) => async (dispatch: Function) => {
   try {
-    dispatch(changeLoadStatus(true));
-    const userAnsw = await serverAL.getSubscrUsers();
+    dispatch(changeLoadStatus(true))
+    const userAnsw = await serverAL.getSubscrUsers()
 
-    dispatch(setUsersListPM(userAnsw.data));
-    dispatch(changeLoadStatus(false));
+    dispatch(actions.setUsersListPM(userAnsw.data))
+    dispatch(changeLoadStatus(false))
   } catch (err) {
-    console.log(err);
+    console.log(err)
   }
-};
+}
 
-export const getCurrentDialogPM = (id: number) => async (dispatch: Function) => {
-  try {
-    dispatch(changeLoadStatus(true));
-    const dialogsAnsw = await serverAL.getCurrPM(id);
+export const getCurrentDialogPrivatTC =
+  (id: number) => async (dispatch: Function) => {
+    try {
+      dispatch(changeLoadStatus(true))
+      const dialogsAnsw = await serverAL.getCurrPM(id)
 
-    dispatch(setCuttentDialog(dialogsAnsw));
-    dispatch(changeLoadStatus(false));
-  } catch (err) {
-    console.log(err);
+      dispatch(actions.setCuttentDialog(dialogsAnsw))
+      dispatch(changeLoadStatus(false))
+    } catch (err) {
+      console.log(err)
+    }
   }
-};
 
-export default messageReducer;
+export default messageReducer

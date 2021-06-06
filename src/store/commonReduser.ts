@@ -2,7 +2,6 @@
 
 import { serverAL } from '../api/api'
 
-
 import * as actions from './actions/actionCommonReduser'
 type getOnlyActionTypes<T> = T extends { [key: string]: infer U } ? U : never
 type ActionTypesM = ReturnType<getOnlyActionTypes<typeof actions>>
@@ -14,7 +13,8 @@ const init = {
   }
 }
 
-function commonReduser(state = init, action: ActionTypesM) {
+type mainRedType = typeof init
+function commonReduser(state = init, action: ActionTypesM): mainRedType {
   switch (action.type) {
     // --------------
 
@@ -22,14 +22,14 @@ function commonReduser(state = init, action: ActionTypesM) {
       //-----------------------------------------------
       return {
         ...state,
-        loadingModules: { isSomethingLoading: action.status }
+        loadingModules: { ...state.loadingModules, isSomethingLoading: action.status }
       }
     }
     case 'APP-INIT-DONE': {
       //-----------------------------------------------
       return {
         ...state,
-        loadingModules: { isInitComplete: true }
+        loadingModules: { ...state.loadingModules, isInitComplete: true }
       }
     }
     default:

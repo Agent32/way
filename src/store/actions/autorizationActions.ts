@@ -1,4 +1,4 @@
-import { loginData, loginMainData } from "../types/redusersTypes"
+import { loginData} from "../types/redusersTypes"
 
 
 export const tryLogin = (data: loginData) => ({ type: 'TRY-LOGIN', data } as const)

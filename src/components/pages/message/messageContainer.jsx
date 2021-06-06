@@ -5,10 +5,12 @@ import { withRouter } from "react-router-dom";
 
 import {
   getUsersPMlistTC,
-  getCurrentDialogPM,
-  setIsUserSelected,
-  addSendPm,
+  getCurrentDialogPrivatTC,
 } from "../../../store/messageReducer";
+
+import {
+  addSendPm,
+} from "../../../store/actions/privateMassageActions";
 
 import MassagePage from "./messageDrawer";
 import LoadingModule from "../../modules/loader/loader";
@@ -58,8 +60,7 @@ const mapStateToProps = (state) => {
 const MassagePageContainer = compose(
   connect(mapStateToProps, {
     getUsersPMlistTC,
-    getCurrentDialogPM,
-    setIsUserSelected,
+    getCurrentDialogPM: getCurrentDialogPrivatTC,
     addSendPm,
   }),
   withRouter,

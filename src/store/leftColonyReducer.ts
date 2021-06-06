@@ -1,84 +1,86 @@
-import { serverAL } from "../api/api";
+import { serverAL } from '../api/api'
 
 // ========================================
-const UPDATE_FRIEND_PANEL = "UPDATE-FRIEND-PANEL/COLONY-REDUCER";
+const UPDATE_FRIEND_PANEL = 'UPDATE-FRIEND-PANEL/COLONY-REDUCER'
 //---------------
 type actionType = typeof UPDATE_FRIEND_PANEL
 
 type actionCreatorType = {
-  type: actionType,
+  type: actionType
   data: friendPanelType
 }
 //--------------
 // ========================================
 export const udpateFriends = (data: actionCreatorType) => ({
   type: UPDATE_FRIEND_PANEL,
-  data,
-});
-
+  data
+})
 
 // ========================================s
 const init = {
   friendPanel: [
     {
       id: 0 as number | null,
-      adressCity: "loadin" as string | null,
-      adressCountry: "loadin" as string | null,
-      email: "loadin" as string | null,
-      firstName: "loadin" as string | null,
+      adressCity: 'loadin' as string | null,
+      adressCountry: 'loadin' as string | null,
+      email: 'loadin' as string | null,
+      firstName: 'loadin' as string | null,
       isFollow: true as boolean | null,
-      lastName: "loadin" as string | null,
-      phone: "loadin" as string | null,
-      picture: "loadin" as string | null,
-      quote: "loadin" as string | null,
-      registerDate: "loadin" as string | null,
-      title: "loadin" as string | null,
+      lastName: 'loadin' as string | null,
+      phone: 'loadin' as string | null,
+      picture: 'loadin' as string | null,
+      quote: 'loadin' as string | null,
+      registerDate: 'loadin' as string | null,
+      title: 'loadin' as string | null,
       childRs: [
         {
           pmId: 0 as number | null,
           userId: 0 as number | null,
-          text: "loadin" as string | null,
-          avatar: "loadin" as string | null,
-          firstName: "loadin" as string | null,
-        },
-      ],
-    },
-  ],
-};
+          text: 'loadin' as string | null,
+          avatar: 'loadin' as string | null,
+          firstName: 'loadin' as string | null
+        }
+      ]
+    }
+  ]
+}
 
 type friendPanelInitType = typeof init
 type friendPanelType = typeof init.friendPanel
 
-
-function leftColonePartReducer(state = init, action: actionCreatorType) {
+function leftColonePartReducer(state = init, action: actionCreatorType):friendPanelInitType {
   switch (action.type) {
     // --------------
 
     case UPDATE_FRIEND_PANEL: {
-      return _setAvatars(state, action);
+      return _setAvatars(state, action)
     }
     // --------------
     default:
-      return state;
+      return state
   }
 }
 // ========================================
-function _setAvatars(state: friendPanelInitType, action: actionCreatorType): friendPanelInitType {
+function _setAvatars(
+  state: friendPanelInitType,
+  action: actionCreatorType
+): friendPanelInitType {
   return {
     ...state,
-    friendPanel: [...action.data],
-  };
+    friendPanel: [...action.data]
+  }
 }
 // ---------------------------------------
-export const updateFriendsTC = (data: friendPanelType) => async (dispatch: Function) => {
-  try {
-    const wallPostSucces = await serverAL.getSubscrUsers();
+export const updateFriendsTC =
+  (data: friendPanelType) => async (dispatch: Function) => {
+    try {
+      const wallPostSucces = await serverAL.getSubscrUsers()
 
-    dispatch(udpateFriends(wallPostSucces.data));
-  } catch (err) {
-    console.log(err);
+      dispatch(udpateFriends(wallPostSucces.data))
+    } catch (err) {
+      console.log(err)
+    }
   }
-};
 // ---------------------------------------
 
-export default leftColonePartReducer;
+export default leftColonePartReducer

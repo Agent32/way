@@ -1,7 +1,8 @@
 //import { cloneDeep } from "lodash";
 
-import { loginMainData, loginData } from './types/redusersTypes'
+import { loginMainData } from './types/redusersTypes'
 
+// ==================action import======================
 import * as actions from './actions/autorizationActions'
 type getOnlyActionTypes<T> = T extends { [key: string]: infer U } ? U : never
 type ActionTypesM = ReturnType<getOnlyActionTypes<typeof actions>>
@@ -20,7 +21,10 @@ const init: loginMainData = {
 }
 // ========================================
 
-function autorizationReduser(state = init, action: ActionTypesM) {
+function autorizationReduser(
+  state = init,
+  action: ActionTypesM
+): loginMainData {
   switch (action.type) {
     // ---------------------------------------
     case 'TRY-LOGIN': {
@@ -47,8 +51,8 @@ function autorizationReduser(state = init, action: ActionTypesM) {
           isLoggedIn: true,
           inputLogin: '',
           inputPassword: '',
-          token: 'agagag',
           loginData: {
+            ...state.userData.loginData,
             userName: action.elem.userName
           }
         }
@@ -63,7 +67,6 @@ function autorizationReduser(state = init, action: ActionTypesM) {
           isLoggedIn: false,
           inputLogin: '',
           inputPassword: '',
-          token: '',
           loginData: {
             userName: '',
             avatar: ''
