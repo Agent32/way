@@ -15,10 +15,10 @@ const mapStateToProps = (state: mainStateType) => {
 
 
 const connector = connect(mapStateToProps, { getNewsPostsTC })
-type PropsFromRedux = ConnectedProps<typeof connector>
+export type PropsFromRedux = ConnectedProps<typeof connector>
 
 
-function NewsConnectContainer(props: PropsFromRedux){
+function NewsConnectContainer(props: PropsFromRedux): React.ReactElement<PropsFromRedux> {
   useEffect(() => {
     props.getNewsPostsTC();
   }, []);
@@ -31,7 +31,7 @@ function NewsConnectContainer(props: PropsFromRedux){
   )
 }
 
-
+export type connectorReturnType = ReturnType<typeof NewsConnectContainer>
 // ========================================
 
 

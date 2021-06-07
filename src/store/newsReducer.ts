@@ -26,13 +26,13 @@ const init = {
         id: 'load' as string | null,
         email: 'load' as string | null,
         title: 'load' as string | null,
-        picture: 'load' as string | null,
+        picture: 'load' as string,
         firstName: 'load' as string | null,
         lastName: 'load' as string | null
       },
       tags: ['load', 'ing'] as Array<string> | null,
       text: 'load' as string | null,
-      image: 'href' as string | null,
+      image: 'href' as string,
       likes: 22 as number | null,
       link: 'href' as string | null,
       publishDate: '1020' as string | null
