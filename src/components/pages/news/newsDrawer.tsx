@@ -2,6 +2,8 @@ import news from './news.module.css'
 import React from "react";
 import { connectorReturnType, PropsFromRedux } from './newsContainer'
 
+
+
 const NewsPage :React.FunctionComponent<PropsFromRedux> = (props) => {
   const newsPostList = props.newsList.map((current) => {
     return (
