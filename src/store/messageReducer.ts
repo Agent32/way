@@ -78,7 +78,7 @@ function messageReducer(
 }
 // ========================================
 
-export const getUsersPMlistTC = (data: any) => async (dispatch: Function) => {
+export const getUsersPMlistTC = () => async (dispatch: Function) => {
   try {
     dispatch(changeLoadStatus(true))
     const userAnsw = await serverAL.getSubscrUsers()
@@ -91,7 +91,7 @@ export const getUsersPMlistTC = (data: any) => async (dispatch: Function) => {
 }
 
 export const getCurrentDialogPrivatTC =
-  (id: number) => async (dispatch: Function) => {
+  (id: number|string) => async (dispatch: Function) => {
     try {
       dispatch(changeLoadStatus(true))
       const dialogsAnsw = await serverAL.getCurrPM(id)
