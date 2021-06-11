@@ -60,7 +60,7 @@ export type usersPmListType = {
   isFollow: boolean | null
   lastName: string | null
   phone: string | null
-  picture: string | null
+  picture: string 
   quote: string | null
   registerDate: string | null
   title: string | null
@@ -69,7 +69,7 @@ export type usersPmListType = {
 export type selectedDiadlogType = {
   userId: number | null
   text: string | null
-  avatar: string | null
+  avatar: string 
   pmId: number | null
   firstName: string | null
 }

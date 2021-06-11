@@ -1,9 +1,12 @@
-import message from "./message.module.css";
-import React, { useState } from "react";
-import { BrowserRouter, Route, NavLink } from "react-router-dom";
-import { Field, reduxForm } from "redux-form";
-import { bigField, inputCondition } from "../../modules/inputErorPanel/input";
-function MessagePage(props) {
+import message from './message.module.css'
+import React, { useState } from 'react'
+import { BrowserRouter, Route, NavLink } from 'react-router-dom'
+import { Field, reduxForm, ConfigProps, FormSubmitHandler, InjectedFormProps  } from 'redux-form'
+import { bigField, inputCondition } from '../../modules/inputErorPanel/input'
+import { resultMassageTypeProps } from './messageContainer'
+
+
+function MessagePage(props: resultMassageTypeProps & {sendMassageToServer:any}) {
   const userListForPM = props.usersPMlist.map((current, count) => {
     return (
       <NavLink
@@ -13,29 +16,28 @@ function MessagePage(props) {
       >
         <div>{current.firstName}</div>
       </NavLink>
-    );
-  });
+    )
+  })
 
   //--------------------------------------------------------
-  const choosenPM = props.selectedDiadlog.map((current, count) => {
+  const choosenPM = props.selectedDiadlog.map((current) => {
     return (
-      <div className={message.oneMess} >
-        <img src={current.avatar} className={message.ava} />
+      <div className={message.oneMess} key={current.pmId}>
+        <img src={current.avatar} className={message.ava} alt={'Avatar'} />
         <span
-          key={current.pmId}
+          
           className={message.text}
         >{`${current.firstName}: ${current.text}`}</span>
       </div>
-    );
-  });
+    )
+  })
   //--------------------------------------------------------
 
-  const sendPanel = (props) => {
-    const { pristine, submitting } = props;
+  const sendPanel = (props:InjectedFormProps) => {
+    const { pristine, submitting } = props
     return (
       <form onSubmit={props.handleSubmit}>
         <Field
-          component="textarea"
           label={`What on mind?`}
           component={bigField}
           validate={[inputCondition.required]}
@@ -46,26 +48,26 @@ function MessagePage(props) {
           Send
         </button>
       </form>
-    );
-  };
+    )
+  }
   //----------------
   const SendPostForm = reduxForm({
-    form: "wallPostForm",
-  })(sendPanel);
+    form: 'wallPostForm'
+  })(sendPanel)
   //--------------------------------------------------------
   return (
     <div className={message.main}>
-      {" "}
+      {' '}
       <div className={message.autor}>{userListForPM}</div>
       <div className={message.dialogMassage}>
         {choosenPM}
         <div className={message.inputArea}>
-          {" "}
-          <SendPostForm onSubmit={props.sendMassageToServer} />{" "}
+          {' '}
+          <SendPostForm onSubmit={props.sendMassageToServer} />{' '}
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default React.memo(MessagePage);
+export default React.memo(MessagePage)

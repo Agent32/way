@@ -32,7 +32,10 @@ const connector = connect(mapStateToProps, { getUsersPMlistTC, getCurrentDialogP
 type PropsFromConnect = ConnectedProps<typeof connector>
 
 type TParams = { userPMId: string };
-function MessageContainerConnect(props: PropsFromConnect & RouteComponentProps<TParams>) {
+
+export type resultMassageTypeProps = PropsFromConnect & RouteComponentProps<TParams>
+
+function MessageContainerConnect(props: resultMassageTypeProps)  {
 
   const pmID = props.match.params.userPMId || '2'
 
@@ -65,14 +68,14 @@ function MessageContainerConnect(props: PropsFromConnect & RouteComponentProps<T
 
 
 
-const MassagePageContainer = compose(
+const MassagePageContainer = compose < RouteComponentProps<TParams> & PropsFromConnect >(
   connect(mapStateToProps, {
     getUsersPMlistTC,
     getCurrentDialogPM: getCurrentDialogPrivatTC,
     addSendPm,
   }),
   withRouter,
-  React.memo
+ // React.memo
 )(MessageContainerConnect);
 
 
