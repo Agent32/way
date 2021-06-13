@@ -12,14 +12,40 @@ import {
 } from '../../../store/profileReducer'
 
 import Profile from './profileDrawer'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
 
-import { withRouter } from 'react-router-dom'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
 import LoadingModule from '../../modules/loader/loader'
 
 import { compose } from 'redux'
+import { mainStateType } from '../../../store/rStore'
+import { userType } from '../../../store/types/redusersTypes'
 
-function ProfileConnectContainer(props) {
+
+const mapStateToProps = (state: mainStateType) => {
+  return {
+    profileSettings: state.bodyPart.profileSettings,
+    userData: state.bodyPart.userData,
+    postsWall: state.bodyPart.postsWall
+  }
+}
+// ========================================
+
+const connector = connect(mapStateToProps, {
+  getUser,
+  getUserByIdTC,
+  updateQuteServerTC,
+  enableEditElement,
+  editProfilePart,
+  likeChangeTC,
+  newWallPostTC
+})
+type PropsFromConnect = ConnectedProps<typeof connector>
+type TParams = { userId: string };
+
+export type resultProfileTypeProps = PropsFromConnect & RouteComponentProps<TParams>
+
+function ProfileConnectContainer(props: resultProfileTypeProps) {
   const usrID = props.match.params.userId
   const usrFunc = props.getUserByIdTC
 
@@ -29,14 +55,14 @@ function ProfileConnectContainer(props) {
 
   const updateQuoteOnServer = () => {
     props.updateQuteServerTC(
-      props.userData.id,
+      +props.userData.id,
       props.profileSettings.whatEdit,
-      props.userData[props.profileSettings.whatEdit]
+      props.userData[props.profileSettings.whatEdit as keyof userType]
     )
   }
 
-  const wallSend = (data) => {
-    props.newWallPostTC(props.userData.id, data)
+  const wallSend = (data: any) => {
+    props.newWallPostTC(+props.userData.id, data)
   }
 
   return (
@@ -44,30 +70,15 @@ function ProfileConnectContainer(props) {
       {props.profileSettings.isLoadinFinished ? null : <LoadingModule />}
 
       <Profile
-        profileSettings={props.profileSettings}
-        userData={props.userData}
-        postsWall={props.postsWall}
+        {...props}
         wallSend={wallSend}
-        getUser={props.getUser}
-        editQuote={props.editQuote}
         updateQuoteOnServer={updateQuoteOnServer}
-        enableEditElement={props.enableEditElement}
-        editProfilePart={props.editProfilePart}
-        likeChangeTC={props.likeChangeTC}
-        newWallPostTC={props.newWallPostTC}
       />
     </>
   )
 }
 
-// ========================================
-const mapStateToProps = (state) => {
-  return {
-    profileSettings: state.bodyPart.profileSettings,
-    userData: state.bodyPart.userData,
-    postsWall: state.bodyPart.postsWall
-  }
-}
+
 
 export default compose(
   connect(mapStateToProps, {

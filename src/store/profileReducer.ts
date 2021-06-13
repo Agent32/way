@@ -1,8 +1,9 @@
 import { serverAL } from '../api/api'
-import { profileMainType} from './types/redusersTypes'
+import { profileMainType, userType} from './types/redusersTypes'
 
 // ==================action import======================
 import * as actions from './actions/profileActions'
+import { Dispatch } from 'react'
 type getOnlyActionTypes<T> = T extends { [key: string]: infer U } ? U : never
 type ActionTypesM = ReturnType<getOnlyActionTypes<typeof actions>>
 // ========================================
@@ -112,7 +113,7 @@ function bodyReducer(
         profileSettings: {
           ...state.profileSettings,
           isEditorOneNeed: false,
-          whatEdit: ''
+          whatEdit: null
         }
       }
     }
@@ -122,7 +123,7 @@ function bodyReducer(
         ...state,
         userData: {
           ...state.userData,
-          [state.profileSettings.whatEdit]: action.text
+          [state.profileSettings.whatEdit as keyof userType]: action.text
         }
       }
     }
@@ -148,15 +149,15 @@ function bodyReducer(
 // ========================================
 
 export const getUserByIdTC =
-  (userID = 1) =>
+  (userID = '1') =>
   async (dispatch: Function) => {
     try {
       dispatch(actions.changeIsFinished(false))
 
-      const userAnswer = await serverAL.getUserbyId(userID)
+      const userAnswer = await serverAL.getUserbyId(+userID)
       dispatch(actions.getUser(userAnswer))
 
-      const userQuote = await serverAL.getQuotebyUsrId(userID)
+      const userQuote = await serverAL.getQuotebyUsrId(+userID)
       dispatch(actions.getUserWallPost(userQuote))
 
       dispatch(actions.changeIsFinished(true))
@@ -166,8 +167,8 @@ export const getUserByIdTC =
   }
 // ---------------------------------------
 export const updateQuteServerTC =
-  (id: number, whatEdit: string, text: string) =>
-  async (dispatch: Function) => {
+  (id: number, whatEdit: keyof userType | null, text: any) =>
+  async (dispatch: Dispatch<ActionTypesM>) => {
     try {
       dispatch(actions.changeIsFinished(false))
       await serverAL.updateElement(id, whatEdit, text)
@@ -180,7 +181,7 @@ export const updateQuteServerTC =
 // ---------------------------------------
 export const likeChangeTC =
   (userID: number, postID: number, buttonEvent: any, subBool: boolean) =>
-  async (dispatch: Function) => {
+  async (dispatch: Dispatch<ActionTypesM>) => {
     try {
       buttonEvent.target.disabled = true
       dispatch(actions.changeIsFinished(false))
@@ -195,13 +196,13 @@ export const likeChangeTC =
 
 // ---------------------------------------
 export const newWallPostTC =
-  (userID: number, data: any) => async (dispatch: Function) => {
+  (userID: string|number, data: any) => async (dispatch: Dispatch<ActionTypesM>, getState:any) => {
     try {
       dispatch(actions.changeIsFinished(false))
 
       await serverAL.newWallPost(userID, data)
 
-      const updateWallPost = await serverAL.getQuotebyUsrId(userID)
+      const updateWallPost = await serverAL.getQuotebyUsrId(+userID)
       dispatch(actions.getUserWallPost(updateWallPost))
       dispatch(actions.changeIsFinished(true))
     } catch (err) {

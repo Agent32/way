@@ -1,6 +1,6 @@
 //----------------UserList------------------------
 export type userType = {
-  id: number
+  id: number|string
   firstName: string | null
   isFollow: boolean
   lastName: string | null
@@ -39,7 +39,7 @@ type wallPostType = {
 type profileSettingsType = {
   wallText: string | null
   isLoadinFinished: boolean
-  whatEdit: any
+  whatEdit: keyof userType | null 
   isEditorOneNeed: boolean
 }
 
