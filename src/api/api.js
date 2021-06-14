@@ -40,7 +40,7 @@ export const serverAL = {
   },
     //-----------profile------------------
     getUserbyId: (userID = 1) => {
-      return instanceMock.get(`${userID}`).then((res) => {
+      return instanceMock.get(`${userID}`).then((res) => {  //: AxiousResponse<data>
         return res.data;
       });
     },

@@ -1,9 +1,12 @@
 import users from "./users.module.css";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { userConectedType } from './usersContainer';
 
 // -----------------------------------------
-function UsersPage(props) {
+
+
+function UsersPage(props: userConectedType & { changePage: Function }) {
 
   const maxPagesNumber = props.pageSettings.allUsersCount;
   const maxItemsInPage = props.pageSettings.maxUsersAtPage;
@@ -11,7 +14,7 @@ function UsersPage(props) {
   const pagesToDraw = Math.ceil(maxPagesNumber / maxItemsInPage);
 
   //------------------------------
-  const pageButtOns = []; 
+  const pageButtOns = [];
   for (let i = 1; i <= pagesToDraw; i++) {
     pageButtOns.push(
       <span key={i}>
@@ -36,7 +39,7 @@ function UsersPage(props) {
           <img
             alt={"UsersPicture"}
             src={currUsers.picture}
-            onError={(e) => {
+            onError={(e: any) => {
               e.target.onerror = null;
               e.target.src =
                 "https://discord.com/assets/dd77cf000a729a9bf0fc03b97e1e4a5d.svg";
@@ -52,9 +55,9 @@ function UsersPage(props) {
           {` ${currUsers.adressCountry} ${currUsers.adressCity}`}
 
           <button
-            id={currUsers.id}
+            id={currUsers.id.toString()}
             onClick={(e) => {
-              props.userFollowChange(currUsers.id, e, currUsers.isFollow);
+              props.changeSubscribeThunkCreator(currUsers.id, e, currUsers.isFollow);
             }}
           >
             {currUsers.isFollow ? "UnSubscribe" : "Subscribe"}
@@ -76,4 +79,4 @@ function UsersPage(props) {
   );
 }
 
-export default React.memo( UsersPage);
+export default React.memo(UsersPage);

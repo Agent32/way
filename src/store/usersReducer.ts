@@ -11,18 +11,18 @@ type ActionTypesM = ReturnType<getOnlyActionTypes<typeof actions>>
 const init = {
   usersList: [
     {
-      id: 1 as number,
-      firstName: 'load' as string | null,
+      id: 1 ,
+      firstName: 'load' ,
       isFollow: false as boolean,
-      lastName: 'load' as string | null,
-      email: 'load' as string | null,
-      title: 'Mr.' as string | null,
-      picture: 'load' as string | null,
-      quote: 'load' as string | null,
-      adressCountry: 'load' as string | null,
-      adressCity: 'load' as string | null,
-      registerDate: 'load' as string | null,
-      phone: 'load' as string | null
+      lastName: 'load' ,
+      email: 'load',
+      title: 'Mr.' ,
+      picture: 'load',
+      quote: 'load' ,
+      adressCountry: 'load',
+      adressCity: 'load' ,
+      registerDate: 'load' ,
+      phone: 'load' 
     }
   ],
   pageSettings: {
@@ -106,14 +106,14 @@ export const getUsersPageThunkCreator =
   }
 // ---------------------------------------
 export const changeSubscribeThunkCreator =
-  (userID = 1, buttonEvent: any, subBool = false) =>
+  (userID: number|string = 1, buttonEvent: any, subBool = false) =>
   async (dispatch: Function) => {
     try {
       buttonEvent.target.disabled = true
       dispatch(actions.changeIsFinished(false))
       const buttPressAnswer = await serverAL.buttonPressed(userID, !subBool)
       console.log(buttPressAnswer)
-      dispatch(actions.userFollowChange(userID))
+      dispatch(actions.userFollowChange(+userID))
       buttonEvent.target.disabled = false
       dispatch(actions.changeIsFinished(true))
     } catch (err) {

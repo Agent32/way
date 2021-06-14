@@ -6,7 +6,7 @@ export type userType = {
   lastName: string | null
   email: string | null
   title: string | null
-  picture: string | null
+  picture: string
   quote: string | null
   adressCountry: string | null
   adressCity: string | null
