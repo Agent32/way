@@ -1,5 +1,5 @@
 import { serverAL } from '../api/api'
-import { usersListStateType} from './types/redusersTypes'
+import { usersListStateType } from './types/redusersTypes'
 
 // ==================action import======================
 import * as actions from './actions/usersActions'
@@ -7,22 +7,21 @@ type getOnlyActionTypes<T> = T extends { [key: string]: infer U } ? U : never
 type ActionTypesM = ReturnType<getOnlyActionTypes<typeof actions>>
 // ========================================
 
-
 const init = {
   usersList: [
     {
-      id: 1 ,
-      firstName: 'load' ,
+      id: 1,
+      firstName: 'load',
       isFollow: false as boolean,
-      lastName: 'load' ,
+      lastName: 'load',
       email: 'load',
-      title: 'Mr.' ,
+      title: 'Mr.',
       picture: 'load',
-      quote: 'load' ,
+      quote: 'load',
       adressCountry: 'load',
-      adressCity: 'load' ,
-      registerDate: 'load' ,
-      phone: 'load' 
+      adressCity: 'load',
+      registerDate: 'load',
+      phone: 'load'
     }
   ],
   pageSettings: {
@@ -34,15 +33,18 @@ const init = {
 }
 
 // ========================================
-function usersReducer(state:usersListStateType = init, action: ActionTypesM):usersListStateType {
+function usersReducer(
+  state: usersListStateType = init,
+  action: ActionTypesM
+): usersListStateType {
   switch (action.type) {
     // --------------
 
     case 'CHANGE-FOLLOW/users': {
       return {
         ...state,
-        usersList: state.usersList.map((now, id) => {
-          if (now.id === action.id) {
+        usersList: state.usersList.map((now) => {
+          if (+now.id === +action.id) {
             now.isFollow = !now.isFollow
           }
           return now
@@ -106,7 +108,7 @@ export const getUsersPageThunkCreator =
   }
 // ---------------------------------------
 export const changeSubscribeThunkCreator =
-  (userID: number|string = 1, buttonEvent: any, subBool = false) =>
+  (userID: number | string = 1, buttonEvent: any, subBool = false) =>
   async (dispatch: Function) => {
     try {
       buttonEvent.target.disabled = true

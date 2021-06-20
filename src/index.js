@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import App from './App'
 import store from './store/rStore'
 import reportWebVitals from './reportWebVitals'
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 // ========================================
 
@@ -20,6 +21,6 @@ ReactDOM.render(
     </HashRouter>
     ,
     document.getElementById('root')
-)
 
+)
 reportWebVitals()
