@@ -43,7 +43,7 @@ export const initPageTC = () => {
     dispatch(actions.changeLoadStatus(false))
 
     const promiseMass: any = []
-    promiseMass.push(serverAL.userInit())
+   // promiseMass.push(serverAL.userInit())
 
     Promise.all([promiseMass]).then(() => {
       dispatch(actions.initComplete())

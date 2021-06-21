@@ -4,6 +4,7 @@ import { pmMainType } from './types/redusersTypes'
 
 // ==================action import======================
 import * as actions from './actions/privateMassageActions'
+import { Dispatch } from 'react'
 type getOnlyActionTypes<T> = T extends { [key: string]: infer U } ? U : never
 type ActionTypesM = ReturnType<getOnlyActionTypes<typeof actions>>
 // ========================================
@@ -78,7 +79,7 @@ function messageReducer(
 }
 // ========================================
 
-export const getUsersPMlistTC = () => async (dispatch: Function) => {
+export const getUsersPMlistTC = () => async (dispatch: Dispatch<ActionTypesM | ReturnType<typeof changeLoadStatus>>) => {
   try {
     dispatch(changeLoadStatus(true))
     const userAnsw = await serverAL.getSubscrUsers()
@@ -91,10 +92,13 @@ export const getUsersPMlistTC = () => async (dispatch: Function) => {
 }
 
 export const getCurrentDialogPrivatTC =
-  (id: number|string) => async (dispatch: Function) => {
+  (id: number | string) =>
+  async (
+    dispatch: Dispatch<ActionTypesM | ReturnType<typeof changeLoadStatus>>
+  ) => {
     try {
       dispatch(changeLoadStatus(true))
-      const dialogsAnsw = await serverAL.getCurrPM(id)
+      const dialogsAnsw = await serverAL.getCurrPM(+id)
 
       dispatch(actions.setCuttentDialog(dialogsAnsw))
       dispatch(changeLoadStatus(false))

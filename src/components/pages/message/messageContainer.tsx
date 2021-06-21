@@ -51,7 +51,7 @@ function MessageContainerConnect(props: resultMassageTypeProps)  {
 
   async function sendMassageToServer(data: any) {
     try {
-      const getPM = await serverAL.sendPM(pmID, data);
+      const getPM = await serverAL.sendPM(+pmID, data);
       props.addSendPm(getPM);
     } catch (err) {
       console.log(err);

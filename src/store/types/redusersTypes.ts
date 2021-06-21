@@ -28,7 +28,7 @@ export type usersListStateType = {
 
 //----------------Profile------------------------
 
-type wallPostType = {
+export type wallPostType = {
   id: number
   userId: number
   picture: string | null

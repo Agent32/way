@@ -8,15 +8,7 @@ const SET_NEWS_POSTS = 'SET-NEWS-POSTS/newsPart'
 type actionType = typeof SET_NEWS_POSTS
 // ========================================
 
-type actionCreatorType = {
-  type: actionType
-  data: newsListType
-}
 
-export const setNewsPosts = (data: actionCreatorType) => ({
-  type: SET_NEWS_POSTS,
-  data
-})
 // --------------
 
 const init = {
@@ -40,8 +32,18 @@ const init = {
   ]
 }
 
-type initNewsType = typeof init
-type newsListType = typeof init.newsList
+export type initNewsType = typeof init
+export type newsListType = typeof init.newsList
+ 
+type actionCreatorType = {
+  type: actionType
+  data: newsListType
+}
+
+export const setNewsPosts = (data:newsListType): actionCreatorType => ({
+  type: SET_NEWS_POSTS,
+  data
+})
 // ========================================
 function newsReducer(state = init, action: actionCreatorType): initNewsType {
   switch (action.type) {
@@ -76,7 +78,7 @@ export const getNewsPostsTC = () => async (dispatch: Function) => {
   try {
     dispatch(changeLoadStatus(true))
     const newsAnswData = await serverAL.getNewsList()
-    dispatch(setNewsPosts(newsAnswData.data))
+    dispatch(setNewsPosts(newsAnswData))
     dispatch(changeLoadStatus(false))
   } catch (err) {
     console.log(err)

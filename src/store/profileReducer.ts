@@ -200,7 +200,7 @@ export const newWallPostTC =
     try {
       dispatch(actions.changeIsFinished(false))
 
-      await serverAL.newWallPost(userID, data)
+      await serverAL.newWallPost(+userID, data)
 
       const updateWallPost = await serverAL.getQuotebyUsrId(+userID)
       dispatch(actions.getUserWallPost(updateWallPost))

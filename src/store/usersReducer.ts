@@ -3,6 +3,8 @@ import { usersListStateType } from './types/redusersTypes'
 
 // ==================action import======================
 import * as actions from './actions/usersActions'
+import { Dispatch } from 'react'
+import { ThunkAction } from 'redux-thunk'
 type getOnlyActionTypes<T> = T extends { [key: string]: infer U } ? U : never
 type ActionTypesM = ReturnType<getOnlyActionTypes<typeof actions>>
 // ========================================
@@ -94,7 +96,7 @@ function usersReducer(
 // ========================================
 export const getUsersPageThunkCreator =
   (Page = 1, maxUsersAtPage = 5) =>
-  async (dispatch: Function) => {
+  async (dispatch: Dispatch<ActionTypesM>) => {
     try {
       dispatch(actions.changeIsFinished(false))
       const userListData = await serverAL.getUsersList(Page, maxUsersAtPage)
@@ -109,11 +111,11 @@ export const getUsersPageThunkCreator =
 // ---------------------------------------
 export const changeSubscribeThunkCreator =
   (userID: number | string = 1, buttonEvent: any, subBool = false) =>
-  async (dispatch: Function) => {
+  async (dispatch: Dispatch<ActionTypesM>) => {
     try {
       buttonEvent.target.disabled = true
       dispatch(actions.changeIsFinished(false))
-      const buttPressAnswer = await serverAL.buttonPressed(userID, !subBool)
+      const buttPressAnswer = await serverAL.buttonPressed(+userID, !subBool)
       console.log(buttPressAnswer)
       dispatch(actions.userFollowChange(+userID))
       buttonEvent.target.disabled = false
@@ -123,5 +125,6 @@ export const changeSubscribeThunkCreator =
     }
   }
 
+ 
 // ========================================
 export default usersReducer
