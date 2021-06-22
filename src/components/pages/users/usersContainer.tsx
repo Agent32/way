@@ -9,7 +9,7 @@ import LoadingModule from "../../modules/loader/loader";
 import { compose } from "redux";
 import { mainStateType } from "../../../store/rStore";
 
-const mapStateToProps = (state:mainStateType) => {
+const mapStateToProps = (state: mainStateType) => {
   return {
     usersList: state.usersPart.usersList,
     pageSettings: state.usersPart.pageSettings,
@@ -18,13 +18,13 @@ const mapStateToProps = (state:mainStateType) => {
 // -----------------------------------------
 
 const connector = connect(mapStateToProps, {
-    getUsersPageThunkCreator,
-    changeSubscribeThunkCreator,
-  })
+  getUsersPageThunkCreator,
+  changeSubscribeThunkCreator,
+})
 
 export type userConectedType = ConnectedProps<typeof connector>
 
-const UserConnectConreiner = (props:userConectedType) =>  {
+const UserConnectConreiner = (props: userConectedType) => {
   const getUPtc = props.getUsersPageThunkCreator
   const maxUsersAtPage = props.pageSettings.maxUsersAtPage
 
@@ -32,9 +32,9 @@ const UserConnectConreiner = (props:userConectedType) =>  {
     getUPtc(1, maxUsersAtPage);
   }, [maxUsersAtPage, getUPtc]);
 
-  
-// -----------------------------------------
-  const changePage = (Page:number) => {
+
+  // -----------------------------------------
+  const changePage = (Page: number) => {
     if (Page !== props.pageSettings.currentPage) {
       props.getUsersPageThunkCreator(
         Page,
@@ -44,19 +44,19 @@ const UserConnectConreiner = (props:userConectedType) =>  {
   };
   // ========================================
 
- 
-    return (
-      <>
-        {" "}
-        {props.pageSettings.isLoadinFinished ? null : <LoadingModule />}
-        <UsersPage
-          {...props}
-          changePage={changePage}
-         
-        />{" "}
-      </>
-    );
- 
+
+  return (
+    <>
+      {" "}
+      {props.pageSettings.isLoadinFinished ? null : <LoadingModule />}
+      <UsersPage
+        {...props}
+        changePage={changePage}
+
+      />{" "}
+    </>
+  );
+
 }
 
 //-----------------------------------------//-----------------------------------------
@@ -72,4 +72,4 @@ export default compose(
     changeSubscribeThunkCreator,
   })
 
-) (UserConnectConreiner) 
+)(UserConnectConreiner)

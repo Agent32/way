@@ -16,12 +16,12 @@ import UserContainer from "./components/pages/users/usersContainer";
 const RegiserContainer = React.lazy(() =>
   import("./components/pages/register/regContainer")
 );
-function App({ store, ...props }) {
+function App() {
   return (
     <div className="App">
       <Header />
 
-      <LeftColone store={store} />
+      <LeftColone />
 
       <div className="mainCont">
         <Switch>
@@ -29,18 +29,18 @@ function App({ store, ...props }) {
 
           <Route
             path="/profile/:userId?"
-            render={() => <ProfileContainer store={store} />}
+            render={() => <ProfileContainer />}
           />
 
           <Route
             path="/message/:userPMId?"
-            render={() => <MassagePageContainer store={store} />}
+            render={() => <MassagePageContainer />}
           />
           <Route path="/news" component={NewsPage} />
 
           <Route path="/music" component={MusicPage} />
 
-          <Route path="/users" render={() => <UserContainer store={store} />} />
+          <Route path="/users" render={() => <UserContainer />} />
 
           <Route path="/settings" component={SettingsPage} />
 

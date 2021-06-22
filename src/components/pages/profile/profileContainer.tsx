@@ -45,7 +45,7 @@ type TParams = { userId: string };
 
 export type resultProfileTypeProps = PropsFromConnect & RouteComponentProps<TParams>
 
-function ProfileConnectContainer(props: resultProfileTypeProps) {
+const ProfileConnectContainer = (props: resultProfileTypeProps) => {
   const usrID = props.match.params.userId
   const usrFunc = props.getUserByIdTC
 
@@ -80,15 +80,8 @@ function ProfileConnectContainer(props: resultProfileTypeProps) {
 
 
 
-export default compose(
-  connect(mapStateToProps, {
-    getUser,
-    getUserByIdTC,
-    updateQuteServerTC,
-    enableEditElement,
-    editProfilePart,
-    likeChangeTC,
-    newWallPostTC
-  }),
+
+export default compose< React.ComponentType>(
+  connector,
   withRouter
 )(ProfileConnectContainer)

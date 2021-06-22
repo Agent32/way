@@ -68,7 +68,7 @@ function MessageContainerConnect(props: resultMassageTypeProps)  {
 
 
 
-const MassagePageContainer = compose < RouteComponentProps<TParams> & PropsFromConnect >(
+const MassagePageContainer = compose < React.ComponentType>(
   connect(mapStateToProps, {
     getUsersPMlistTC,
     getCurrentDialogPM: getCurrentDialogPrivatTC,
